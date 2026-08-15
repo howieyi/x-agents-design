@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom theme variables for Dark and Light mode */
+.theme-dark {
+  --bg-obsidian: #07111F;
+  --surface-deep: #0C1728;
+  --surface-elevated: #111F34;
+  --surface-card: #14243B;
+  --border-subtle: #243550;
+  --border-focus: #36E4DA;
+  --text-primary: #F4F7FB;
+  --text-secondary: #9CAEC5;
+  --text-muted: #6F829B;
+  --cyan-primary: #36E4DA;
+  --violet-ai: #7568FF;
+  --yd-gold: #FFC857;
+  --status-success: #35D07F;
+  --status-warning: #F6A63B;
+  --status-critical: #FF647C;
+  --status-info: #5AA9FF;
+}
+
+.theme-light {
+  --bg-obsidian: #F6F8FB;
+  --surface-deep: #FFFFFF;
+  --surface-elevated: #EEF2F7;
+  --surface-card: #FFFFFF;
+  --border-subtle: #D8E1EC;
+  --border-focus: #0EA5E9;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --cyan-primary: #0284C7;
+  --violet-ai: #6366F1;
+  --yd-gold: #D97706;
+  --status-success: #16A34A;
+  --status-warning: #D97706;
+  --status-critical: #E11D48;
+  --status-info: #2563EB;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(111, 130, 155, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(111, 130, 155, 0.5);
+}
+

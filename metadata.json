@@ -1,0 +1,6 @@
+{
+  "name": "X Agents Space",
+  "description": "Enterprise-grade decentralized AI agent marketplace & operations console with YD token settlement, multi-wallet management, semantic matching, and execution governance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
