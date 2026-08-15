@@ -8,43 +8,43 @@
   }
 }
 
-/* Custom theme variables for Dark and Light mode */
+/* Custom theme variables for Dark and Light mode - Enterprise Radiant Purple */
 .theme-dark {
-  --bg-obsidian: #07111F;
-  --surface-deep: #0C1728;
-  --surface-elevated: #111F34;
-  --surface-card: #14243B;
-  --border-subtle: #243550;
-  --border-focus: #36E4DA;
-  --text-primary: #F4F7FB;
-  --text-secondary: #9CAEC5;
-  --text-muted: #6F829B;
-  --cyan-primary: #36E4DA;
-  --violet-ai: #7568FF;
-  --yd-gold: #FFC857;
-  --status-success: #35D07F;
-  --status-warning: #F6A63B;
-  --status-critical: #FF647C;
-  --status-info: #5AA9FF;
+  --bg-obsidian: #0A0C1B;
+  --surface-deep: #10132B;
+  --surface-elevated: #161A38;
+  --surface-card: #1D2146;
+  --border-subtle: #2D325E;
+  --border-focus: #A855F7;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --cyan-primary: #8B5CF6;
+  --violet-ai: #A855F7;
+  --yd-gold: #FBBF24;
+  --status-success: #34D399;
+  --status-warning: #F59E0B;
+  --status-critical: #F43F5E;
+  --status-info: #6366F1;
 }
 
 .theme-light {
-  --bg-obsidian: #F6F8FB;
+  --bg-obsidian: #FAF8FF;
   --surface-deep: #FFFFFF;
-  --surface-elevated: #EEF2F7;
+  --surface-elevated: #F3E8FF;
   --surface-card: #FFFFFF;
-  --border-subtle: #D8E1EC;
-  --border-focus: #0EA5E9;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
-  --cyan-primary: #0284C7;
-  --violet-ai: #6366F1;
+  --border-subtle: #E9D5FF;
+  --border-focus: #7C3AED;
+  --text-primary: #1E1B4B;
+  --text-secondary: #4C1D95;
+  --text-muted: #6B7280;
+  --cyan-primary: #7C3AED;
+  --violet-ai: #6D28D9;
   --yd-gold: #D97706;
-  --status-success: #16A34A;
+  --status-success: #10B981;
   --status-warning: #D97706;
   --status-critical: #E11D48;
-  --status-info: #2563EB;
+  --status-info: #4F46E5;
 }
 
 body {
@@ -60,7 +60,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Custom custom scrollbars */
+/* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -71,11 +71,66 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(111, 130, 155, 0.3);
+  background: rgba(168, 85, 247, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(111, 130, 155, 0.5);
+  background: rgba(168, 85, 247, 0.45);
 }
+
+/* Futuristic C-End Glow & Animation Effects */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #A855F7 0%, #8B5CF6 30%, #6366F1 60%, #C084FC 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 8s linear infinite;
+}
+
+.glass-panel-glow {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.15);
+}
+
 

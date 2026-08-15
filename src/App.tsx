@@ -1,12 +1,13 @@
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
-import { SystemStatusStrip } from './components/common/SystemStatusStrip';
 import { ToastContainer } from './components/common/ToastContainer';
-import { Header } from './components/layout/Header';
-import { Sidebar } from './components/layout/Sidebar';
-import { MobileNav } from './components/layout/MobileNav';
 
-// Marketplace Views
+// Consumer Layout Components
+import { ConsumerHeader } from './components/layout/ConsumerHeader';
+import { ConsumerFooter } from './components/layout/ConsumerFooter';
+
+// Consumer Views
+import { LandingPageView } from './components/landing/LandingPageView';
 import { OverviewView } from './components/marketplace/OverviewView';
 import { AgentMarketplaceView } from './components/marketplace/AgentMarketplaceView';
 import { TaskKanbanView } from './components/marketplace/TaskKanbanView';
@@ -15,7 +16,7 @@ import { TaskWorkspaceView } from './components/marketplace/TaskWorkspaceView';
 import { WalletsPaymentsView } from './components/marketplace/WalletsPaymentsView';
 import { AgentStudioView } from './components/marketplace/AgentStudioView';
 
-// Common / Utility Views
+// Common Views
 import { SettingsView } from './components/common/SettingsView';
 import { SupportView } from './components/common/SupportView';
 import { DocsView } from './components/common/DocsView';
@@ -27,38 +28,30 @@ import { MultiTokenCheckoutModal } from './components/marketplace/MultiTokenChec
 import { CompareAgentsDrawer } from './components/marketplace/CompareAgentsDrawer';
 import { UserProfileModal } from './components/profile/UserProfileModal';
 
-// Admin Views
-import { OperationsDashboardView } from './components/admin/OperationsDashboardView';
-import { DisputeCenterView } from './components/admin/DisputeCenterView';
-import { ConfigAuditView } from './components/admin/ConfigAuditView';
+// Dedicated Admin Console Layout
+import { AdminLayout } from './components/admin/AdminLayout';
 
 const MainContent: React.FC = () => {
   const { surface, activeTab, theme } = useApp();
   const isDark = theme === 'dark';
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = React.useState(false);
 
-  const renderView = () => {
-    // Global shared pages regardless of surface
-    if (activeTab === 'settings') return <SettingsView />;
-    if (activeTab === 'support') return <SupportView />;
-    if (activeTab === 'docs') return <DocsView />;
+  // If in Admin Mode, render the dedicated Admin & Arbitration Console
+  if (surface === 'admin') {
+    return (
+      <>
+        <AdminLayout />
+        {/* Global Modals available in Admin if needed */}
+        <UserProfileModal />
+        <ToastContainer />
+      </>
+    );
+  }
 
-    if (surface === 'admin') {
-      switch (activeTab) {
-        case 'ops':
-        case 'operations':
-          return <OperationsDashboardView />;
-        case 'disputes':
-          return <DisputeCenterView />;
-        case 'config':
-          return <ConfigAuditView />;
-        default:
-          return <OperationsDashboardView />;
-      }
-    }
-
-    // Marketplace Surface
+  // C-End Consumer Mode: Bright, futuristic, seamless top-navigation architecture
+  const renderConsumerView = () => {
     switch (activeTab) {
+      case 'home':
+        return <LandingPageView />;
       case 'overview':
         return <OverviewView />;
       case 'agents':
@@ -76,44 +69,35 @@ const MainContent: React.FC = () => {
         return <WalletsPaymentsView />;
       case 'studio':
         return <AgentStudioView />;
+      case 'settings':
+        return <SettingsView />;
+      case 'support':
+        return <SupportView />;
+      case 'docs':
+        return <DocsView />;
       default:
-        return <OverviewView />;
+        return <LandingPageView />;
     }
   };
 
   return (
     <div
       className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
-        isDark ? 'bg-[#07111F] text-[#F4F7FB]' : 'bg-[#F4F7FB] text-slate-900'
+        isDark ? 'bg-[#0A0C1B] text-[#F8FAFC]' : 'bg-[#FAF8FF] text-slate-900'
       }`}
     >
-      {/* Real-time Telemetry Strip */}
-      <SystemStatusStrip />
+      {/* Modern C-End Top Navigation Bar */}
+      <ConsumerHeader />
 
-      {/* Persistent Navigation Header */}
-      <Header
-        onToggleMobileSidebar={() => setIsMobileSidebarOpen((prev) => !prev)}
-        isMobileSidebarOpen={isMobileSidebarOpen}
-      />
+      {/* Main Full-Width Consumer Canvas */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 min-w-0">
+        {renderConsumerView()}
+      </main>
 
-      {/* Main App Layout */}
-      <div className="flex-1 flex max-w-[1600px] w-full mx-auto pb-20 lg:pb-8">
-        {/* Desktop Sidebar Rail */}
-        <Sidebar
-          isMobileOpen={isMobileSidebarOpen}
-          onCloseMobile={() => setIsMobileSidebarOpen(false)}
-        />
+      {/* Modern Comprehensive Consumer Footer */}
+      <ConsumerFooter />
 
-        {/* Dynamic Main Workspace Canvas */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 overflow-y-auto max-w-7xl">
-          {renderView()}
-        </main>
-      </div>
-
-      {/* Mobile Bottom Navigation Bar */}
-      <MobileNav />
-
-      {/* Interactive Overlays & Drawers */}
+      {/* Global Modals & Drawers */}
       <AgentDetailDrawer />
       <PublishTaskWizardModal />
       <MultiTokenCheckoutModal />
@@ -133,3 +117,4 @@ export function App() {
 }
 
 export default App;
+

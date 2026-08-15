@@ -19,7 +19,7 @@ export const mockUserProfile: UserProfile = {
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
   email: 'alex.rivera@nexus-corp.ai',
   org: 'Nexus Autonomous Labs',
-  bio: 'Lead Content Operator & Agent Orchestrator. Deploying multi-agent DAG pipelines for video, social media, and business document generation with smart contract escrow settlement.',
+  bio: 'Lead Architect & Agent Operator. Deploying multi-agent DAG pipelines, smart contract escrow settlements, and cloud infrastructure.',
   role: 'Enterprise Administrator',
   telegram: '@alex_nexus_ai',
   github: 'alex-rivera-nexus',
@@ -747,14 +747,14 @@ export const mockOrchestrationTemplates = [
         id: 'node-biz-word',
         name: 'Word 行业白皮书与深度分析报告',
         stageIndex: 2,
-        role: 'Whitepaper Writer',
+        role: 'Whitepaper Author',
         assignedAgentId: 'agent-docupro-word',
         assignedAgentName: 'DocuPro 深度研究与 Word 文档架构师',
         assignedAgentAvatar: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=150&auto=format&fit=crop&q=80',
         assignedAgentHandle: '@docupro_word',
-        inputArtifacts: ['executive_summary.md', 'financial_model_3statements.xlsx'],
-        outputArtifacts: ['industry_whitepaper_final.docx', 'executive_brief.pdf'],
-        status: 'running' as const,
+        inputArtifacts: ['executive_summary.md', 'strategic_outline.json'],
+        outputArtifacts: ['industry_whitepaper.docx', 'executive_brief.pdf'],
+        status: 'pending' as const,
         rewardAllocationPct: 25,
         rewardAllocationYD: 212,
         dependencies: ['node-biz-research'],
@@ -764,15 +764,15 @@ export const mockOrchestrationTemplates = [
       },
       {
         id: 'node-biz-ppt',
-        name: 'PPT 16:9 咨询级演示文稿与母版渲染',
+        name: '16:9 商业计划书 PPT 视觉排版',
         stageIndex: 3,
-        role: 'Presentation Deck Master',
+        role: 'Pitch Deck Designer',
         assignedAgentId: 'agent-slidemaster-ppt',
         assignedAgentName: 'SlideMaster 商业 PPT 与演示文稿专家',
         assignedAgentAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
         assignedAgentHandle: '@slidemaster_ppt',
-        inputArtifacts: ['strategic_outline.json', 'kpi_pivot_charts.json', 'industry_whitepaper_final.docx'],
-        outputArtifacts: ['commercial_pitch_deck.pptx', 'keynote_master_preview.pdf'],
+        inputArtifacts: ['strategic_outline.json', 'financial_model_3statements.xlsx'],
+        outputArtifacts: ['commercial_pitch_deck.pptx', 'slide_preview.pdf'],
         status: 'pending' as const,
         rewardAllocationPct: 25,
         rewardAllocationYD: 213,
@@ -785,27 +785,27 @@ export const mockOrchestrationTemplates = [
   },
   {
     id: 'tpl-novel-worldbuilding',
-    name: 'Novel Worldbuilding & Multi-Chapter Generator',
-    nameZh: '百万字长篇网文小说构建与分卷连载流',
-    topology: 'consensus_loop' as const,
-    description: 'Consensus loop workflow: Worldbuilding & magic system -> Arc pacing & plot outlines -> Chapter prose generation -> Character consistency audit -> Cover & illustration art.',
-    descriptionZh: '闭环协同：宏大世界观与力量体系设定 -> 分卷大纲与高潮伏笔设计 -> 章节沉浸式正文连载 -> 人物性格与记忆一致性审查 -> 角色立绘与小说封面插画生成。',
+    name: 'Web Novel Universe Worldbuilding & Serialization',
+    nameZh: '长篇网文世界观架构与自动化连载流 (设定百科 + 50章正文 + 人物立绘 + 封面)',
+    topology: 'pipeline' as const,
+    description: 'Serial fiction pipeline: World lore codex -> Character sprites & 4K cover -> Chapter draft (1-50) -> Canon consistency audit.',
+    descriptionZh: '流水线串联：世界观法则与设定百科构建 -> 4K 精美封面与角色多角度立绘 -> 50 章正文与情节伏笔铺设 -> 人物设定一致性与情节自洽审查。',
     nodes: [
       {
         id: 'node-lore',
-        name: '世界观设定集与人物小传构建',
+        name: '世界观设定集与人物档案库构建',
         stageIndex: 1,
-        role: 'Worldbuilding Lore Keeper',
+        role: 'Lore Master & Worldbuilder',
         assignedAgentId: 'agent-novelcrafter-ai',
         assignedAgentName: 'NovelCrafter 百万字长篇小说创作导师',
         assignedAgentAvatar: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=150&auto=format&fit=crop&q=80',
         assignedAgentHandle: '@novelcrafter_ai',
-        inputArtifacts: ['小说题材题材 (东方玄幻)', '核心金手指设定', '字数规划 (100万字)'],
-        outputArtifacts: ['world_lore_codex.json', 'character_profiles.json', 'magic_tier_system.md'],
+        inputArtifacts: ['修仙核心构想', '宗门势力', '金手指体系'],
+        outputArtifacts: ['world_lore_codex.json', 'character_profiles.json'],
         status: 'completed' as const,
         rewardAllocationPct: 20,
         rewardAllocationYD: 260,
-        executionTimeMs: 3200,
+        executionTimeMs: 2200,
         tokensUsed: 42000,
         dependencies: [],
         requireHumanApproval: false,
@@ -858,17 +858,19 @@ export const mockOrchestrationTemplates = [
         id: 'node-consistency',
         name: '人物一致性与情节自洽逻辑审查',
         stageIndex: 3,
-        role: 'Story Continuity Inspector',
-        assignedAgentId: 'agent-novelcrafter-ai',
-        assignedAgentName: 'NovelCrafter 百万字长篇小说创作导师',
-        assignedAgentAvatar: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=150&auto=format&fit=crop&q=80',
-        assignedAgentHandle: '@novelcrafter_ai',
-        inputArtifacts: ['volume_1_chapters_1_50.txt', 'character_profiles.json'],
-        outputArtifacts: ['consistency_audit_report.json', 'published_volume_1.epub'],
+        role: 'Lore & Canon Consistency Checker',
+        assignedAgentId: 'agent-docupro-word',
+        assignedAgentName: 'DocuPro 深度研究与 Word 文档架构师',
+        assignedAgentAvatar: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=150&auto=format&fit=crop&q=80',
+        assignedAgentHandle: '@docupro_word',
+        inputArtifacts: ['volume_1_chapters_1_50.txt', 'world_lore_codex.json', 'character_profiles.json'],
+        outputArtifacts: ['canon_audit_report.json', 'revised_volume_1.txt'],
         status: 'pending' as const,
         rewardAllocationPct: 20,
         rewardAllocationYD: 260,
-        dependencies: ['node-cover', 'node-chapters'],
+        executionTimeMs: 0,
+        tokensUsed: 0,
+        dependencies: ['node-chapters'],
         requireHumanApproval: true,
         approved: false,
         logs: []
@@ -879,31 +881,31 @@ export const mockOrchestrationTemplates = [
 
 export const mockTasks: Task[] = [
   {
-    id: 'task-8492',
-    title: '新能源汽车全球发布会：4K 宣传短视频分片生成、音画串联与全渠道社媒素材矩阵',
+    id: 'task-9821',
+    title: '4K 智能新能源旗舰 SUV 全球宣发视频：剧本分镜 + 渲染 + 分片剪辑 + 全渠道社媒矩阵',
     category: '视频创作与分片串联',
-    tags: ['Sora / Runway', '短视频分片', '音画串联', '小红书/抖音/微信', '多Agent协同'],
-    description: '为高端纯电 SUV 全球发布会定制全套多模态数字内容资产。需要完成：6 段 4K 动态视频分片生成并无缝拼接为 60s 宣传大片、小红书 3:4 视觉卡片与种草文案、抖音 30s 黄金前 3 秒口播分镜脚本、微信公众号深度长文排版。',
+    tags: ['4K 渲染', '视频分片', '多模态工作流', '社媒矩阵', '多Agent协同'],
+    description: '为高端智能新能源 SUV 上市打造全球宣发数字资产套件。包含 60 秒 4K 高画质商业广告宣传片、多镜头分片与车身渲染、专业中英双语拟真声纹解说，以及小红书/抖音/微信全渠道宣发矩阵物料包。',
     deliverables: [
       {
         id: 'del-1',
-        title: '4K 宣传大片与时间线工程 (master_video_4k.mp4)',
-        description: '60 秒 4K@60fps 电影级概念视频，包含 6 段分片无缝串联、拟真旁白配音与情绪配乐对齐。',
+        title: '60s 4K 高保真商业广告视频成片 (master_video_4k.mp4)',
+        description: '4K@60fps ProRes 格式母带，包含电影级分镜调色与专业杜比音效合成。',
         status: 'submitted',
-        deliverableHash: '0x8f2d9c41b8a5e7392c10b7f6429d3e8174567290bcda12489e1a823904fa6e12',
-        fileUrl: 'https://cdn.xagents.space/releases/suv_launch_video_4k.mp4'
+        deliverableHash: '0x992384a910283948102938491029384910293849102938491029384910293849',
+        fileUrl: 'https://cdn.xagents.space/artifacts/suv_launch_4k.mp4'
       },
       {
         id: 'del-2',
-        title: '小红书 3:4 视觉卡片套图与爆款种草文案包',
-        description: '8 张 3:4 比例高保真视觉卡片、封面排版与 5 套情绪共鸣型种草文案及热门标签。',
+        title: '小红书 12 张 3:4 爆款视觉图文与痛点文案包',
+        description: '高对比度视觉卡片、买点拆解痛点图及 20 组 A/B 测试种草标题库。',
         status: 'submitted',
-        deliverableHash: '0x992384a102938471920394819203948192039481920394819203948192039481'
+        deliverableHash: '0x8837192039481920394819203948192039481920394819203948192039481920'
       },
       {
         id: 'del-3',
-        title: '抖音 / TikTok 30s 黄金前 3 秒口播视频脚本与分镜',
-        description: '3 套包含高转化黄金钩子、分镜头动作指引及 BGM 卡点节奏提示的短视频脚本。',
+        title: '抖音 3 套 30s 黄金前 3 秒口播视频脚本与分镜',
+        description: '包含黄金前 3 秒吸睛钩子、分镜头动作指引及 BGM 卡点节奏提示的短视频脚本。',
         status: 'submitted',
         deliverableHash: '0x4428192039481920394819203948192039481920394819203948192039481920'
       },
@@ -922,8 +924,8 @@ export const mockTasks: Task[] = [
       '交付物必须包含原生 mp4、zip、html 及不可变 SHA-256 存证哈希'
     ],
     rewardYD: 1200,
-    stakeYD: 72, // 6% (600 bps)
-    platformFeeYD: 24, // 2%
+    stakeYD: 72,
+    platformFeeYD: 24,
     deadline: '2026-08-20T18:00:00Z',
     status: 'submitted',
     owner: {
@@ -947,8 +949,6 @@ export const mockTasks: Task[] = [
           id: 'n-1',
           name: '核心剧本拆解与分镜时序分片',
           stageIndex: 1,
-          nodeType: 'agent_worker' as const,
-          position: { x: 60, y: 120 },
           role: 'Screenplay & Storyboard Sharder',
           assignedAgentId: 'agent-cineflow-video',
           assignedAgentName: 'CineFlow 视频创作与分片串联导演',
@@ -966,15 +966,13 @@ export const mockTasks: Task[] = [
           approved: true,
           logs: [
             { id: 'lg-1', timestamp: '10:00:15', level: 'info', message: '解析发布会主题，拆解为 6 个高燃镜头时序分片。' },
-            { id: 'lg-2', timestamp: '10:00:30', level: 'success', message: '完成 storyboard_spec.json 与 timeline_manifest.json 生成。' }
+            { id: 'lg-2', timestamp: '10:00:30', level: 'info', message: '完成 storyboard_spec.json 与 timeline_manifest.json 生成。' }
           ]
         },
         {
           id: 'n-2',
           name: '4K 关键帧与车辆光影一致性渲染',
           stageIndex: 2,
-          nodeType: 'agent_worker' as const,
-          position: { x: 420, y: 120 },
           role: 'Keyframe Visual Artist',
           assignedAgentId: 'agent-lumina-image',
           assignedAgentName: 'Lumina 4K 视觉插画与海报渲染大师',
@@ -992,41 +990,37 @@ export const mockTasks: Task[] = [
           approved: true,
           logs: [
             { id: 'lg-3', timestamp: '10:14:10', level: 'agent_call', message: '调用 Flux_Pro_Renderer 输出 6 组 4K 电影质感关键帧底图。' },
-            { id: 'lg-4', timestamp: '10:28:30', level: 'success', message: '车辆流光与车漆质感一致性达到 99.8%。' }
+            { id: 'lg-4', timestamp: '10:28:30', level: 'info', message: '车辆流光与车漆质感一致性达到 99.8%。' }
           ]
         },
         {
           id: 'n-3',
           name: '动态分片生成、拟真配音与无缝拼接串联',
           stageIndex: 3,
-          nodeType: 'hitl_gate' as const,
-          position: { x: 780, y: 120 },
-          role: 'Video Splicer & Voiceover Producer',
+          role: 'Video Shard & Audio Splice Director',
           assignedAgentId: 'agent-cineflow-video',
           assignedAgentName: 'CineFlow 视频创作与分片串联导演',
           assignedAgentAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
           assignedAgentHandle: '@cineflow_video',
-          inputArtifacts: ['keyframes_4k.zip', 'timeline_manifest.json'],
-          outputArtifacts: ['master_video_4k.mp4', 'timed_subtitles.srt'],
+          inputArtifacts: ['keyframes_4k.zip', 'car_model_lora.json', 'timeline_manifest.json'],
+          outputArtifacts: ['rendered_clips_4k.zip', 'master_audio_track.wav', 'master_video_4k.mp4'],
           status: 'completed',
           rewardAllocationPct: 30,
           rewardAllocationYD: 360,
-          executionTimeMs: 5150,
-          tokensUsed: 38200,
+          executionTimeMs: 5820,
+          tokensUsed: 67200,
           dependencies: ['n-2'],
-          requireHumanApproval: true,
+          requireHumanApproval: false,
           approved: true,
           logs: [
-            { id: 'lg-5', timestamp: '10:35:10', level: 'info', message: '并行渲染 6 个视频分片并进行 FFmpeg 无损时间线拼接。' },
-            { id: 'lg-6', timestamp: '10:37:00', level: 'success', message: '广播级人声旁白与 BGM 情绪音轨毫秒级对齐完成。' }
+            { id: 'lg-5', timestamp: '10:30:10', level: 'agent_call', message: '启动 6 节点分布式分片渲染与拟真声纹合成...' },
+            { id: 'lg-6', timestamp: '10:37:00', level: 'info', message: '4K@60fps 母带无缝串联渲染完成，音画同步率 100%。' }
           ]
         },
         {
           id: 'n-4',
-          name: '全渠道社媒裂变 (小红书/抖音/微信) 与最终交付',
+          name: '全渠道宣发物料生成 (小红书/抖音/微信) 与最终交付',
           stageIndex: 4,
-          nodeType: 'aggregator' as const,
-          position: { x: 1140, y: 120 },
           role: 'Omnichannel Social Media Publisher',
           assignedAgentId: 'agent-socialmatrix-media',
           assignedAgentName: 'SocialMatrix 全渠道社媒内容矩阵工厂',
@@ -1044,7 +1038,7 @@ export const mockTasks: Task[] = [
           approved: true,
           logs: [
             { id: 'lg-7', timestamp: '10:41:00', level: 'info', message: '生成小红书 3:4 封面卡片、抖音分镜脚本及微信万字排版长文。' },
-            { id: 'lg-8', timestamp: '10:46:00', level: 'success', message: '全套数字资产包打包完毕，生成不可变 SHA-256 存证哈希。' }
+            { id: 'lg-8', timestamp: '10:46:00', level: 'info', message: '全套数字资产包打包完毕，生成不可变 SHA-256 存证哈希。' }
           ]
         }
       ],
@@ -1071,7 +1065,7 @@ export const mockTasks: Task[] = [
           fromAgentName: 'Lumina 4K 视觉插画与海报渲染大师',
           toNodeId: 'n-3',
           toAgentName: 'CineFlow 视频创作与分片串联导演',
-          messageType: 'style_review',
+          messageType: 'code_review',
           timestamp: '10:28:40',
           payloadSummary: '交付 6 组 4K 高保真关键帧与一致性车身材质参数供动态分片渲染。',
           status: 'processed'
@@ -1163,26 +1157,26 @@ export const mockTasks: Task[] = [
           assignedAgentName: 'DocuPro 深度研究与 Word 文档架构师',
           assignedAgentAvatar: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=150&auto=format&fit=crop&q=80',
           assignedAgentHandle: '@docupro_word',
-          inputArtifacts: ['商业模式输入', '市场调研数据', '融资诉求'],
-          outputArtifacts: ['strategic_outline.json', 'market_data_matrix.md'],
+          inputArtifacts: ['商业模式输入', '市场调研数据', '行业研报'],
+          outputArtifacts: ['strategic_outline.json', 'market_deep_dive.docx'],
           status: 'completed',
           rewardAllocationPct: 20,
           rewardAllocationYD: 360,
-          executionTimeMs: 1980,
-          tokensUsed: 22000,
+          executionTimeMs: 2350,
+          tokensUsed: 38500,
           dependencies: [],
           requireHumanApproval: false,
           approved: true,
           logs: [
-            { id: 'lga-1', timestamp: '14:15:10', level: 'info', message: '梳理 SaaS 行业 TAM/SAM/SOM 市场空间与 5 大核心增长引擎。' },
-            { id: 'lga-2', timestamp: '14:16:30', level: 'success', message: '输出 strategic_outline.json 包含 35 页分段叙事结构。' }
+            { id: 'lga-1', timestamp: '14:15:20', level: 'agent_call', message: '解析 Pitch 商业模式与竞品护城河...' },
+            { id: 'lga-2', timestamp: '14:16:30', level: 'info', message: '输出 35 页核心结构大纲至共享上下文池。' }
           ]
         },
         {
           id: 'n-sec-2',
-          name: '动态 3 表财务模型预测与数据透视',
+          name: '3 表联动财务预测与估值敏感性建模',
           stageIndex: 2,
-          role: 'Financial BI Modeler',
+          role: 'Financial Analyst',
           assignedAgentId: 'agent-sheetmind-bi',
           assignedAgentName: 'SheetMind Excel 财务建模与报表分析师',
           assignedAgentAvatar: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=150&auto=format&fit=crop&q=80',
@@ -1222,6 +1216,10 @@ export const mockTasks: Task[] = [
           logs: []
         }
       ],
+      edges: [
+        { id: 'e-sec-1', sourceNodeId: 'n-sec-1', targetNodeId: 'n-sec-2', status: 'completed' },
+        { id: 'e-sec-2', sourceNodeId: 'n-sec-2', targetNodeId: 'n-sec-3', status: 'active' }
+      ],
       interAgentMessages: [
         {
           id: 'msg-sec-1',
@@ -1229,7 +1227,7 @@ export const mockTasks: Task[] = [
           fromAgentName: 'DocuPro 深度研究与 Word 文档架构师',
           toNodeId: 'n-sec-2',
           toAgentName: 'SheetMind Excel 财务建模与报表分析师',
-          messageType: 'content_alert',
+          messageType: 'security_alert',
           timestamp: '14:16:35',
           payloadSummary: '交付 strategic_outline.json：请求测算 2026-2030 ARR 预测与 3 种退出倍数场景。',
           status: 'processed'
@@ -1244,6 +1242,7 @@ export const mockTasks: Task[] = [
     createdAt: '2026-08-13T14:15:00Z',
     updatedAt: '2026-08-14T06:00:00Z'
   },
+  
   {
     id: 'task-6904',
     title: '东方奇幻修仙百万字史诗小说：前 50 章连载正文 + 世界观设定集 + 角色立绘插画集',
@@ -1359,6 +1358,180 @@ export const mockTasks: Task[] = [
     escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
     createdAt: '2026-08-14T01:00:00Z',
     updatedAt: '2026-08-14T01:10:00Z'
+  },
+  {
+    id: 'task-5520',
+    title: '全渠道社媒裂变爆款矩阵：小红书 3:4 视觉图文 + 抖音爆款口播脚本 + 微信万字排版长文',
+    category: '全渠道社媒内容矩阵',
+    tags: ['小红书图文', '抖音短视频脚本', '微信公众号排版', 'Instagram', '矩阵分发'],
+    description: '为高端智能穿戴新品上市打造多渠道爆款宣发矩阵。包含小红书 3:4 比例 12 张场景化痛点视觉图文与种草标题库、抖音 3 套 30s 爆款黄金前 3 秒钩子分镜脚本、微信公众号 8000 字深度评测图文排版。',
+    deliverables: [
+      {
+        id: 'del-30',
+        title: '小红书 12 张 3:4 视觉卡片与种草标题文案库 (.zip)',
+        description: '高饱和度质感渲染图、用户痛点痛感图及 20 组 A/B 测试标题与热门标签。',
+        status: 'accepted',
+        deliverableHash: '0x3344a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0',
+        fileUrl: 'https://cdn.xagents.space/packages/redbook_matrix_v1.zip'
+      },
+      {
+        id: 'del-31',
+        title: '抖音 / 视频号 3 套 30s 黄金前 3 秒口播视频脚本 (.md)',
+        description: '带运镜提示、音效节奏卡点、演员情绪指示及同款商品挂载引导口播。',
+        status: 'accepted',
+        deliverableHash: '0x5566b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f1',
+        fileUrl: 'https://cdn.xagents.space/packages/douyin_scripts.md'
+      },
+      {
+        id: 'del-32',
+        title: '微信公众号深度评测长文交互排版 (.html)',
+        description: '响应式移动端公众号排版，包含 SVG 动态交互卡片与高清拆解图。',
+        status: 'accepted',
+        deliverableHash: '0x7788c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f2',
+        fileUrl: 'https://cdn.xagents.space/packages/wechat_deep_review.html'
+      }
+    ],
+    acceptanceCriteria: [
+      '所有图片严格遵循小红书 3:4 高清比例 (1080x1440)，色调符合品牌 VI 规范',
+      '抖音短视频脚本包含具体秒级时序与镜头语言描述',
+      '微信公众号文章排版支持一键复制至公众号后台且样式不丢失'
+    ],
+    rewardYD: 950,
+    stakeYD: 57,
+    platformFeeYD: 19,
+    deadline: '2026-08-10T18:00:00Z',
+    status: 'settled',
+    owner: {
+      id: 'usr-org-03',
+      name: 'PulseWear Innovations',
+      walletAddress: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+      org: 'PulseWear Global'
+    },
+    assignedAgent: mockAgents[3],
+    assignedAgentVersion: 'v2.8.0',
+    escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
+    createdAt: '2026-08-08T09:00:00Z',
+    updatedAt: '2026-08-10T16:30:00Z'
+  },
+  {
+    id: 'task-4108',
+    title: '跨境电商 Q3 全球多店铺经营损益模型与多维动态财务看板 (.xlsx)',
+    category: 'Excel 财务建模与报表分析',
+    tags: ['Excel 建模', '3 表联动', '数据透视表', '跨境电商', '动态财务看板'],
+    description: '整合亚马逊 6 个站点与独立站多币种流水，构建 3 表联动财务预测模型、广告投放 ACoS 敏感性测算表与动态数据透视看板，支持一键切换站点与汇率重算。',
+    deliverables: [
+      {
+        id: 'del-40',
+        title: '跨境电商 3 表联动财务模型与数据透视看板 (ecommerce_financial_model.xlsx)',
+        description: '包含动态收入成本分摊、SKU 毛利测算、汇率敏感性分析及切片器仪表盘。',
+        status: 'accepted',
+        deliverableHash: '0x8899d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f3',
+        fileUrl: 'https://cdn.xagents.space/models/ecommerce_financial_model.xlsx'
+      }
+    ],
+    acceptanceCriteria: [
+      '所有计算公式闭环自洽，无任何 #REF! / #VALUE! / #N/A 错误',
+      '支持 6 大站点币种动态折算为 USD/CNY 实时统计',
+      '包含可交互切片器及动态 KPI 卡片'
+    ],
+    rewardYD: 1100,
+    stakeYD: 66,
+    platformFeeYD: 22,
+    deadline: '2026-08-09T18:00:00Z',
+    status: 'settled',
+    owner: {
+      id: 'usr-org-04',
+      name: 'Horizon CrossBorder Ltd',
+      walletAddress: '0x1234567890123456789012345678901234567890',
+      org: 'Horizon Group'
+    },
+    assignedAgent: mockAgents[4],
+    assignedAgentVersion: 'v3.0.1',
+    escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
+    createdAt: '2026-08-06T11:00:00Z',
+    updatedAt: '2026-08-09T14:20:00Z'
+  },
+  {
+    id: 'task-5102',
+    title: '4K 品牌宣传视频分片调色与人物面部一致性交付争议',
+    category: '视频创作与分片串联',
+    tags: ['视频分片', '调色一致性', '仲裁中', '多模态交付'],
+    description: '客户与 Agent 创作者就 4K 宣传视频分片中的人物面部光影色温与无损 ProRes 格式交付标准产生争议，已进入多签仲裁与 AI 辅助判定流程。',
+    deliverables: [
+      {
+        id: 'del-50',
+        title: '6 段分片视频拼接成片与调色重渲染工程',
+        description: '需要针对分片 4、5 的色彩偏差进行 LUT 统一微调与重导出。',
+        status: 'disputed',
+        deliverableHash: '0x9900e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f4'
+      }
+    ],
+    acceptanceCriteria: [
+      '所有 6 个分片 Delta-E 色彩偏差小于 2.0',
+      '提供完整 4K ProRes 422 HQ 母带格式'
+    ],
+    rewardYD: 1200,
+    stakeYD: 72,
+    platformFeeYD: 24,
+    deadline: '2026-08-18T18:00:00Z',
+    status: 'disputed',
+    owner: {
+      id: 'usr-org-05',
+      name: 'Vanguard Cinema Studio',
+      walletAddress: '0x5566778899001122334455667788990011223344',
+      org: 'Vanguard Pictures'
+    },
+    assignedAgent: mockAgents[0],
+    assignedAgentVersion: 'v3.2.0',
+    escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
+    createdAt: '2026-08-11T10:00:00Z',
+    updatedAt: '2026-08-13T09:00:00Z'
+  },
+  {
+    id: 'task-3390',
+    title: 'AIGC 赛博朋克动漫概念角色设计与多视角三视图立绘渲染包',
+    category: '4K 视觉插画与海报渲染',
+    tags: ['动漫概念设计', '三视图立绘', 'Flux.1 Pro', '角色一致性', '商业插画'],
+    description: '为独立科幻游戏设定 4 位主要主角的完整三视图立绘（正面、侧面、背面）、表情差分包（8 种情绪）与 4K 战斗场景主视觉海报，严格保持服装细节与特征一致。',
+    deliverables: [
+      {
+        id: 'del-60',
+        title: '4 位主角三视图立绘与服装纹样分解图 (.zip)',
+        description: '矢量透明背景 PNG 与 PSD 分层源文件，包含武器及装备微细节。',
+        status: 'pending'
+      },
+      {
+        id: 'del-61',
+        title: '32 组角色表情差分图库 (8 情绪 x 4 角色)',
+        description: '高分辨率透明底差分立绘，满足游戏剧情对话框接入标准。',
+        status: 'pending'
+      },
+      {
+        id: 'del-62',
+        title: '4K 科幻赛博朋克游戏主视觉海报 (cyber_keyart_4k.png)',
+        description: '电影级光影构图与氛围渲染，满足 16:9 商业印刷与宣发标准。',
+        status: 'pending'
+      }
+    ],
+    acceptanceCriteria: [
+      '所有角色三视图结构严谨，正面侧面背面透视无畸变',
+      '表情差分保持五官与发型特征完全一致',
+      '主视觉海报分辨率不低于 3840x2160 (300 DPI)'
+    ],
+    rewardYD: 1350,
+    stakeYD: 81,
+    platformFeeYD: 27,
+    deadline: '2026-08-25T18:00:00Z',
+    status: 'open',
+    owner: {
+      id: 'usr-org-06',
+      name: 'CyberNebula Indie Games',
+      walletAddress: '0x99887766554433221100ffeeddccbbaa99887766',
+      org: 'CyberNebula Studios'
+    },
+    escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
+    createdAt: '2026-08-14T08:00:00Z',
+    updatedAt: '2026-08-14T08:15:00Z'
   }
 ];
 
@@ -1654,7 +1827,7 @@ export const mockAuditLogs: AuditLog[] = [
     action: 'TASK_DELIVERABLES_REVIEWED',
     target: 'task-8492',
     status: 'SUCCESS',
-    details: 'Verified SHA-256 hashes for the 4K master video, redbook cards, and social media asset packs.'
+    details: 'Verified SHA-256 hashes for SAM template and Go worker binaries.'
   },
   {
     id: 'aud-2',

@@ -12,7 +12,9 @@ import {
   ExternalLink,
   ChevronRight,
   Layers,
-  Bot
+  Bot,
+  Zap,
+  TrendingUp
 } from 'lucide-react';
 
 export const OverviewView: React.FC = () => {
@@ -46,16 +48,16 @@ export const OverviewView: React.FC = () => {
   const recommendedAgents = agents.slice(0, 3);
 
   const statusBadge = (status: string) => {
-    const config: Record<string, { label: string; bg: string; text: string }> = {
-      submitted: { label: t('status_submitted'), bg: 'bg-[#FFC857]/15', text: 'text-[#FFC857]' },
-      in_progress: { label: t('status_in_progress'), bg: 'bg-[#7568FF]/15', text: 'text-[#7568FF]' },
-      open: { label: t('status_open'), bg: 'bg-[#36E4DA]/15', text: 'text-[#36E4DA]' },
-      assigned: { label: t('status_assigned'), bg: 'bg-indigo-500/15', text: 'text-indigo-400' },
-      disputed: { label: t('status_disputed'), bg: 'bg-[#FF647C]/15', text: 'text-[#FF647C]' }
+    const config: Record<string, { label: string; bg: string; text: string; border: string }> = {
+      submitted: { label: t('status_submitted'), bg: isDark ? 'bg-amber-500/15' : 'bg-amber-100', text: isDark ? 'text-amber-300' : 'text-amber-800', border: 'border-amber-500/30' },
+      in_progress: { label: t('status_in_progress'), bg: isDark ? 'bg-purple-500/15' : 'bg-purple-100', text: isDark ? 'text-purple-300' : 'text-purple-800', border: 'border-purple-500/30' },
+      open: { label: t('status_open'), bg: isDark ? 'bg-indigo-500/15' : 'bg-indigo-100', text: isDark ? 'text-indigo-300' : 'text-indigo-800', border: 'border-indigo-500/30' },
+      assigned: { label: t('status_assigned'), bg: isDark ? 'bg-violet-500/15' : 'bg-violet-100', text: isDark ? 'text-violet-300' : 'text-violet-800', border: 'border-violet-500/30' },
+      disputed: { label: t('status_disputed'), bg: isDark ? 'bg-rose-500/15' : 'bg-rose-100', text: isDark ? 'text-rose-300' : 'text-rose-800', border: 'border-rose-500/30' }
     };
-    const c = config[status] || { label: status, bg: 'bg-slate-500/10', text: 'text-slate-400' };
+    const c = config[status] || { label: status, bg: isDark ? 'bg-slate-500/10' : 'bg-slate-100', text: isDark ? 'text-slate-400' : 'text-slate-700', border: 'border-slate-300' };
     return (
-      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium ${c.bg} ${c.text}`}>
+      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold border ${c.bg} ${c.text} ${c.border}`}>
         {c.label}
       </span>
     );
@@ -66,24 +68,24 @@ export const OverviewView: React.FC = () => {
       {/* Welcome Banner */}
       <div
         id="overview-hero"
-        className={`relative overflow-hidden rounded-2xl border p-6 lg:p-8 transition-colors ${
+        className={`relative overflow-hidden rounded-3xl border p-6 lg:p-8 transition-all shadow-xl ${
           isDark
-            ? 'bg-gradient-to-r from-[#0C1728] via-[#111F34] to-[#0C1728] border-[#243550]'
-            : 'bg-gradient-to-r from-sky-500/10 via-indigo-500/5 to-cyan-500/10 border-sky-200'
+            ? 'bg-gradient-to-r from-[#10132B] via-[#161A38] to-[#10132B] border-purple-900/50 shadow-purple-950/40'
+            : 'bg-gradient-to-r from-purple-100/90 via-white to-indigo-50/90 border-purple-200 shadow-purple-500/10'
         }`}
       >
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="max-w-2xl space-y-2">
+          <div className="max-w-2xl space-y-2.5">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-[#36E4DA]/15 text-[#36E4DA] font-semibold">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 font-bold">
                 {activeWallet.name}
               </span>
-              <span className="text-xs text-slate-400">· Nexus Trading Corp</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">· Nexus Autonomous Swarm Workspace</span>
             </div>
-            <h1 className="font-display font-bold text-2xl lg:text-3xl tracking-tight leading-tight">
+            <h1 className="font-display font-extrabold text-2xl lg:text-3xl tracking-tight leading-tight text-slate-900 dark:text-white">
               {t('welcome_title')}
             </h1>
-            <p className="text-xs md:text-sm text-slate-400 leading-relaxed">
+            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               {t('welcome_subtitle')}
             </p>
           </div>
@@ -92,7 +94,7 @@ export const OverviewView: React.FC = () => {
             <button
               id="btn-overview-publish"
               onClick={() => setIsPublishWizardOpen(true)}
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-[#36E4DA] text-[#07111F] hover:bg-[#2bc4bb] transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+              className="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#6366F1] hover:from-[#6D28D9] hover:to-[#4F46E5] text-white shadow-lg shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
             >
               <PlusCircle className="w-4 h-4" />
               {t('publish_task_btn')}
@@ -100,79 +102,80 @@ export const OverviewView: React.FC = () => {
             <button
               id="btn-overview-browse"
               onClick={() => setActiveTab('agents')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer ${
+              className={`px-4 py-3 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-2 cursor-pointer ${
                 isDark
-                  ? 'border-[#243550] bg-[#111F34] hover:bg-[#152744] text-slate-200'
-                  : 'border-slate-300 bg-white hover:bg-slate-50 text-slate-700'
+                  ? 'border-purple-900/60 bg-[#0A0C1B] hover:bg-[#161A38] text-purple-200 hover:border-purple-500'
+                  : 'border-purple-200 bg-white hover:bg-purple-50 text-purple-900 shadow-xs'
               }`}
             >
-              <Bot className="w-4 h-4 text-[#7568FF]" />
+              <Bot className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               {t('browse_agents_btn')}
             </button>
           </div>
         </div>
 
-        {/* Ambient subtle cyan glow */}
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#36E4DA]/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Ambient subtle radiant purple glow */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div
-          className={`p-4 rounded-xl border transition-colors ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+          className={`p-5 rounded-2xl border transition-all shadow-md ${
+            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
             <span>{t('stat_active_tasks')}</span>
-            <Layers className="w-4 h-4 text-[#36E4DA]" />
+            <Layers className="w-4 h-4 text-purple-600 dark:text-purple-400" />
           </div>
-          <p className="font-display text-2xl font-bold font-mono-tabular">{activeTasks.length}</p>
-          <p className="text-[11px] text-[#35D07F] font-medium mt-1">
+          <p className="font-display text-2xl sm:text-3xl font-extrabold font-mono-tabular text-slate-900 dark:text-white">{activeTasks.length}</p>
+          <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium mt-1 flex items-center gap-1 font-mono">
+            <CheckCircle2 className="w-3 h-3" />
             {locale === 'zh-CN' ? '全部由智能合约监控' : 'All monitored by Escrow'}
           </p>
         </div>
 
         <div
-          className={`p-4 rounded-xl border transition-colors ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+          className={`p-5 rounded-2xl border transition-all shadow-md ${
+            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
             <span>{t('stat_funded_escrow')}</span>
-            <Coins className="w-4 h-4 text-[#FFC857]" />
+            <Coins className="w-4 h-4 text-amber-500" />
           </div>
-          <p className="font-display text-2xl font-bold font-mono-tabular text-[#FFC857]">
+          <p className="font-display text-2xl sm:text-3xl font-extrabold font-mono-tabular text-amber-500 dark:text-amber-400">
             {totalEscrowLocked.toLocaleString()}{' '}
             <span className="text-xs font-sans font-normal opacity-80">YD</span>
           </p>
-          <p className="text-[11px] text-slate-400 mt-1 font-mono-tabular">≈ ${(totalEscrowLocked * 1.0).toLocaleString()} USD</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-mono-tabular">≈ ${(totalEscrowLocked * 1.0).toLocaleString()} USD</p>
         </div>
 
         <div
-          className={`p-4 rounded-xl border transition-colors ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+          className={`p-5 rounded-2xl border transition-all shadow-md ${
+            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
             <span>{t('stat_matched_agents')}</span>
-            <Bot className="w-4 h-4 text-[#7568FF]" />
+            <Bot className="w-4 h-4 text-indigo-500" />
           </div>
-          <p className="font-display text-2xl font-bold font-mono-tabular">{agents.length}</p>
-          <p className="text-[11px] text-[#36E4DA] font-medium mt-1">100% {t('status_badge_verified')}</p>
+          <p className="font-display text-2xl sm:text-3xl font-extrabold font-mono-tabular text-indigo-600 dark:text-indigo-400">{agents.length}</p>
+          <p className="text-[11px] text-purple-600 dark:text-purple-400 font-medium mt-1 font-mono">100% {t('status_badge_verified')}</p>
         </div>
 
         <div
-          className={`p-4 rounded-xl border transition-colors ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+          className={`p-5 rounded-2xl border transition-all shadow-md ${
+            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
             <span>{t('stat_dispute_rate')}</span>
-            <ShieldCheck className="w-4 h-4 text-[#35D07F]" />
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
           </div>
-          <p className="font-display text-2xl font-bold font-mono-tabular text-[#35D07F]">0.42%</p>
-          <p className="text-[11px] text-slate-400 mt-1">3/5 {locale === 'zh-CN' ? '多签仲裁机制' : 'Multisig Protocol'}</p>
+          <p className="font-display text-2xl sm:text-3xl font-extrabold font-mono-tabular text-emerald-600 dark:text-emerald-400">0.42%</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-mono">3/5 {locale === 'zh-CN' ? '多签仲裁机制' : 'Multisig Protocol'}</p>
         </div>
       </div>
 
@@ -181,13 +184,13 @@ export const OverviewView: React.FC = () => {
         {/* Left Column: Tasks Requiring Action (7 cols) */}
         <div className="xl:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display font-semibold text-base tracking-tight flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#36E4DA]" />
+            <h2 className="font-display font-bold text-base tracking-tight flex items-center gap-2 text-slate-900 dark:text-white">
+              <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               {t('active_tasks_title')}
             </h2>
             <button
               onClick={() => setActiveTab('tasks')}
-              className="text-xs text-[#36E4DA] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+              className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-1 font-bold cursor-pointer"
             >
               {t('view_all')} ({tasks.length}) <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -197,10 +200,10 @@ export const OverviewView: React.FC = () => {
             {activeTasks.length === 0 ? (
               <div
                 className={`p-8 text-center rounded-2xl border ${
-                  isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
                 }`}
               >
-                <p className="text-xs text-slate-400">{t('no_active_tasks')}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('no_active_tasks')}</p>
               </div>
             ) : (
               activeTasks.map((task) => (
@@ -209,18 +212,18 @@ export const OverviewView: React.FC = () => {
                   id={`overview-task-${task.id}`}
                   className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                     isDark
-                      ? 'bg-[#0C1728] border-[#243550] hover:border-[#36E4DA]/50'
-                      : 'bg-white border-slate-200 hover:border-sky-300 shadow-sm'
+                      ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
+                      : 'bg-white border-purple-100 hover:border-purple-300 shadow-md shadow-purple-500/5'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3 mb-2.5">
                     <div>
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="font-mono text-[11px] text-slate-400">#{task.id}</span>
-                        <span className="text-xs text-slate-400">· {task.category}</span>
+                        <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 font-bold">#{task.id}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">· {task.category}</span>
                         {statusBadge(task.status)}
                       </div>
-                      <h3 className="font-semibold text-sm leading-snug hover:text-[#36E4DA] cursor-pointer"
+                      <h3 className="font-bold text-sm leading-snug text-slate-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 cursor-pointer transition-colors"
                         onClick={() => {
                           setActiveTaskId(task.id);
                           setActiveTab('workspace');
@@ -231,23 +234,23 @@ export const OverviewView: React.FC = () => {
                     </div>
 
                     <div className="text-right shrink-0">
-                      <p className="font-mono font-bold text-sm text-[#FFC857]">
+                      <p className="font-mono font-bold text-sm text-amber-500 dark:text-amber-400">
                         {task.rewardYD.toLocaleString()} YD
                       </p>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
                         {task.stakeYD} YD {locale === 'zh-CN' ? '质押' : 'stake'}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-700/20 text-xs flex-wrap gap-2">
-                    <div className="flex items-center gap-2 text-slate-400 text-[11px]">
+                  <div className="flex items-center justify-between pt-3 border-t border-purple-900/20 dark:border-purple-950/60 text-xs flex-wrap gap-2">
+                    <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
                       {task.assignedAgent ? (
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5 font-medium">
                           <img
                             src={task.assignedAgent.avatar}
                             alt=""
-                            className="w-4 h-4 rounded-full object-cover"
+                            className="w-4 h-4 rounded-full object-cover border border-purple-400/50"
                             referrerPolicy="no-referrer"
                           />
                           <span className={isDark ? 'text-slate-200' : 'text-slate-800'}>
@@ -265,12 +268,12 @@ export const OverviewView: React.FC = () => {
                         setActiveTaskId(task.id);
                         setActiveTab('workspace');
                       }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                         task.status === 'submitted'
-                          ? 'bg-[#35D07F] text-[#07111F] hover:bg-[#2eb970] font-bold'
+                          ? 'bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/25'
                           : isDark
-                          ? 'bg-[#111F34] hover:bg-[#172b49] text-[#36E4DA]'
-                          : 'bg-sky-50 hover:bg-sky-100 text-sky-700'
+                          ? 'bg-[#161A38] hover:bg-[#1D2146] text-purple-300 border border-purple-900/50'
+                          : 'bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200'
                       }`}
                     >
                       {task.status === 'submitted'
@@ -288,13 +291,13 @@ export const OverviewView: React.FC = () => {
         {/* Right Column: Recommended Agents with "Why this match" (5 cols) */}
         <div className="xl:col-span-5 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display font-semibold text-base tracking-tight flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#7568FF]" />
+            <h2 className="font-display font-bold text-base tracking-tight flex items-center gap-2 text-slate-900 dark:text-white">
+              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               {t('recommended_agents_title')}
             </h2>
             <button
               onClick={() => setActiveTab('agents')}
-              className="text-xs text-[#7568FF] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+              className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-1 font-bold cursor-pointer"
             >
               {t('view_all')} <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -305,48 +308,48 @@ export const OverviewView: React.FC = () => {
               <div
                 key={agent.id}
                 id={`overview-rec-agent-${agent.id}`}
-                className={`p-4 rounded-2xl border transition-all ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                   isDark
-                    ? 'bg-[#0C1728] border-[#243550] hover:border-[#7568FF]/50'
-                    : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm'
+                    ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
+                    : 'bg-white border-purple-100 hover:border-purple-300 shadow-md shadow-purple-500/5'
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <img
                     src={agent.avatar}
                     alt={agent.name}
-                    className="w-10 h-10 rounded-xl object-cover border border-slate-700/40 shrink-0"
+                    className="w-10 h-10 rounded-xl object-cover border border-purple-500/40 shrink-0 shadow-xs"
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1">
-                      <h4 className="font-semibold text-xs truncate">{agent.name}</h4>
+                      <h4 className="font-bold text-xs sm:text-sm truncate text-slate-900 dark:text-white">{agent.name}</h4>
                       {agent.matchScore && (
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#7568FF]/20 text-[#7568FF] shrink-0">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 shrink-0">
                           {agent.matchScore}% {locale === 'zh-CN' ? '匹配' : 'match'}
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-slate-400 truncate">{agent.category}</p>
+                    <p className="text-[11px] text-purple-600/80 dark:text-purple-400/80 font-mono truncate">{agent.category}</p>
                   </div>
                 </div>
 
                 {/* Why this match reason box */}
                 <div
-                  className={`mt-2.5 p-2.5 rounded-xl text-[11px] border ${
+                  className={`mt-3 p-2.5 rounded-xl text-[11px] border leading-relaxed ${
                     isDark
-                      ? 'bg-[#07111F] border-[#243550] text-slate-300'
-                      : 'bg-slate-50 border-slate-200 text-slate-700'
+                      ? 'bg-[#0A0C1B] border-purple-900/40 text-slate-300'
+                      : 'bg-purple-50/70 border-purple-100 text-slate-700'
                   }`}
                 >
-                  <p className="leading-snug">
-                    <span className="font-semibold text-[#7568FF] mr-1">Why match:</span>
+                  <p>
+                    <span className="font-bold text-purple-600 dark:text-purple-400 mr-1">Why match:</span>
                     {locale === 'zh-CN' ? agent.descriptionZh : agent.whyMatch}
                   </p>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-700/20 text-xs">
-                  <span className="font-mono font-bold text-[#FFC857] text-xs">
+                <div className="mt-3 flex items-center justify-between pt-2.5 border-t border-purple-900/20 dark:border-purple-950/60 text-xs">
+                  <span className="font-mono font-bold text-amber-500 dark:text-amber-400 text-xs">
                     {agent.priceYD.toLocaleString()} YD
                   </span>
                   <div className="flex items-center gap-2">
@@ -355,8 +358,8 @@ export const OverviewView: React.FC = () => {
                         setSelectedAgent(agent);
                         setIsAgentDetailOpen(true);
                       }}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors cursor-pointer ${
-                        isDark ? 'hover:bg-[#111F34] text-slate-300' : 'hover:bg-slate-100 text-slate-700'
+                      className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
+                        isDark ? 'hover:bg-[#161A38] text-purple-300' : 'hover:bg-purple-100 text-purple-900'
                       }`}
                     >
                       {t('view_details')}
@@ -365,7 +368,7 @@ export const OverviewView: React.FC = () => {
                       onClick={() => {
                         setIsPublishWizardOpen(true);
                       }}
-                      className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#7568FF] text-white hover:bg-[#6456f0] transition-colors cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
                     >
                       {t('invite_agent')}
                     </button>
@@ -379,18 +382,18 @@ export const OverviewView: React.FC = () => {
 
       {/* Bottom Section: Recent Settlements / Activity */}
       <div
-        className={`rounded-2xl border p-5 transition-colors ${
-          isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+        className={`rounded-3xl border p-6 transition-all shadow-xl ${
+          isDark ? 'bg-[#10132B] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
         }`}
       >
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-display font-semibold text-sm tracking-tight flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#35D07F]" />
+          <h3 className="font-display font-bold text-sm sm:text-base tracking-tight flex items-center gap-2 text-slate-900 dark:text-white">
+            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             {t('recent_activity_title')}
           </h3>
           <button
             onClick={() => setActiveTab('payments')}
-            className="text-xs text-[#36E4DA] hover:underline font-semibold cursor-pointer"
+            className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-bold cursor-pointer"
           >
             {t('view_all')} →
           </button>
@@ -399,30 +402,30 @@ export const OverviewView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className={`border-b ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-200 text-slate-500'}`}>
-                <th className="pb-2 font-medium">{t('tx_hash')}</th>
-                <th className="pb-2 font-medium">{t('tx_type')}</th>
-                <th className="pb-2 font-medium">{t('tx_amount')}</th>
-                <th className="pb-2 font-medium">{t('tx_status')}</th>
-                <th className="pb-2 font-medium text-right">{t('tx_time')}</th>
+              <tr className={`border-b ${isDark ? 'border-purple-900/40 text-slate-400' : 'border-purple-100 text-slate-600'}`}>
+                <th className="pb-3 font-bold uppercase font-mono text-[11px]">{t('tx_hash')}</th>
+                <th className="pb-3 font-bold uppercase font-mono text-[11px]">{t('tx_type')}</th>
+                <th className="pb-3 font-bold uppercase font-mono text-[11px]">{t('tx_amount')}</th>
+                <th className="pb-3 font-bold uppercase font-mono text-[11px]">{t('tx_status')}</th>
+                <th className="pb-3 font-bold uppercase font-mono text-[11px] text-right">{t('tx_time')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/40 font-mono-tabular">
+            <tbody className="divide-y divide-purple-900/20 dark:divide-purple-950/50 font-mono-tabular">
               {transactions.slice(0, 4).map((tx) => (
-                <tr key={tx.id} className={isDark ? 'hover:bg-[#111F34]/50' : 'hover:bg-slate-50'}>
-                  <td className="py-2.5 font-mono text-[11px] text-[#36E4DA]">
+                <tr key={tx.id} className={isDark ? 'hover:bg-[#161A38]/50' : 'hover:bg-purple-50/50'}>
+                  <td className="py-3 font-mono text-[11px] text-purple-600 dark:text-purple-300 font-semibold">
                     {tx.txHash.substring(0, 10)}...{tx.txHash.substring(tx.txHash.length - 6)}
                   </td>
-                  <td className="py-2.5 capitalize">{tx.type.replace('_', ' ')}</td>
-                  <td className="py-2.5 font-semibold text-[#FFC857]">
+                  <td className="py-3 capitalize text-slate-800 dark:text-slate-200 font-medium">{tx.type.replace('_', ' ')}</td>
+                  <td className="py-3 font-bold text-amber-500 dark:text-amber-400">
                     {tx.amountYD.toLocaleString()} YD
                   </td>
-                  <td className="py-2.5">
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#35D07F]/15 text-[#35D07F]">
+                  <td className="py-3">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                       {tx.status}
                     </span>
                   </td>
-                  <td className="py-2.5 text-right text-slate-400 text-[11px]">
+                  <td className="py-3 text-right text-slate-500 dark:text-slate-400 text-[11px]">
                     {new Date(tx.timestamp).toLocaleTimeString()}
                   </td>
                 </tr>

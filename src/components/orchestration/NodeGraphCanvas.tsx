@@ -242,7 +242,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
     switch (type) {
       case 'llm_router':
         return {
-          label: isZh ? '内容意图路由' : 'Content Router',
+          label: isZh ? 'LLM 路由决策' : 'LLM Router',
           icon: <GitFork className="w-3.5 h-3.5 text-purple-400" />,
           accent: 'border-purple-500/40 text-purple-400 bg-purple-500/10',
           gradient: 'from-purple-500/20 to-indigo-500/10'
@@ -256,21 +256,21 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
         };
       case 'tool_sandbox':
         return {
-          label: isZh ? '创作工具执行器' : 'Creative Tools',
+          label: isZh ? '工具沙箱运行器' : 'Tool Sandbox',
           icon: <Cpu className="w-3.5 h-3.5 text-emerald-400" />,
           accent: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
           gradient: 'from-emerald-500/20 to-teal-500/10'
         };
       case 'consensus_judge':
         return {
-          label: isZh ? '内容质量评审' : 'Quality Judge',
+          label: isZh ? '多方共识裁判' : 'Consensus Judge',
           icon: <Scale className="w-3.5 h-3.5 text-blue-400" />,
           accent: 'border-blue-500/40 text-blue-400 bg-blue-500/10',
           gradient: 'from-blue-500/20 to-cyan-500/10'
         };
       case 'aggregator':
         return {
-          label: isZh ? '成果打包结算' : 'Asset Bundler',
+          label: isZh ? 'Escrow 成果汇总' : 'Escrow Aggregator',
           icon: <FolderArchive className="w-3.5 h-3.5 text-amber-400" />,
           accent: 'border-amber-500/40 text-amber-400 bg-amber-500/10',
           gradient: 'from-amber-500/20 to-yellow-500/10'
@@ -278,7 +278,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
       case 'agent_worker':
       default:
         return {
-          label: isZh ? '内容创作 Agent' : 'Content Agent',
+          label: isZh ? 'Agent 专家节点' : 'Agent Worker',
           icon: <Bot className="w-3.5 h-3.5 text-cyan-400" />,
           accent: 'border-cyan-500/40 text-cyan-400 bg-cyan-500/10',
           gradient: 'from-cyan-500/20 to-blue-500/10'

@@ -29,16 +29,16 @@ export const PublishTaskWizardModal: React.FC = () => {
 
   // Form State
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('全平台社媒素材矩阵');
+  const [category, setCategory] = useState('Cloud & Infrastructure');
   const [description, setDescription] = useState('');
   const [deliverables, setDeliverables] = useState<Array<{ id: string; title: string; description: string; status: 'pending' }>>([
-    { id: 'del-1', title: '小红书 3:4 视觉卡片套图与爆款种草文案', description: '8 张高保真视觉卡片、封面排版与 3 套情绪共鸣种草文案及热门标签矩阵。', status: 'pending' }
+    { id: 'del-1', title: 'Source Code Repository & Architecture Document', description: 'Clean TypeScript/Go implementation with full unit tests and deployment instructions.', status: 'pending' }
   ]);
   const [criteria, setCriteria] = useState<string[]>([
-    '所有图文符合小红书 3:4 比例规范且无平台违禁词',
-    '文案包含爆款标题公式、情绪共鸣点与 5 组热点标签'
+    'Demonstrate 0 compilation/lint warnings and pass all integration test cases',
+    'Deploy and verify endpoints on staging testnet with live status checks'
   ]);
-  const [tags, setTags] = useState<string>('小红书图文, 爆款文案, 视觉卡片, 抖音分镜, 微信公众号');
+  const [tags, setTags] = useState<string>('Go, AWS SAM, SQS, PostgreSQL');
   const [rewardYD, setRewardYD] = useState<number>(1000);
   const [deadlineDays, setDeadlineDays] = useState<number>(7);
 
@@ -79,7 +79,7 @@ export const PublishTaskWizardModal: React.FC = () => {
     const tagList = tags.split(',').map((t) => t.trim()).filter(Boolean);
 
     publishNewTask({
-      title: title || '多平台社媒内容素材矩阵生成',
+      title: title || 'Decentralized Microservice Orchestrator',
       category,
       description,
       deliverables,
@@ -103,28 +103,30 @@ export const PublishTaskWizardModal: React.FC = () => {
       {/* Modal Container */}
       <div
         id="publish-task-modal"
-        className={`relative z-10 w-full max-w-2xl rounded-2xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ${
+        className={`relative z-10 w-full max-w-2xl rounded-3xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ${
           isDark
-            ? 'bg-[#0A1424] border-[#243550] text-[#F4F7FB]'
-            : 'bg-white border-slate-200 text-slate-900'
+            ? 'bg-[#10132B] border-purple-900/40 text-white shadow-purple-950/50'
+            : 'bg-white border-purple-100 text-slate-900 shadow-xl'
         }`}
       >
         {/* Modal Header */}
-        <div className="p-5 border-b flex items-center justify-between border-slate-700/20">
+        <div className="p-5 border-b flex items-center justify-between border-purple-500/10 dark:border-purple-900/40">
           <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-[#36E4DA]">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
               {t('wizard_title')}
             </span>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2 mt-1.5">
               {[1, 2, 3, 4, 5].map((s) => (
                 <div
                   key={s}
                   className={`h-1.5 rounded-full transition-all ${
                     s === step
-                      ? 'w-8 bg-[#36E4DA]'
+                      ? 'w-8 bg-gradient-to-r from-purple-600 to-indigo-600'
                       : s < step
-                      ? 'w-4 bg-[#35D07F]'
-                      : 'w-4 bg-slate-700'
+                      ? 'w-4 bg-emerald-500'
+                      : isDark
+                      ? 'w-4 bg-purple-950/60'
+                      : 'w-4 bg-purple-100'
                   }`}
                 />
               ))}
@@ -133,7 +135,7 @@ export const PublishTaskWizardModal: React.FC = () => {
 
           <button
             onClick={() => setIsPublishWizardOpen(false)}
-            className="p-1.5 rounded-lg border border-slate-700/30 text-slate-400 hover:text-slate-200 transition-colors"
+            className="p-1.5 rounded-xl border border-purple-500/20 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -145,7 +147,7 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step === 1 && (
             <div className="space-y-4 animate-fadeIn">
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
                   {t('task_title_label')} *
                 </label>
                 <input
@@ -153,39 +155,37 @@ export const PublishTaskWizardModal: React.FC = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder={t('task_title_placeholder')}
-                  className={`w-full p-3 rounded-xl border text-xs focus:outline-none transition-colors ${
+                  className={`w-full p-3 rounded-2xl border text-xs focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-[#07111F] border-[#243550] focus:border-[#36E4DA]'
-                      : 'bg-slate-50 border-slate-200 focus:border-sky-500'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white focus:border-purple-500'
+                      : 'bg-purple-50/50 border-purple-100 text-slate-900 focus:border-purple-400'
                   }`}
                 />
               </div>
 
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
                   {t('task_category_label')}
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className={`w-full p-3 rounded-xl border text-xs cursor-pointer focus:outline-none ${
+                  className={`w-full p-3 rounded-2xl border text-xs cursor-pointer focus:outline-none ${
                     isDark
-                      ? 'bg-[#07111F] border-[#243550] text-slate-200'
-                      : 'bg-slate-50 border-slate-200 text-slate-800'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white'
+                      : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 >
-                  <option value="视频创作与分片串联">视频创作与分片串联</option>
-                  <option value="视觉与图片生成">视觉与图片生成</option>
-                  <option value="PPT / 演示文稿生成">PPT / 演示文稿生成</option>
-                  <option value="全平台社媒素材矩阵">全平台社媒素材矩阵</option>
-                  <option value="Excel / 财务与报表分析">Excel / 财务与报表分析</option>
-                  <option value="Word / 文档与 PRD 撰写">Word / 文档与 PRD 撰写</option>
-                  <option value="长篇故事与网文小说">长篇故事与网文小说</option>
+                  <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
+                  <option value="Security & Audit">Security & Smart Contract Audit</option>
+                  <option value="AI & Data Engineering">AI & Vector Indexing</option>
+                  <option value="Zero Knowledge & L2">Zero Knowledge & L2</option>
+                  <option value="Web3 Fullstack">Web3 Fullstack & Viem</option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
                   {t('task_description_label')} *
                 </label>
                 <textarea
@@ -193,10 +193,10 @@ export const PublishTaskWizardModal: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder={t('task_description_placeholder')}
-                  className={`w-full p-3 rounded-xl border text-xs focus:outline-none transition-colors ${
+                  className={`w-full p-3 rounded-2xl border text-xs focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-[#07111F] border-[#243550] focus:border-[#36E4DA]'
-                      : 'bg-slate-50 border-slate-200 focus:border-sky-500'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white focus:border-purple-500'
+                      : 'bg-purple-50/50 border-purple-100 text-slate-900 focus:border-purple-400'
                   }`}
                 />
               </div>
@@ -208,12 +208,12 @@ export const PublishTaskWizardModal: React.FC = () => {
             <div className="space-y-5 animate-fadeIn">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="font-semibold text-slate-300">
+                  <label className="font-bold text-slate-700 dark:text-slate-300">
                     {t('task_deliverables_label')}
                   </label>
                   <button
                     onClick={addDeliverable}
-                    className="text-xs text-[#36E4DA] hover:underline flex items-center gap-1 font-medium"
+                    className="text-xs text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     {t('add_deliverable_btn')}
@@ -224,12 +224,12 @@ export const PublishTaskWizardModal: React.FC = () => {
                   {deliverables.map((del, i) => (
                     <div
                       key={del.id}
-                      className={`p-3 rounded-xl border flex gap-2 items-start ${
-                        isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                      className={`p-3.5 rounded-2xl border flex gap-2 items-start ${
+                        isDark ? 'bg-[#0D0F24] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
                       }`}
                     >
-                      <span className="font-mono text-slate-500 font-bold mt-1">#{i + 1}</span>
-                      <div className="flex-1 space-y-1.5">
+                      <span className="font-mono text-purple-500 font-bold mt-2">#{i + 1}</span>
+                      <div className="flex-1 space-y-2">
                         <input
                           type="text"
                           value={del.title}
@@ -239,9 +239,9 @@ export const PublishTaskWizardModal: React.FC = () => {
                               prev.map((d, idx) => (idx === i ? { ...d, title: val } : d))
                             );
                           }}
-                          placeholder={locale === 'zh-CN' ? '交付物标题 (如：小红书 3:4 视觉卡片.zip)' : 'Deliverable Title (e.g. redbook_carousel_cards.zip)'}
-                          className={`w-full p-2 rounded-lg border text-xs focus:outline-none ${
-                            isDark ? 'bg-[#0A1424] border-[#243550]' : 'bg-white border-slate-200'
+                          placeholder="Deliverable Title (e.g. AWS SAM template.yaml)"
+                          className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
+                            isDark ? 'bg-[#10132B] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
                           }`}
                         />
                         <input
@@ -254,15 +254,15 @@ export const PublishTaskWizardModal: React.FC = () => {
                             );
                           }}
                           placeholder="Deliverable scope details"
-                          className={`w-full p-2 rounded-lg border text-xs focus:outline-none ${
-                            isDark ? 'bg-[#0A1424] border-[#243550]' : 'bg-white border-slate-200'
+                          className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
+                            isDark ? 'bg-[#10132B] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
                           }`}
                         />
                       </div>
                       {deliverables.length > 1 && (
                         <button
                           onClick={() => removeDeliverable(i)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
+                          className="text-slate-400 hover:text-rose-500 p-1 mt-1 cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -274,12 +274,12 @@ export const PublishTaskWizardModal: React.FC = () => {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="font-semibold text-slate-300">
+                  <label className="font-bold text-slate-700 dark:text-slate-300">
                     {t('acceptance_criteria_label')}
                   </label>
                   <button
                     onClick={addCriterion}
-                    className="text-xs text-[#36E4DA] hover:underline flex items-center gap-1 font-medium"
+                    className="text-xs text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     {t('add_criterion_btn')}
@@ -289,7 +289,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                 <div className="space-y-2">
                   {criteria.map((crit, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <span className="font-mono text-slate-500 text-xs">C{i + 1}.</span>
+                      <span className="font-mono text-purple-500 text-xs font-bold">C{i + 1}.</span>
                       <input
                         type="text"
                         value={crit}
@@ -298,14 +298,14 @@ export const PublishTaskWizardModal: React.FC = () => {
                           setCriteria((prev) => prev.map((c, idx) => (idx === i ? val : c)));
                         }}
                         placeholder="Testable acceptance rule..."
-                        className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                          isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                        className={`w-full p-2.5 rounded-2xl border text-xs focus:outline-none ${
+                          isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                         }`}
                       />
                       {criteria.length > 1 && (
                         <button
                           onClick={() => removeCriterion(i)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
+                          className="text-slate-400 hover:text-rose-500 p-1 cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -321,22 +321,22 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step === 3 && (
             <div className="space-y-4 animate-fadeIn">
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
-                  {locale === 'zh-CN' ? '所需创作技能与工具标签 (逗号分隔)' : 'Required Skill & Tool Tags (Comma-separated)'}
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
+                  Required Skill & Tool Tags (Comma-separated)
                 </label>
                 <input
                   type="text"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
-                  placeholder={locale === 'zh-CN' ? '如：小红书图文, 抖音分镜, 微信公众号, 爆款文案' : 'e.g. Xiaohongshu cards, Douyin scripts, WeChat articles, viral copy'}
-                  className={`w-full p-3 rounded-xl border text-xs focus:outline-none ${
-                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  placeholder="e.g. Go, AWS SAM, SQS, PostgreSQL, Docker"
+                  className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
+                    isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 />
               </div>
 
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
                   {t('deadline_label')} (Days from now)
                 </label>
                 <input
@@ -345,21 +345,21 @@ export const PublishTaskWizardModal: React.FC = () => {
                   max={60}
                   value={deadlineDays}
                   onChange={(e) => setDeadlineDays(Number(e.target.value))}
-                  className={`w-full p-3 rounded-xl border text-xs focus:outline-none ${
-                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
+                    isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 />
               </div>
 
               <div
-                className={`p-4 rounded-xl border text-xs space-y-2 ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                className={`p-4 rounded-2xl border text-xs space-y-2 ${
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
-                <span className="font-semibold text-[#7568FF] flex items-center gap-1.5">
+                <span className="font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4" /> Qdrant Semantic Recall Note
                 </span>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   Upon publishing, this task will be embedded and indexed in Qdrant. Agents with matching toolsets and verified past executions will receive prioritized match scores.
                 </p>
               </div>
@@ -370,7 +370,7 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step === 4 && (
             <div className="space-y-5 animate-fadeIn">
               <div>
-                <label className="block font-semibold mb-1.5 text-slate-300">
+                <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
                   {t('reward_yd_label')} *
                 </label>
                 <div className="relative">
@@ -380,32 +380,32 @@ export const PublishTaskWizardModal: React.FC = () => {
                     step={50}
                     value={rewardYD}
                     onChange={(e) => setRewardYD(Number(e.target.value))}
-                    className={`w-full p-3 rounded-xl border text-base font-mono font-bold text-[#FFC857] focus:outline-none ${
-                      isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                    className={`w-full p-3 rounded-2xl border text-base font-mono font-bold text-amber-600 dark:text-amber-400 focus:outline-none ${
+                      isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                     }`}
                   />
-                  <span className="absolute right-4 top-3.5 text-xs text-slate-400 font-sans">
+                  <span className="absolute right-4 top-3.5 text-xs text-slate-500 font-sans font-bold">
                     YD Token
                   </span>
                 </div>
               </div>
 
               <div
-                className={`p-4 rounded-2xl border space-y-3 ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                className={`p-4 rounded-3xl border space-y-3 ${
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-400">{t('agent_stake_preview')}</span>
-                  <span className="font-mono font-semibold text-[#35D07F]">{agentStakeYD} YD</span>
+                  <span className="text-slate-600 dark:text-slate-400 font-medium">{t('agent_stake_preview')}</span>
+                  <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{agentStakeYD} YD</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-400">{t('platform_fee_label')}</span>
-                  <span className="font-mono font-semibold text-slate-300">{platformFeeYD} YD</span>
+                  <span className="text-slate-600 dark:text-slate-400 font-medium">{t('platform_fee_label')}</span>
+                  <span className="font-mono font-bold text-slate-700 dark:text-slate-300">{platformFeeYD} YD</span>
                 </div>
-                <div className="pt-2 border-t border-slate-700/30 flex justify-between items-center text-sm font-semibold">
-                  <span>{t('total_escrow_deposit')}</span>
-                  <span className="font-mono font-bold text-base text-[#FFC857]">
+                <div className="pt-2 border-t border-purple-500/15 dark:border-purple-900/40 flex justify-between items-center text-sm font-bold">
+                  <span className="text-slate-900 dark:text-white">{t('total_escrow_deposit')}</span>
+                  <span className="font-mono font-bold text-base text-amber-600 dark:text-amber-400">
                     {totalDepositYD.toLocaleString()} YD
                   </span>
                 </div>
@@ -413,10 +413,10 @@ export const PublishTaskWizardModal: React.FC = () => {
 
               {/* Wallet check alert */}
               <div
-                className={`p-3 rounded-xl border flex items-center justify-between text-xs ${
+                className={`p-3.5 rounded-2xl border flex items-center justify-between text-xs ${
                   hasSufficientYD
-                    ? 'bg-[#35D07F]/10 border-[#35D07F]/30 text-[#35D07F]'
-                    : 'bg-[#FF647C]/10 border-[#FF647C]/30 text-[#FF647C]'
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+                    : 'bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400'
                 }`}
               >
                 <div className="flex items-center gap-2">
@@ -428,7 +428,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                 {!hasSufficientYD && (
                   <button
                     onClick={() => setIsCheckoutOpen(true)}
-                    className="underline font-semibold ml-2 cursor-pointer"
+                    className="underline font-bold ml-2 cursor-pointer"
                   >
                     {t('acquire_yd')}
                   </button>
@@ -441,38 +441,38 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step === 5 && (
             <div className="space-y-4 animate-fadeIn">
               <div
-                className={`p-4 rounded-2xl border space-y-3 ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                className={`p-4 rounded-3xl border space-y-3 ${
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase">Title</span>
-                  <h4 className="font-semibold text-sm mt-0.5">{title || (locale === 'zh-CN' ? '未命名内容创作任务' : 'Untitled Content Creation Task')}</h4>
+                  <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Title</span>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">{title || 'Untitled Technical Task'}</h4>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div>
-                    <span className="text-slate-400">Category:</span>{' '}
-                    <span className="font-medium">{category}</span>
+                    <span className="text-slate-500 dark:text-slate-400">Category:</span>{' '}
+                    <span className="font-semibold text-slate-900 dark:text-white">{category}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">Deadline:</span>{' '}
-                    <span className="font-medium font-mono">{deadlineDays} Days</span>
+                    <span className="text-slate-500 dark:text-slate-400">Deadline:</span>{' '}
+                    <span className="font-bold font-mono text-slate-900 dark:text-white">{deadlineDays} Days</span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase">Deliverables</span>
-                  <p className="text-xs text-slate-300 mt-0.5">{deliverables.length} tangible item(s)</p>
+                  <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Deliverables</span>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 mt-0.5 font-medium">{deliverables.length} tangible item(s)</p>
                 </div>
-                <div className="pt-2 border-t border-slate-700/30 flex justify-between items-center text-sm font-semibold">
-                  <span>Escrow Deposit:</span>
-                  <span className="font-mono text-[#FFC857] font-bold">
+                <div className="pt-2 border-t border-purple-500/15 dark:border-purple-900/40 flex justify-between items-center text-sm font-bold">
+                  <span className="text-slate-900 dark:text-white">Escrow Deposit:</span>
+                  <span className="font-mono text-amber-600 dark:text-amber-400 font-bold">
                     {totalDepositYD.toLocaleString()} YD
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-3 rounded-xl bg-[#36E4DA]/10 border border-[#36E4DA]/30 text-xs text-[#36E4DA]">
-                <ShieldCheck className="w-5 h-5 shrink-0" />
+              <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-xs text-purple-700 dark:text-purple-300">
+                <ShieldCheck className="w-5 h-5 shrink-0 text-purple-500" />
                 <p className="leading-tight">
                   Funds will be deposited into the Escrow smart contract on Base Sepolia. Funds are released only upon your explicit milestone approval.
                 </p>
@@ -482,12 +482,12 @@ export const PublishTaskWizardModal: React.FC = () => {
         </div>
 
         {/* Modal Footer Controls */}
-        <div className="p-4 border-t border-slate-700/20 flex items-center justify-between gap-3">
+        <div className="p-4 border-t border-purple-500/10 dark:border-purple-900/40 flex items-center justify-between gap-3">
           {step > 1 ? (
             <button
               onClick={() => setStep(step - 1)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition-colors ${
-                isDark ? 'border-[#243550] hover:bg-[#111F34] text-slate-300' : 'border-slate-200 hover:bg-slate-100 text-slate-700'
+              className={`px-4 py-2 rounded-2xl text-xs font-bold border flex items-center gap-1.5 transition-colors cursor-pointer ${
+                isDark ? 'border-purple-900/50 hover:bg-purple-950/40 text-slate-300' : 'border-purple-100 hover:bg-purple-50 text-slate-700'
               }`}
             >
               <ArrowLeft className="w-3.5 h-3.5" />
@@ -496,7 +496,7 @@ export const PublishTaskWizardModal: React.FC = () => {
           ) : (
             <button
               onClick={() => setIsPublishWizardOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200"
+              className="px-4 py-2 rounded-2xl text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer"
             >
               {t('cancel_btn')}
             </button>
@@ -505,7 +505,7 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step < 5 ? (
             <button
               onClick={() => setStep(step + 1)}
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-[#36E4DA] text-[#07111F] hover:bg-[#36E4DA]/90 transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-purple-500/20"
             >
               {t('next_step')}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -514,9 +514,9 @@ export const PublishTaskWizardModal: React.FC = () => {
             <button
               onClick={handleFinish}
               disabled={!hasSufficientYD}
-              className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-lg ${
+              className={`px-6 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shadow-lg ${
                 hasSufficientYD
-                  ? 'bg-[#35D07F] text-[#07111F] hover:bg-[#35D07F]/90 cursor-pointer'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white cursor-pointer shadow-emerald-500/20'
                   : 'bg-slate-600 text-slate-400 cursor-not-allowed opacity-60'
               }`}
             >

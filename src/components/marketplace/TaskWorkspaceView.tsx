@@ -40,8 +40,8 @@ export const TaskWorkspaceView: React.FC = () => {
 
   if (!activeTask) {
     return (
-      <div className="p-12 text-center text-slate-400">
-        <Layers className="w-12 h-12 mx-auto mb-3 opacity-40 text-[#36E4DA]" />
+      <div className="p-12 text-center text-slate-500 dark:text-slate-400">
+        <Layers className="w-12 h-12 mx-auto mb-3 opacity-40 text-purple-500" />
         <p className="text-sm">No task selected. Select a task from the Tasks menu.</p>
       </div>
     );
@@ -66,20 +66,20 @@ export const TaskWorkspaceView: React.FC = () => {
       {/* Header & Task Selector */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="font-mono text-xs text-slate-400">#{activeTask.id}</span>
-            <span className="text-xs text-slate-400">· {activeTask.category}</span>
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="font-mono text-xs font-bold text-purple-600 dark:text-purple-400">#{activeTask.id}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">· {activeTask.category}</span>
             {activeTask.status === 'disputed' ? (
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FF647C]/15 text-[#FF647C]">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
                 {t('status_disputed')}
               </span>
             ) : (
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#35D07F]/15 text-[#35D07F]">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                 {activeTask.status.replace('_', ' ').toUpperCase()}
               </span>
             )}
           </div>
-          <h1 className="font-display font-bold text-xl lg:text-2xl tracking-tight">
+          <h1 className="font-display font-bold text-xl lg:text-2xl text-slate-900 dark:text-white tracking-tight">
             {activeTask.title}
           </h1>
         </div>
@@ -89,8 +89,10 @@ export const TaskWorkspaceView: React.FC = () => {
           <select
             value={activeTask.id}
             onChange={(e) => setActiveTaskId(e.target.value)}
-            className={`px-3 py-2 rounded-xl border text-xs font-medium cursor-pointer ${
-              isDark ? 'bg-[#0C1728] border-[#243550] text-slate-200' : 'bg-white border-slate-200 text-slate-800'
+            className={`px-3.5 py-2 rounded-2xl border text-xs font-medium cursor-pointer transition-colors ${
+              isDark
+                ? 'bg-[#10132B] border-purple-900/40 text-slate-200 focus:border-purple-500'
+                : 'bg-white border-purple-100 text-slate-800 focus:border-purple-400 shadow-sm'
             }`}
           >
             {tasks.map((task) => (
@@ -104,8 +106,8 @@ export const TaskWorkspaceView: React.FC = () => {
 
       {/* Task Status Stepper */}
       <div
-        className={`p-4 sm:p-5 rounded-2xl border transition-colors ${
-          isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+        className={`p-4 sm:p-5 rounded-3xl border transition-colors ${
+          isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
         }`}
       >
         <div className="flex items-center justify-between overflow-x-auto pb-2 sm:pb-0 gap-2">
@@ -119,12 +121,12 @@ export const TaskWorkspaceView: React.FC = () => {
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                       isCompleted
-                        ? 'bg-[#35D07F] text-[#07111F]'
+                        ? 'bg-emerald-500 text-white'
                         : isCurrent
-                        ? 'bg-[#36E4DA] text-[#07111F] ring-4 ring-[#36E4DA]/20'
+                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white ring-4 ring-purple-500/20'
                         : isDark
-                        ? 'bg-[#111F34] text-slate-500'
-                        : 'bg-slate-200 text-slate-500'
+                        ? 'bg-[#0D0F24] text-slate-500 border border-purple-900/40'
+                        : 'bg-purple-50 text-slate-400 border border-purple-100'
                     }`}
                   >
                     {isCompleted ? <Check className="w-4 h-4" /> : idx + 1}
@@ -132,14 +134,10 @@ export const TaskWorkspaceView: React.FC = () => {
                   <span
                     className={`text-xs whitespace-nowrap font-medium ${
                       isCurrent
-                        ? isDark
-                          ? 'text-[#36E4DA] font-bold'
-                          : 'text-sky-700 font-bold'
+                        ? 'text-purple-600 dark:text-purple-300 font-bold'
                         : isCompleted
-                        ? isDark
-                          ? 'text-slate-200'
-                          : 'text-slate-800'
-                        : 'text-slate-500'
+                        ? 'text-slate-900 dark:text-slate-200'
+                        : 'text-slate-400 dark:text-slate-500'
                     }`}
                   >
                     {s.label}
@@ -149,10 +147,10 @@ export const TaskWorkspaceView: React.FC = () => {
                   <div
                     className={`w-6 sm:w-12 h-0.5 mx-1 ${
                       idx < effectiveIndex
-                        ? 'bg-[#35D07F]'
+                        ? 'bg-emerald-500'
                         : isDark
-                        ? 'bg-slate-700'
-                        : 'bg-slate-200'
+                        ? 'bg-purple-950/60'
+                        : 'bg-purple-100'
                     }`}
                   />
                 )}
@@ -163,58 +161,58 @@ export const TaskWorkspaceView: React.FC = () => {
       </div>
 
       {/* Workspace Sub-Tabs & Actions Header */}
-      <div className="flex items-center justify-between border-b border-slate-700/20 pb-3 flex-wrap gap-3">
+      <div className="flex items-center justify-between border-b border-purple-500/10 dark:border-purple-900/40 pb-3 flex-wrap gap-3">
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => setActiveTabSub('orchestration')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTabSub === 'orchestration'
-                ? isDark
-                  ? 'bg-[#111F34] text-[#36E4DA] font-bold ring-1 ring-[#36E4DA]/40'
-                  : 'bg-sky-100 text-sky-800 font-bold'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                : isDark
+                ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
+                : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
             }`}
           >
-            <Workflow className="w-3.5 h-3.5 text-[#36E4DA]" />
+            <Workflow className="w-3.5 h-3.5" />
             {t('tab_agent_orchestration')}
             {activeTask.orchestration?.nodes && (
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#36E4DA]/20 text-[#36E4DA]">
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeTabSub === 'orchestration' ? 'bg-white/20 text-white' : 'bg-purple-500/15 text-purple-600 dark:text-purple-300'}`}>
                 {activeTask.orchestration.nodes.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTabSub('timeline')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'timeline'
-                ? isDark
-                  ? 'bg-[#111F34] text-[#36E4DA] font-semibold'
-                  : 'bg-sky-100 text-sky-800 font-semibold'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                : isDark
+                ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
+                : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
             }`}
           >
             {t('execution_timeline_title')}
           </button>
           <button
             onClick={() => setActiveTabSub('deliverables')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'deliverables'
-                ? isDark
-                  ? 'bg-[#111F34] text-[#36E4DA] font-semibold'
-                  : 'bg-sky-100 text-sky-800 font-semibold'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                : isDark
+                ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
+                : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
             }`}
           >
             {t('deliverables_audit_title')} ({activeTask.deliverables.length})
           </button>
           <button
             onClick={() => setActiveTabSub('escrow')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'escrow'
-                ? isDark
-                  ? 'bg-[#111F34] text-[#36E4DA] font-semibold'
-                  : 'bg-sky-100 text-sky-800 font-semibold'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                : isDark
+                ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
+                : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
             }`}
           >
             Escrow & Contracts
@@ -227,13 +225,13 @@ export const TaskWorkspaceView: React.FC = () => {
             <>
               <button
                 onClick={() => setIsDisputeModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-rose-500 hover:bg-rose-500/10 border border-rose-500/30 transition-colors cursor-pointer"
               >
                 {t('btn_raise_dispute')}
               </button>
               <button
                 onClick={() => acceptTaskDeliverables(activeTask.id)}
-                className="px-4 py-1.5 rounded-xl text-xs font-bold bg-[#35D07F] text-[#07111F] hover:bg-[#35D07F]/90 transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white hover:bg-emerald-600 transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 {t('btn_accept_deliverables')}
@@ -241,7 +239,7 @@ export const TaskWorkspaceView: React.FC = () => {
             </>
           )}
           {activeTask.status === 'settled' && (
-            <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-[#35D07F]/15 text-[#35D07F] border border-[#35D07F]/30">
+            <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
               ✓ Settled on Base Sepolia
             </span>
           )}
@@ -254,191 +252,193 @@ export const TaskWorkspaceView: React.FC = () => {
       ) : (
         /* Main Workspace Layout (2 columns) */
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-        {/* Left Column: Timeline or Deliverables (8 cols) */}
-        <div className="xl:col-span-8 space-y-4">
-          {activeTabSub === 'timeline' && (
-            <div
-              className={`p-5 rounded-2xl border ${
-                isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-[#36E4DA]" />
-                  <h3 className="font-semibold text-xs text-slate-300">
-                    {activeTask.assignedAgent?.name || 'Agent'} Execution Trace
-                  </h3>
+          {/* Left Column: Timeline or Deliverables (8 cols) */}
+          <div className="xl:col-span-8 space-y-4">
+            {activeTabSub === 'timeline' && (
+              <div
+                className={`p-5 rounded-3xl border ${
+                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-purple-500/10 dark:border-purple-900/40">
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-purple-500" />
+                    <h3 className="font-semibold text-xs text-slate-900 dark:text-slate-200">
+                      {activeTask.assignedAgent?.name || 'Agent'} Execution Trace
+                    </h3>
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Total Cost: <span className="text-amber-600 dark:text-amber-400 font-bold">{timeline.totalCostYD} YD</span> ·{' '}
+                    {timeline.tokensUsed.toLocaleString()} tokens
+                  </div>
                 </div>
-                <div className="text-[11px] font-mono text-slate-400">
-                  Total Cost: <span className="text-[#FFC857]">{timeline.totalCostYD} YD</span> ·{' '}
-                  {timeline.tokensUsed.toLocaleString()} tokens
+
+                {/* Vertical timeline stepper */}
+                <div className="relative pl-6 space-y-6 border-l-2 border-purple-500/20 ml-2">
+                  {timeline.events.map((evt) => (
+                    <div key={evt.id} className="relative group">
+                      {/* Circle Node */}
+                      <div className="absolute -left-[31px] top-0.5 w-4 h-4 rounded-full bg-purple-500 ring-4 ring-purple-500/20" />
+
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-xs flex-wrap gap-1">
+                          <span className="font-semibold text-slate-900 dark:text-slate-200">
+                            Step {evt.stepNumber}: {evt.name}
+                          </span>
+                          <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                            {evt.tool && (
+                              <span className="px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 font-semibold">
+                                {evt.tool}
+                              </span>
+                            )}
+                            <span>{evt.durationMs}ms</span>
+                          </div>
+                        </div>
+
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400 font-mono">
+                          {evt.inputSummary}
+                        </p>
+
+                        {evt.outputSummary && (
+                          <div
+                            className={`mt-2 p-2.5 rounded-xl text-[11px] font-mono border ${
+                              isDark
+                                ? 'bg-[#0D0F24] border-purple-900/40 text-emerald-400'
+                                : 'bg-purple-50/50 border-purple-100 text-emerald-800'
+                            }`}
+                          >
+                            → {evt.outputSummary}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
+            )}
 
-              {/* Vertical timeline stepper */}
-              <div className="relative pl-6 space-y-6 border-l-2 border-slate-700/40 ml-2">
-                {timeline.events.map((evt) => (
-                  <div key={evt.id} className="relative group">
-                    {/* Circle Node */}
-                    <div className="absolute -left-[31px] top-0.5 w-4 h-4 rounded-full bg-[#36E4DA] ring-4 ring-[#0C1728]" />
-
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between text-xs flex-wrap gap-1">
-                        <span className="font-semibold text-slate-200">
-                          Step {evt.stepNumber}: {evt.name}
-                        </span>
-                        <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
-                          {evt.tool && (
-                            <span className="px-1.5 py-0.2 rounded bg-[#7568FF]/15 text-[#7568FF]">
-                              {evt.tool}
-                            </span>
-                          )}
-                          <span>{evt.durationMs}ms</span>
+            {activeTabSub === 'deliverables' && (
+              <div className="space-y-3">
+                {activeTask.deliverables.map((del) => (
+                  <div
+                    key={del.id}
+                    className={`p-4 rounded-3xl border transition-all ${
+                      isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <FileCode className="w-4 h-4 text-purple-500" />
+                          <h4 className="font-semibold text-xs text-slate-900 dark:text-white">{del.title}</h4>
                         </div>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{del.description}</p>
                       </div>
 
-                      <p className="text-[11px] text-slate-400 font-mono">
-                        {evt.inputSummary}
-                      </p>
-
-                      {evt.outputSummary && (
-                        <div
-                          className={`mt-2 p-2.5 rounded-xl text-[11px] font-mono border ${
-                            isDark
-                              ? 'bg-[#07111F] border-[#243550] text-[#35D07F]'
-                              : 'bg-slate-50 border-slate-200 text-emerald-800'
-                          }`}
-                        >
-                          → {evt.outputSummary}
-                        </div>
-                      )}
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                        Submitted
+                      </span>
                     </div>
+
+                    {del.deliverableHash && (
+                      <div className={`mt-3 p-2.5 rounded-xl border text-[11px] font-mono flex items-center justify-between gap-2 overflow-hidden ${
+                        isDark ? 'bg-[#0D0F24] border-purple-900/40 text-slate-400' : 'bg-purple-50/50 border-purple-100 text-slate-600'
+                      }`}>
+                        <span className="truncate">{del.deliverableHash}</span>
+                        <span className="text-[10px] text-purple-600 dark:text-purple-400 shrink-0 font-sans font-semibold">
+                          SHA-256 Verified
+                        </span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+            )}
 
-          {activeTabSub === 'deliverables' && (
-            <div className="space-y-3">
-              {activeTask.deliverables.map((del) => (
-                <div
-                  key={del.id}
-                  className={`p-4 rounded-2xl border transition-all ${
-                    isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <FileCode className="w-4 h-4 text-[#36E4DA]" />
-                        <h4 className="font-semibold text-xs">{del.title}</h4>
-                      </div>
-                      <p className="text-xs text-slate-400 mt-1">{del.description}</p>
-                    </div>
-
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#35D07F]/15 text-[#35D07F]">
-                      Submitted
+            {activeTabSub === 'escrow' && (
+              <div
+                className={`p-5 rounded-3xl border space-y-4 text-xs ${
+                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                }`}
+              >
+                <h3 className="font-bold text-sm text-slate-900 dark:text-white">Escrow Smart Contract State</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                    <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Contract Address:</span>
+                    <span className="font-mono text-[11px] text-purple-600 dark:text-purple-400 font-bold">
+                      {activeTask.escrowContract}
                     </span>
                   </div>
-
-                  {del.deliverableHash && (
-                    <div className="mt-3 p-2.5 rounded-xl bg-[#07111F] border border-[#243550] text-[11px] font-mono text-slate-400 flex items-center justify-between gap-2 overflow-hidden">
-                      <span className="truncate">{del.deliverableHash}</span>
-                      <span className="text-[10px] text-[#36E4DA] shrink-0 font-sans">
-                        SHA-256 Verified
-                      </span>
-                    </div>
-                  )}
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                    <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Settlement Asset:</span>
+                    <span className="font-bold text-amber-600 dark:text-amber-400">YD ERC-20 (Base Sepolia)</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                    <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Locked Reward:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{activeTask.rewardYD} YD</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                    <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Agent Performance Stake:</span>
+                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{activeTask.stakeYD} YD</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
 
-          {activeTabSub === 'escrow' && (
+          {/* Right Column: Participant Wallets & Acceptance Criteria (4 cols) */}
+          <div className="xl:col-span-4 space-y-4">
+            {/* Participants Card */}
             <div
-              className={`p-5 rounded-2xl border space-y-4 text-xs ${
-                isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
+              className={`p-4 rounded-3xl border text-xs space-y-3 ${
+                isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
               }`}
             >
-              <h3 className="font-semibold text-sm">Escrow Smart Contract State</h3>
-              <div className="grid grid-cols-2 gap-3 font-mono-tabular">
-                <div>
-                  <span className="text-slate-400 block">Contract Address:</span>
-                  <span className="font-mono text-[11px] text-[#36E4DA]">
-                    {activeTask.escrowContract}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Settlement Asset:</span>
-                  <span className="font-semibold text-[#FFC857]">YD ERC-20 (Base Sepolia)</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Locked Reward:</span>
-                  <span className="font-semibold">{activeTask.rewardYD} YD</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Agent Performance Stake:</span>
-                  <span className="font-semibold text-[#35D07F]">{activeTask.stakeYD} YD</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+              <h3 className="font-bold uppercase text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                Task Participants & Wallets
+              </h3>
 
-        {/* Right Column: Participant Wallets & Acceptance Criteria (4 cols) */}
-        <div className="xl:col-span-4 space-y-4">
-          {/* Participants Card */}
-          <div
-            className={`p-4 rounded-2xl border text-xs space-y-3 ${
-              isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
-            }`}
-          >
-            <h3 className="font-semibold uppercase text-[10px] tracking-wider text-slate-400 font-mono">
-              Task Participants & Wallets
-            </h3>
-
-            <div className="space-y-2">
-              <div className="p-2.5 rounded-xl bg-inherit border border-slate-700/20">
-                <p className="text-[10px] text-slate-400">Task Owner (Funder)</p>
-                <p className="font-semibold text-xs mt-0.5">{activeTask.owner.name}</p>
-                <p className="font-mono text-[10px] text-slate-400 truncate">
-                  {activeTask.owner.walletAddress}
-                </p>
-              </div>
-
-              {activeTask.assignedAgent && (
-                <div className="p-2.5 rounded-xl bg-inherit border border-slate-700/20">
-                  <p className="text-[10px] text-slate-400">Assigned Agent Operator</p>
-                  <p className="font-semibold text-xs mt-0.5">{activeTask.assignedAgent.name}</p>
-                  <p className="font-mono text-[10px] text-slate-400 truncate">
-                    {activeTask.assignedAgent.author.payoutWallet}
+              <div className="space-y-2">
+                <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400">Task Owner (Funder)</p>
+                  <p className="font-semibold text-xs text-slate-900 dark:text-white mt-0.5">{activeTask.owner.name}</p>
+                  <p className="font-mono text-[10px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
+                    {activeTask.owner.walletAddress}
                   </p>
                 </div>
-              )}
+
+                {activeTask.assignedAgent && (
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Assigned Agent Operator</p>
+                    <p className="font-semibold text-xs text-slate-900 dark:text-white mt-0.5">{activeTask.assignedAgent.name}</p>
+                    <p className="font-mono text-[10px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
+                      {activeTask.assignedAgent.author.payoutWallet}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Acceptance Criteria Checklist */}
+            <div
+              className={`p-4 rounded-3xl border text-xs space-y-2.5 ${
+                isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+              }`}
+            >
+              <h3 className="font-bold uppercase text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                Acceptance Criteria
+              </h3>
+              <ul className="space-y-2">
+                {activeTask.acceptanceCriteria.map((c, i) => (
+                  <li key={i} className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span className="text-[11px] leading-snug">{c}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-
-          {/* Acceptance Criteria Checklist */}
-          <div
-            className={`p-4 rounded-2xl border text-xs space-y-2.5 ${
-              isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200'
-            }`}
-          >
-            <h3 className="font-semibold uppercase text-[10px] tracking-wider text-slate-400 font-mono">
-              Acceptance Criteria
-            </h3>
-            <ul className="space-y-2">
-              {activeTask.acceptanceCriteria.map((c, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-[#35D07F] shrink-0 mt-0.5" />
-                  <span className="text-[11px] leading-snug">{c}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-      </div>
       )}
 
       {/* Raise Dispute Modal */}
@@ -449,15 +449,15 @@ export const TaskWorkspaceView: React.FC = () => {
             className="fixed inset-0 bg-black/70 backdrop-blur-xs"
           />
           <div
-            className={`relative z-10 w-full max-w-md rounded-2xl border p-6 space-y-4 ${
-              isDark ? 'bg-[#0A1424] border-[#243550] text-[#F4F7FB]' : 'bg-white border-slate-200 text-slate-900'
+            className={`relative z-10 w-full max-w-md rounded-3xl border p-6 space-y-4 shadow-2xl ${
+              isDark ? 'bg-[#10132B] border-purple-900/40 text-white' : 'bg-white border-purple-100 text-slate-900'
             }`}
           >
-            <div className="flex items-center gap-2 text-rose-400 font-bold text-base">
+            <div className="flex items-center gap-2 text-rose-500 font-bold text-base">
               <Scale className="w-5 h-5" />
               <span>{t('btn_raise_dispute')}</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Raising a dispute freezes Escrow funds. A decentralized 3/5 multisig arbitration committee will review deliverables against acceptance criteria.
             </p>
             <textarea
@@ -465,14 +465,14 @@ export const TaskWorkspaceView: React.FC = () => {
               value={disputeReason}
               onChange={(e) => setDisputeReason(e.target.value)}
               placeholder="State the exact acceptance criteria failure or defect..."
-              className={`w-full p-3 rounded-xl border text-xs focus:outline-none ${
-                isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+              className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
+                isDark ? 'bg-[#0D0F24] border-purple-900/50 focus:border-purple-500 text-white' : 'bg-purple-50/50 border-purple-100 focus:border-purple-400 text-slate-900'
               }`}
             />
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setIsDisputeModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs text-slate-400"
+                className="px-4 py-2 rounded-xl text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white"
               >
                 {t('cancel_btn')}
               </button>
@@ -481,7 +481,7 @@ export const TaskWorkspaceView: React.FC = () => {
                   raiseTaskDispute(activeTask.id, disputeReason);
                   setIsDisputeModalOpen(false);
                 }}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#FF647C] text-white hover:bg-[#E05067]"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-500 text-white hover:bg-rose-600 shadow-sm"
               >
                 Confirm Dispute Initiation
               </button>

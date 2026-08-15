@@ -129,25 +129,25 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
     let isHitl = false;
 
     if (type === 'llm_router') {
-      nodeName = `Content Router #${newStageIndex}`;
-      role = 'Content Intent Classifier & Dispatcher';
+      nodeName = `LLM Router #${newStageIndex}`;
+      role = 'Intent Classifier & Dispatcher';
       rewardPct = 10;
     } else if (type === 'hitl_gate') {
       nodeName = `Approval Gate #${newStageIndex}`;
-      role = 'Human Signoff Gate (Draft Review)';
+      role = 'Human Signoff Gate';
       isHitl = true;
       rewardPct = 5;
     } else if (type === 'tool_sandbox') {
-      nodeName = `Creative Tool Runner #${newStageIndex}`;
-      role = 'Asset Generator & Renderer (Image/Video/Doc)';
+      nodeName = `Sandbox Runner #${newStageIndex}`;
+      role = 'Automated Fuzzing & AST Scanner';
       rewardPct = 25;
     } else if (type === 'consensus_judge') {
-      nodeName = `Quality Judge #${newStageIndex}`;
-      role = 'Content Style & Platform Fit Reviewer';
+      nodeName = `Consensus Judge #${newStageIndex}`;
+      role = 'Multi-Agent QA & Benchmark Arbiter';
       rewardPct = 20;
     } else if (type === 'aggregator') {
-      nodeName = `Asset Bundler #${newStageIndex}`;
-      role = 'Content Deliverable Packager & Settlement';
+      nodeName = `Escrow Settlement #${newStageIndex}`;
+      role = 'Deliverable Proof Aggregator';
       rewardPct = 15;
     }
 
