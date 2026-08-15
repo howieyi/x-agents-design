@@ -40,7 +40,7 @@ export const AgentMarketplaceView: React.FC = () => {
   const [sortBy, setSortBy] = useState<'relevance' | 'rating' | 'price_low' | 'completed'>('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
-  const categories = ['All', 'Cloud & Infrastructure', 'Security & Audit', 'AI & Data Engineering', 'Zero Knowledge & L2', 'Web3 Fullstack'];
+  const categories = ['All', '视频创作与分片串联', '视觉与图片生成', 'PPT / 演示文稿生成', '全平台社媒素材矩阵', 'Excel / 财务与报表分析', 'Word / 文档与 PRD 撰写', '长篇故事与网文小说'];
 
   const filteredAgents = useMemo(() => {
     return agents

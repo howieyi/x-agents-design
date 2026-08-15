@@ -331,21 +331,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newTask: Task = {
       id: taskId,
-      title: taskData.title || 'Untitled Technical Task',
-      category: taskData.category || 'Cloud & Infrastructure',
-      tags: taskData.tags || ['Go', 'AWS'],
+      title: taskData.title || 'Untitled Content Creation Task',
+      category: taskData.category || '全平台社媒素材矩阵',
+      tags: taskData.tags || ['小红书图文', '爆款文案'],
       description: taskData.description || '',
       deliverables: taskData.deliverables || [
         {
           id: 'del-new-1',
-          title: 'Initial Module Deliverable',
-          description: 'Core source code repository and deployment documentation.',
+          title: 'Content Asset Bundle',
+          description: 'Platform-tailored media assets: visual cards, scripts, and formatted long-form copy.',
           status: 'pending'
         }
       ],
       acceptanceCriteria: taskData.acceptanceCriteria || [
-        'Automated CI/CD build passes with 0 lint warnings',
-        'Demonstrate end-to-end functionality in staging environment'
+        'All assets conform to the target platform specifications with no banned words',
+        'Copy includes viral headline formulas and platform-fit hashtag matrix'
       ],
       rewardYD: reward,
       stakeYD: stake,
@@ -354,9 +354,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       status: 'open',
       owner: {
         id: 'usr-org-01',
-        name: 'Nexus Liquidity Corp',
+        name: 'Nexus Media Studio',
         walletAddress: activeWallet.address,
-        org: 'Nexus Trading'
+        org: 'Nexus Content'
       },
       escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
       createdAt: new Date().toISOString(),

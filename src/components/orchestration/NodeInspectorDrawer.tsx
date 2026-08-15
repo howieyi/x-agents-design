@@ -113,7 +113,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
       case 'hitl_gate':
         return { label: isZh ? '人机审批门禁' : 'HITL Gate', icon: <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />, color: 'bg-amber-500/10 text-amber-400 border-amber-500/30' };
       case 'tool_sandbox':
-        return { label: isZh ? '工具沙箱运行器' : 'Tool Sandbox', icon: <Cpu className="w-3.5 h-3.5 text-emerald-400" />, color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' };
+        return { label: isZh ? '创作工具执行器' : 'Creative Tools', icon: <Cpu className="w-3.5 h-3.5 text-emerald-400" />, color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' };
       case 'consensus_judge':
         return { label: isZh ? '多方共识裁判' : 'Consensus Judge', icon: <Scale className="w-3.5 h-3.5 text-blue-400" />, color: 'bg-blue-500/10 text-blue-400 border-blue-500/30' };
       case 'aggregator':
@@ -267,12 +267,12 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                   isDark ? 'bg-slate-800/80 border-slate-700 focus:border-cyan-500 text-slate-100' : 'bg-slate-50 border-slate-300 focus:border-cyan-600'
                 }`}
               >
-                <option value="agent_worker">{isZh ? 'AI Agent 专家节点' : 'AI Agent Worker'}</option>
-                <option value="llm_router">{isZh ? 'LLM 意图决策路由器' : 'LLM Intent Router'}</option>
+                <option value="agent_worker">{isZh ? '内容创作 Agent 执行节点' : 'Content Agent Worker'}</option>
+                <option value="llm_router">{isZh ? '内容意图决策路由器' : 'Content Intent Router'}</option>
                 <option value="hitl_gate">{isZh ? '人机审批门禁 (HITL)' : 'Human Approval Gate (HITL)'}</option>
-                <option value="tool_sandbox">{isZh ? '自动化工具/沙箱测试' : 'Tool & AST Sandbox'}</option>
-                <option value="consensus_judge">{isZh ? '多方共识裁判/裁决' : 'Consensus Judge'}</option>
-                <option value="aggregator">{isZh ? 'Escrow 成果汇总结算' : 'Escrow Aggregator'}</option>
+                <option value="tool_sandbox">{isZh ? '创作工具执行器 (图像/视频/文档)' : 'Creative Tool Runner (Image/Video/Doc)'}</option>
+                <option value="consensus_judge">{isZh ? '内容质量评审/裁决' : 'Quality Judge'}</option>
+                <option value="aggregator">{isZh ? '内容成果打包与结算' : 'Asset Aggregator'}</option>
               </select>
             </div>
 
@@ -372,7 +372,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                 type="text"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                placeholder="e.g. Lead Smart Contract Security Auditor"
+                placeholder="e.g. 小红书爆款图文与封面创作专家"
                 className={`w-full px-3 py-2 rounded-xl border text-xs outline-none transition-colors ${
                   isDark ? 'bg-slate-800/80 border-slate-700 focus:border-cyan-500 text-slate-100' : 'bg-slate-50 border-slate-300 focus:border-cyan-600'
                 }`}
@@ -390,7 +390,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                 rows={7}
                 value={systemPrompt}
                 onChange={(e) => setSystemPrompt(e.target.value)}
-                placeholder="Describe invariant checks, tool constraints, AST requirements..."
+                placeholder="描述本节点的创作产出要求、风格规范与调用的创作工具（如 Flux 渲染、Runway 分片、PPTX 引擎）..."
                 className={`w-full p-3 rounded-xl border font-mono text-[11px] outline-none leading-relaxed transition-colors ${
                   isDark ? 'bg-slate-800/80 border-slate-700 focus:border-cyan-500 text-cyan-300' : 'bg-slate-50 border-slate-300 focus:border-cyan-600 text-slate-800'
                 }`}
@@ -409,7 +409,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                 type="text"
                 value={inputArtifactsStr}
                 onChange={(e) => setInputArtifactsStr(e.target.value)}
-                placeholder="e.g. spec.json, contract.sol"
+                placeholder="e.g. 核心主题文案.md, 分镜脚本.json"
                 className={`w-full px-3 py-2 rounded-xl border text-xs outline-none transition-colors ${
                   isDark ? 'bg-slate-800/80 border-slate-700 focus:border-cyan-500 text-slate-100' : 'bg-slate-50 border-slate-300 focus:border-cyan-600'
                 }`}
@@ -424,7 +424,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                 type="text"
                 value={outputArtifactsStr}
                 onChange={(e) => setOutputArtifactsStr(e.target.value)}
-                placeholder="e.g. audit_report.pdf, proof.json"
+                placeholder="e.g. 小红书卡片.zip, 短视频分镜.md, pitch_deck.pptx"
                 className={`w-full px-3 py-2 rounded-xl border text-xs outline-none transition-colors ${
                   isDark ? 'bg-slate-800/80 border-slate-700 focus:border-cyan-500 text-slate-100' : 'bg-slate-50 border-slate-300 focus:border-cyan-600'
                 }`}

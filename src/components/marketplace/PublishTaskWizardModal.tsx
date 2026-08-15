@@ -29,16 +29,16 @@ export const PublishTaskWizardModal: React.FC = () => {
 
   // Form State
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Cloud & Infrastructure');
+  const [category, setCategory] = useState('全平台社媒素材矩阵');
   const [description, setDescription] = useState('');
   const [deliverables, setDeliverables] = useState<Array<{ id: string; title: string; description: string; status: 'pending' }>>([
-    { id: 'del-1', title: 'Source Code Repository & Architecture Document', description: 'Clean TypeScript/Go implementation with full unit tests and deployment instructions.', status: 'pending' }
+    { id: 'del-1', title: '小红书 3:4 视觉卡片套图与爆款种草文案', description: '8 张高保真视觉卡片、封面排版与 3 套情绪共鸣种草文案及热门标签矩阵。', status: 'pending' }
   ]);
   const [criteria, setCriteria] = useState<string[]>([
-    'Demonstrate 0 compilation/lint warnings and pass all integration test cases',
-    'Deploy and verify endpoints on staging testnet with live status checks'
+    '所有图文符合小红书 3:4 比例规范且无平台违禁词',
+    '文案包含爆款标题公式、情绪共鸣点与 5 组热点标签'
   ]);
-  const [tags, setTags] = useState<string>('Go, AWS SAM, SQS, PostgreSQL');
+  const [tags, setTags] = useState<string>('小红书图文, 爆款文案, 视觉卡片, 抖音分镜, 微信公众号');
   const [rewardYD, setRewardYD] = useState<number>(1000);
   const [deadlineDays, setDeadlineDays] = useState<number>(7);
 
@@ -79,7 +79,7 @@ export const PublishTaskWizardModal: React.FC = () => {
     const tagList = tags.split(',').map((t) => t.trim()).filter(Boolean);
 
     publishNewTask({
-      title: title || 'Decentralized Microservice Orchestrator',
+      title: title || '多平台社媒内容素材矩阵生成',
       category,
       description,
       deliverables,
@@ -174,11 +174,13 @@ export const PublishTaskWizardModal: React.FC = () => {
                       : 'bg-slate-50 border-slate-200 text-slate-800'
                   }`}
                 >
-                  <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
-                  <option value="Security & Audit">Security & Smart Contract Audit</option>
-                  <option value="AI & Data Engineering">AI & Vector Indexing</option>
-                  <option value="Zero Knowledge & L2">Zero Knowledge & L2</option>
-                  <option value="Web3 Fullstack">Web3 Fullstack & Viem</option>
+                  <option value="视频创作与分片串联">视频创作与分片串联</option>
+                  <option value="视觉与图片生成">视觉与图片生成</option>
+                  <option value="PPT / 演示文稿生成">PPT / 演示文稿生成</option>
+                  <option value="全平台社媒素材矩阵">全平台社媒素材矩阵</option>
+                  <option value="Excel / 财务与报表分析">Excel / 财务与报表分析</option>
+                  <option value="Word / 文档与 PRD 撰写">Word / 文档与 PRD 撰写</option>
+                  <option value="长篇故事与网文小说">长篇故事与网文小说</option>
                 </select>
               </div>
 
@@ -237,7 +239,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                               prev.map((d, idx) => (idx === i ? { ...d, title: val } : d))
                             );
                           }}
-                          placeholder="Deliverable Title (e.g. AWS SAM template.yaml)"
+                          placeholder={locale === 'zh-CN' ? '交付物标题 (如：小红书 3:4 视觉卡片.zip)' : 'Deliverable Title (e.g. redbook_carousel_cards.zip)'}
                           className={`w-full p-2 rounded-lg border text-xs focus:outline-none ${
                             isDark ? 'bg-[#0A1424] border-[#243550]' : 'bg-white border-slate-200'
                           }`}
@@ -320,13 +322,13 @@ export const PublishTaskWizardModal: React.FC = () => {
             <div className="space-y-4 animate-fadeIn">
               <div>
                 <label className="block font-semibold mb-1.5 text-slate-300">
-                  Required Skill & Tool Tags (Comma-separated)
+                  {locale === 'zh-CN' ? '所需创作技能与工具标签 (逗号分隔)' : 'Required Skill & Tool Tags (Comma-separated)'}
                 </label>
                 <input
                   type="text"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
-                  placeholder="e.g. Go, AWS SAM, SQS, PostgreSQL, Docker"
+                  placeholder={locale === 'zh-CN' ? '如：小红书图文, 抖音分镜, 微信公众号, 爆款文案' : 'e.g. Xiaohongshu cards, Douyin scripts, WeChat articles, viral copy'}
                   className={`w-full p-3 rounded-xl border text-xs focus:outline-none ${
                     isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                   }`}
@@ -445,7 +447,7 @@ export const PublishTaskWizardModal: React.FC = () => {
               >
                 <div>
                   <span className="text-[10px] font-mono text-slate-400 uppercase">Title</span>
-                  <h4 className="font-semibold text-sm mt-0.5">{title || 'Untitled Technical Task'}</h4>
+                  <h4 className="font-semibold text-sm mt-0.5">{title || (locale === 'zh-CN' ? '未命名内容创作任务' : 'Untitled Content Creation Task')}</h4>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div>

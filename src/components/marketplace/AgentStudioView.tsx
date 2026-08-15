@@ -19,55 +19,63 @@ export const AgentStudioView: React.FC = () => {
   const isDark = theme === 'dark';
 
   const [activeTab, setActiveTab] = useState<'metadata' | 'tools' | 'safeguards' | 'sandbox'>('metadata');
-  const [agentName, setAgentName] = useState('Atlas Cloud Engineer v2.5');
-  const [handle, setHandle] = useState('@atlas_cloud');
-  const [category, setCategory] = useState('Cloud & Infrastructure');
-  const [priceYD, setPriceYD] = useState(1000);
+  const [agentName, setAgentName] = useState('SocialMatrix 全渠道社媒内容创作大师 v3.5');
+  const [handle, setHandle] = useState('@socialmatrix_media');
+  const [category, setCategory] = useState('全平台社媒素材矩阵');
+  const [priceYD, setPriceYD] = useState(1100);
   const [maxSteps, setMaxSteps] = useState(50);
-  const [maxTokens, setMaxTokens] = useState(128000);
+  const [maxTokens, setMaxTokens] = useState(160000);
   const [maxCostYD, setMaxCostYD] = useState(60);
   const [timeoutSec, setTimeoutSec] = useState(300);
 
   // Tools selector
   const [enabledTools, setEnabledTools] = useState<string[]>([
-    'AWS_SAM_Deploy',
-    'PostgreSQL_Schema_Migrate',
-    'Go_Fmt_Test_Runner',
-    'Alchemy_Simulation'
+    'Flux_Pro_Renderer',
+    'Runway_Gen3_Chunk_Gen',
+    'Xiaohongshu_Card_Formatter',
+    'PPTX_Generator_Engine'
   ]);
 
   const availableTools = [
     {
-      id: 'AWS_SAM_Deploy',
-      desc: locale === 'zh-CN' ? '部署并核验 AWS SAM 无服务器基础设施模板' : 'Deploy and validate AWS SAM serverless templates'
+      id: 'Flux_Pro_Renderer',
+      desc: locale === 'zh-CN' ? '调用 Flux.1 Pro / Midjourney 渲染 4K 商业海报与插画' : 'Render 4K commercial posters & illustrations via Flux.1 Pro / Midjourney'
     },
     {
-      id: 'PostgreSQL_Schema_Migrate',
-      desc: locale === 'zh-CN' ? '执行幂等的 PostgreSQL 数据库 Schema DDL 迁移' : 'Execute idempotent database schema DDL migrations'
+      id: 'Runway_Gen3_Chunk_Gen',
+      desc: locale === 'zh-CN' ? '并行生成短视频分片并保持镜头与角色一致性' : 'Generate short-video chunks in parallel with consistent characters'
     },
     {
-      id: 'Go_Fmt_Test_Runner',
-      desc: locale === 'zh-CN' ? '运行 Go 单元测试与基准性能剖析' : 'Run Go unit tests and benchmark profiles'
+      id: 'ElevenLabs_Voice_Synth',
+      desc: locale === 'zh-CN' ? '合成拟真人声旁白并与画面毫秒级对齐' : 'Synthesize lifelike voiceover aligned to the timeline'
     },
     {
-      id: 'Alchemy_Simulation',
-      desc: locale === 'zh-CN' ? '在 Base 链上预执行模拟 EVM 智能合约交易' : 'Pre-flight simulate EVM transactions on Base'
+      id: 'Xiaohongshu_Card_Formatter',
+      desc: locale === 'zh-CN' ? '生成小红书 3:4 视觉卡片与爆款种草文案' : 'Generate Xiaohongshu 3:4 cards and viral copy'
     },
     {
-      id: 'Qdrant_Vector_Index',
-      desc: locale === 'zh-CN' ? '向量集合的高性能 Upsert 写入与语义检索' : 'Upsert and query semantic vector collections'
+      id: 'PPTX_Generator_Engine',
+      desc: locale === 'zh-CN' ? '咨询级 16:9 商业 PPT 母版渲染与原生 .pptx 导出' : 'Consulting-grade PPT masters with native .pptx export'
     },
     {
-      id: 'Foundry_Fuzz_Runner',
-      desc: locale === 'zh-CN' ? '在 Solidity 智能合约上运行基于属性的模糊测试' : 'Run property-based fuzz tests in Solidity'
+      id: 'Docx_Template_Formatter',
+      desc: locale === 'zh-CN' ? '长文档 Word 排版与多级目录、图表索引构建' : 'Word long-doc formatting with TOC and chart indexes'
+    },
+    {
+      id: 'OpenPyXL_Sheet_Engine',
+      desc: locale === 'zh-CN' ? 'Excel 财务模型与数据透视表自动生成' : 'Generate Excel financial models and pivot tables'
+    },
+    {
+      id: 'Douyin_Script_Splitter',
+      desc: locale === 'zh-CN' ? '抖音/抖音极速版 15s/30s 黄金前 3 秒口播脚本与分镜' : 'Douyin/TikTok hook scripts and shot breakdowns'
     }
   ];
 
   // Sandbox test run state
   const [testPrompt, setTestPrompt] = useState(
     locale === 'zh-CN'
-      ? '生成具有死信队列 (DLQ) 和 5 分钟可见性超时的 AWS SQS 队列配置模板。'
-      : 'Generate an AWS SQS queue with DLQ and 5-minute visibility timeout.'
+      ? '为一款新中式茶饮品牌生成小红书 3:4 爆款图文封面与 3 套情绪共鸣种草文案。'
+      : 'Generate Xiaohongshu 3:4 viral cards and 3 emotional resonance copy sets for a new-style tea brand.'
   );
   const [isRunningTest, setIsRunningTest] = useState(false);
   const [testLogs, setTestLogs] = useState<string[]>([]);
@@ -82,28 +90,28 @@ export const AgentStudioView: React.FC = () => {
     setIsRunningTest(true);
     setTestLogs([
       locale === 'zh-CN'
-        ? '[00:00.012] [AgentRuntime] 初始化 LangGraph 状态机，挂载 4 个工具能力...'
-        : '[00:00.012] [AgentRuntime] Initializing LangGraph state machine with 4 tools...',
+        ? '[00:00.012] [AgentRuntime] 初始化 LangGraph 创作状态机，挂载 4 个内容生成工具...'
+        : '[00:00.012] [AgentRuntime] Initializing LangGraph creative state machine with 4 content tools...',
       locale === 'zh-CN'
-        ? '[00:00.320] [Plan] 步骤 1: 根据 AWS CloudFormation 标准校验输入约束...'
-        : '[00:00.320] [Plan] Step 1: Validating input criteria against AWS CloudFormation schema...',
+        ? '[00:00.320] [Plan] 步骤 1: 提炼新中式茶饮卖点与情绪共鸣关键词...'
+        : '[00:00.320] [Plan] Step 1: Distilling tea-brand selling points and emotional keywords...',
       locale === 'zh-CN'
-        ? '[00:01.100] [Tool:AWS_SAM_Deploy] 已生成 template.yaml，配置 SQS FIFO 死信队列目标...'
-        : '[00:01.100] [Tool:AWS_SAM_Deploy] Generated template.yaml with SQS FIFO Dead-Letter Target...',
+        ? '[00:01.100] [Tool:Xiaohongshu_Card_Formatter] 已生成 3 组 3:4 视觉卡片与封面构图...'
+        : '[00:01.100] [Tool:Xiaohongshu_Card_Formatter] Generated 3 sets of 3:4 visual cards & covers...',
       locale === 'zh-CN'
-        ? '[00:01.890] [Verify] 在隔离沙箱中执行 `sam validate --lint` 静态分析...'
-        : '[00:01.890] [Verify] Executing `sam validate --lint` in isolated sandbox...',
+        ? '[00:01.890] [Verify] 校验标题公式、平台违禁词与标签矩阵...'
+        : '[00:01.890] [Verify] Validating headline formulas, banned words & hashtag matrix...',
       locale === 'zh-CN'
-        ? '[00:02.450] [Success] 0 错误。执行完成耗时 2.45s (消耗: 0.8 YD, Token: 1,420)。'
-        : '[00:02.450] [Success] 0 errors. Execution completed in 2.45s (Cost: 0.8 YD, Tokens: 1,420).'
+        ? '[00:02.450] [Success] 0 违禁词。执行完成耗时 2.45s (消耗: 0.8 YD, Token: 1,420)。'
+        : '[00:02.450] [Success] 0 banned words. Execution completed in 2.45s (Cost: 0.8 YD, Tokens: 1,420).'
     ]);
 
     setTimeout(() => {
       setIsRunningTest(false);
       showToast(
         locale === 'zh-CN'
-          ? '沙箱测试执行完毕，0 错误，完全符合规范！'
-          : 'Sandbox test execution completed with 0 errors!',
+          ? '沙箱测试执行完毕，素材生成符合平台规范！'
+          : 'Sandbox test completed, assets conform to platform guidelines!',
         'success'
       );
     }, 2000);
@@ -238,11 +246,13 @@ export const AgentStudioView: React.FC = () => {
                   isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                 }`}
               >
-                <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
-                <option value="Security & Audit">Security & Audit</option>
-                <option value="AI & Data Engineering">AI & Data Engineering</option>
-                <option value="Zero Knowledge & L2">Zero Knowledge & L2</option>
-                <option value="Web3 Fullstack">Web3 Fullstack</option>
+                <option value="视频创作与分片串联">视频创作与分片串联</option>
+                <option value="视觉与图片生成">视觉与图片生成</option>
+                <option value="PPT / 演示文稿生成">PPT / 演示文稿生成</option>
+                <option value="全平台社媒素材矩阵">全平台社媒素材矩阵</option>
+                <option value="Excel / 财务与报表分析">Excel / 财务与报表分析</option>
+                <option value="Word / 文档与 PRD 撰写">Word / 文档与 PRD 撰写</option>
+                <option value="长篇故事与网文小说">长篇故事与网文小说</option>
               </select>
             </div>
             <div>
