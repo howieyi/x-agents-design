@@ -1,54 +1,153 @@
 @import "tailwindcss";
 
+/* ============================================================
+   X AGENTS SPACE — 企业蓝主题（深色为主，可切换亮色）
+   主色 企业蓝(blue) × 辅助 天青(sky) × 冷灰(slate)
+   ============================================================ */
+
+/* 全局重映射内置色板：把全站的 purple-* / indigo-* / violet-* / slate-*
+   一次替换为企业蓝配色（无需逐组件手改） */
+@theme {
+  /* primary: 企业蓝 */
+  --color-purple-50: #EFF6FF;
+  --color-purple-100: #DBEAFE;
+  --color-purple-200: #BFDBFE;
+  --color-purple-300: #93C5FD;
+  --color-purple-400: #60A5FA;
+  --color-purple-500: #3B82F6;
+  --color-purple-600: #2563EB;
+  --color-purple-700: #1D4ED8;
+  --color-purple-800: #1E40AF;
+  --color-purple-900: #1E3A8A;
+  --color-purple-950: #172554;
+
+  /* accent: 天青 */
+  --color-indigo-50: #F0F9FF;
+  --color-indigo-100: #E0F2FE;
+  --color-indigo-200: #BAE6FD;
+  --color-indigo-300: #7DD3FC;
+  --color-indigo-400: #38BDF8;
+  --color-indigo-500: #0EA5E9;
+  --color-indigo-600: #0284C7;
+  --color-indigo-700: #0369A1;
+  --color-indigo-800: #075985;
+  --color-indigo-900: #0C4A6E;
+  --color-indigo-950: #082F49;
+
+  /* tertiary: 靛蓝 */
+  --color-violet-50: #EEF2FF;
+  --color-violet-100: #E0E7FF;
+  --color-violet-200: #C7D2FE;
+  --color-violet-300: #A5B4FC;
+  --color-violet-400: #818CF8;
+  --color-violet-500: #6366F1;
+  --color-violet-600: #4F46E5;
+  --color-violet-700: #4338CA;
+  --color-violet-800: #3730A3;
+  --color-violet-900: #312E81;
+  --color-violet-950: #1E1B4B;
+
+  /* neutral: 冷灰 */
+  --color-slate-50: #F8FAFC;
+  --color-slate-100: #F1F5F9;
+  --color-slate-200: #E2E8F0;
+  --color-slate-300: #CBD5E1;
+  --color-slate-400: #94A3B8;
+  --color-slate-500: #64748B;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1E293B;
+  --color-slate-900: #0F172A;
+  --color-slate-950: #020617;
+
+  /* brand / accent 命名 token（新代码直接用） */
+  --color-brand-500: #3B82F6;
+  --color-brand-600: #2563EB;
+  --color-accent-500: #0EA5E9;
+  --color-accent-600: #0284C7;
+}
+
 @layer base {
   :root {
     --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 默认深色：深蓝黑底 */
+  body {
+    font-family: var(--font-inter);
+    background-color: #0A101F;
+    color: #E2E8F0;
+  }
+
+  /* 全局渐变背景：分层纵深（顶部蓝光 + 底部青光），随主题切换 */
+  html.theme-dark body {
+    background:
+      radial-gradient(1100px 720px at 85% -8%, rgba(59, 130, 246, 0.18), transparent 60%),
+      radial-gradient(900px 640px at -10% 108%, rgba(14, 165, 233, 0.14), transparent 55%),
+      radial-gradient(800px 500px at 50% 120%, rgba(99, 102, 241, 0.10), transparent 60%),
+      #0A101F;
+    background-attachment: fixed;
+  }
+
+  html.theme-light body {
+    background:
+      radial-gradient(1000px 640px at 85% -8%, rgba(59, 130, 246, 0.10), transparent 60%),
+      radial-gradient(900px 600px at -10% 108%, rgba(14, 165, 233, 0.08), transparent 55%),
+      #F5F7FA;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(59, 130, 246, 0.35);
+    color: #DBEAFE;
   }
 }
 
-/* Custom theme variables for Dark and Light mode - Enterprise Radiant Purple */
+/* 深色主题变量（企业蓝深色调） */
 .theme-dark {
-  --bg-obsidian: #0A0C1B;
-  --surface-deep: #10132B;
-  --surface-elevated: #161A38;
-  --surface-card: #1D2146;
-  --border-subtle: #2D325E;
-  --border-focus: #A855F7;
-  --text-primary: #F8FAFC;
+  --bg-obsidian: #0A101F;
+  --surface-deep: #101A2E;
+  --surface-elevated: #16233C;
+  --surface-card: #13203A;
+  --border-subtle: #1F2D4A;
+  --border-focus: #3B82F6;
+  --text-primary: #E2E8F0;
   --text-secondary: #CBD5E1;
   --text-muted: #94A3B8;
-  --cyan-primary: #8B5CF6;
-  --violet-ai: #A855F7;
+  --brand-primary: #3B82F6;
+  --brand-secondary: #38BDF8;
   --yd-gold: #FBBF24;
   --status-success: #34D399;
-  --status-warning: #F59E0B;
-  --status-critical: #F43F5E;
-  --status-info: #6366F1;
+  --status-warning: #FBBF24;
+  --status-critical: #F87171;
+  --status-info: #38BDF8;
 }
 
+/* 亮色主题变量（企业蓝浅色调） */
 .theme-light {
-  --bg-obsidian: #FAF8FF;
+  --bg-obsidian: #F5F7FA;
   --surface-deep: #FFFFFF;
-  --surface-elevated: #F3E8FF;
+  --surface-elevated: #EFF6FF;
   --surface-card: #FFFFFF;
-  --border-subtle: #E9D5FF;
-  --border-focus: #7C3AED;
-  --text-primary: #1E1B4B;
-  --text-secondary: #4C1D95;
-  --text-muted: #6B7280;
-  --cyan-primary: #7C3AED;
-  --violet-ai: #6D28D9;
-  --yd-gold: #D97706;
+  --border-subtle: #E2E8F0;
+  --border-focus: #2563EB;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --brand-primary: #2563EB;
+  --brand-secondary: #0284C7;
+  --yd-gold: #F59E0B;
   --status-success: #10B981;
-  --status-warning: #D97706;
-  --status-critical: #E11D48;
-  --status-info: #4F46E5;
-}
-
-body {
-  font-family: var(--font-inter);
+  --status-warning: #F59E0B;
+  --status-critical: #EF4444;
+  --status-info: #0284C7;
 }
 
 .font-display {
@@ -60,7 +159,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Custom scrollbars */
+/* 柔和滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -71,26 +170,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.25);
+  background: rgba(59, 130, 246, 0.35);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.45);
+  background: rgba(59, 130, 246, 0.55);
 }
 
-/* Futuristic C-End Glow & Animation Effects */
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
+/* 轻量动效 */
 @keyframes floatSlow {
   0%, 100% {
     transform: translateY(0px);
@@ -109,16 +197,12 @@ body {
   }
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 6s ease-in-out infinite;
-}
-
 .animate-float-slow {
   animation: floatSlow 5s ease-in-out infinite;
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #A855F7 0%, #8B5CF6 30%, #6366F1 60%, #C084FC 100%);
+  background: linear-gradient(90deg, #60A5FA 0%, #3B82F6 30%, #38BDF8 60%, #818CF8 100%);
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
@@ -129,8 +213,6 @@ body {
 .glass-panel-glow {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(168, 85, 247, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  box-shadow: 0 8px 32px 0 rgba(10, 16, 31, 0.55);
 }
-
-

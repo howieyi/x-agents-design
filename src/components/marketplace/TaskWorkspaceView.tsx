@@ -50,6 +50,7 @@ export const TaskWorkspaceView: React.FC = () => {
   const steps = [
     { key: 'draft', label: t('status_draft') },
     { key: 'open', label: t('status_open') },
+    { key: 'matching', label: t('status_matching') },
     { key: 'assigned', label: t('status_assigned') },
     { key: 'in_progress', label: t('status_in_progress') },
     { key: 'submitted', label: t('status_submitted') },
@@ -70,11 +71,11 @@ export const TaskWorkspaceView: React.FC = () => {
             <span className="font-mono text-xs font-bold text-purple-600 dark:text-purple-400">#{activeTask.id}</span>
             <span className="text-xs text-slate-500 dark:text-slate-400">· {activeTask.category}</span>
             {activeTask.status === 'disputed' ? (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
                 {t('status_disputed')}
               </span>
             ) : (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                 {activeTask.status.replace('_', ' ').toUpperCase()}
               </span>
             )}
@@ -91,7 +92,7 @@ export const TaskWorkspaceView: React.FC = () => {
             onChange={(e) => setActiveTaskId(e.target.value)}
             className={`px-3.5 py-2 rounded-2xl border text-xs font-medium cursor-pointer transition-colors ${
               isDark
-                ? 'bg-[#10132B] border-purple-900/40 text-slate-200 focus:border-purple-500'
+                ? 'bg-[#101A2E] border-purple-900/40 text-slate-200 focus:border-purple-500'
                 : 'bg-white border-purple-100 text-slate-800 focus:border-purple-400 shadow-sm'
             }`}
           >
@@ -107,7 +108,7 @@ export const TaskWorkspaceView: React.FC = () => {
       {/* Task Status Stepper */}
       <div
         className={`p-4 sm:p-5 rounded-3xl border transition-colors ${
-          isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+          isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
         }`}
       >
         <div className="flex items-center justify-between overflow-x-auto pb-2 sm:pb-0 gap-2">
@@ -123,9 +124,9 @@ export const TaskWorkspaceView: React.FC = () => {
                       isCompleted
                         ? 'bg-emerald-500 text-white'
                         : isCurrent
-                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white ring-4 ring-purple-500/20'
+                        ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white ring-4 ring-purple-500/20'
                         : isDark
-                        ? 'bg-[#0D0F24] text-slate-500 border border-purple-900/40'
+                        ? 'bg-[#0D1526] text-slate-500 border border-purple-900/40'
                         : 'bg-purple-50 text-slate-400 border border-purple-100'
                     }`}
                   >
@@ -167,7 +168,7 @@ export const TaskWorkspaceView: React.FC = () => {
             onClick={() => setActiveTabSub('orchestration')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTabSub === 'orchestration'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-xs'
                 : isDark
                 ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
                 : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
@@ -176,7 +177,7 @@ export const TaskWorkspaceView: React.FC = () => {
             <Workflow className="w-3.5 h-3.5" />
             {t('tab_agent_orchestration')}
             {activeTask.orchestration?.nodes && (
-              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${activeTabSub === 'orchestration' ? 'bg-white/20 text-white' : 'bg-purple-500/15 text-purple-600 dark:text-purple-300'}`}>
+              <span className={`px-1.5 py-0.2 rounded-full text-[11px] ${activeTabSub === 'orchestration' ? 'bg-white/20 text-white' : 'bg-purple-500/15 text-purple-600 dark:text-purple-300'}`}>
                 {activeTask.orchestration.nodes.length}
               </span>
             )}
@@ -185,7 +186,7 @@ export const TaskWorkspaceView: React.FC = () => {
             onClick={() => setActiveTabSub('timeline')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'timeline'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-xs'
                 : isDark
                 ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
                 : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
@@ -197,7 +198,7 @@ export const TaskWorkspaceView: React.FC = () => {
             onClick={() => setActiveTabSub('deliverables')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'deliverables'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-xs'
                 : isDark
                 ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
                 : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
@@ -209,7 +210,7 @@ export const TaskWorkspaceView: React.FC = () => {
             onClick={() => setActiveTabSub('escrow')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
               activeTabSub === 'escrow'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-xs'
                 : isDark
                 ? 'text-slate-400 hover:text-white hover:bg-purple-950/30'
                 : 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
@@ -257,7 +258,7 @@ export const TaskWorkspaceView: React.FC = () => {
             {activeTabSub === 'timeline' && (
               <div
                 className={`p-5 rounded-3xl border ${
-                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                  isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
                 }`}
               >
                 <div className="flex items-center justify-between mb-4 pb-3 border-b border-purple-500/10 dark:border-purple-900/40">
@@ -303,7 +304,7 @@ export const TaskWorkspaceView: React.FC = () => {
                           <div
                             className={`mt-2 p-2.5 rounded-xl text-[11px] font-mono border ${
                               isDark
-                                ? 'bg-[#0D0F24] border-purple-900/40 text-emerald-400'
+                                ? 'bg-[#0D1526] border-purple-900/40 text-emerald-400'
                                 : 'bg-purple-50/50 border-purple-100 text-emerald-800'
                             }`}
                           >
@@ -323,7 +324,7 @@ export const TaskWorkspaceView: React.FC = () => {
                   <div
                     key={del.id}
                     className={`p-4 rounded-3xl border transition-all ${
-                      isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                      isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
@@ -335,17 +336,17 @@ export const TaskWorkspaceView: React.FC = () => {
                         <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{del.description}</p>
                       </div>
 
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                      <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                         Submitted
                       </span>
                     </div>
 
                     {del.deliverableHash && (
                       <div className={`mt-3 p-2.5 rounded-xl border text-[11px] font-mono flex items-center justify-between gap-2 overflow-hidden ${
-                        isDark ? 'bg-[#0D0F24] border-purple-900/40 text-slate-400' : 'bg-purple-50/50 border-purple-100 text-slate-600'
+                        isDark ? 'bg-[#0D1526] border-purple-900/40 text-slate-400' : 'bg-purple-50/50 border-purple-100 text-slate-600'
                       }`}>
                         <span className="truncate">{del.deliverableHash}</span>
-                        <span className="text-[10px] text-purple-600 dark:text-purple-400 shrink-0 font-sans font-semibold">
+                        <span className="text-[11px] text-purple-600 dark:text-purple-400 shrink-0 font-sans font-semibold">
                           SHA-256 Verified
                         </span>
                       </div>
@@ -358,26 +359,26 @@ export const TaskWorkspaceView: React.FC = () => {
             {activeTabSub === 'escrow' && (
               <div
                 className={`p-5 rounded-3xl border space-y-4 text-xs ${
-                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                  isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
                 }`}
               >
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white">Escrow Smart Contract State</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
                     <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Contract Address:</span>
                     <span className="font-mono text-[11px] text-purple-600 dark:text-purple-400 font-bold">
                       {activeTask.escrowContract}
                     </span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
                     <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Settlement Asset:</span>
                     <span className="font-bold text-amber-600 dark:text-amber-400">YD ERC-20 (Base Sepolia)</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
                     <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Locked Reward:</span>
                     <span className="font-bold text-slate-900 dark:text-white">{activeTask.rewardYD} YD</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
                     <span className="text-slate-500 dark:text-slate-400 block text-[11px] mb-1">Agent Performance Stake:</span>
                     <span className="font-bold text-emerald-600 dark:text-emerald-400">{activeTask.stakeYD} YD</span>
                   </div>
@@ -391,27 +392,27 @@ export const TaskWorkspaceView: React.FC = () => {
             {/* Participants Card */}
             <div
               className={`p-4 rounded-3xl border text-xs space-y-3 ${
-                isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
               }`}
             >
-              <h3 className="font-bold uppercase text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+              <h3 className="font-bold uppercase text-[11px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
                 Task Participants & Wallets
               </h3>
 
               <div className="space-y-2">
-                <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400">Task Owner (Funder)</p>
+                <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Task Owner (Funder)</p>
                   <p className="font-semibold text-xs text-slate-900 dark:text-white mt-0.5">{activeTask.owner.name}</p>
-                  <p className="font-mono text-[10px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
+                  <p className="font-mono text-[11px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
                     {activeTask.owner.walletAddress}
                   </p>
                 </div>
 
                 {activeTask.assignedAgent && (
-                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D0F24] border border-purple-100 dark:border-purple-900/40">
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Assigned Agent Operator</p>
+                  <div className="p-3 rounded-2xl bg-purple-50/50 dark:bg-[#0D1526] border border-purple-100 dark:border-purple-900/40">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">Assigned Agent Operator</p>
                     <p className="font-semibold text-xs text-slate-900 dark:text-white mt-0.5">{activeTask.assignedAgent.name}</p>
-                    <p className="font-mono text-[10px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
+                    <p className="font-mono text-[11px] text-purple-600 dark:text-purple-400 truncate mt-0.5">
                       {activeTask.assignedAgent.author.payoutWallet}
                     </p>
                   </div>
@@ -422,10 +423,10 @@ export const TaskWorkspaceView: React.FC = () => {
             {/* Acceptance Criteria Checklist */}
             <div
               className={`p-4 rounded-3xl border text-xs space-y-2.5 ${
-                isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
               }`}
             >
-              <h3 className="font-bold uppercase text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+              <h3 className="font-bold uppercase text-[11px] tracking-wider text-slate-500 dark:text-slate-400 font-mono">
                 Acceptance Criteria
               </h3>
               <ul className="space-y-2">
@@ -450,7 +451,7 @@ export const TaskWorkspaceView: React.FC = () => {
           />
           <div
             className={`relative z-10 w-full max-w-md rounded-3xl border p-6 space-y-4 shadow-2xl ${
-              isDark ? 'bg-[#10132B] border-purple-900/40 text-white' : 'bg-white border-purple-100 text-slate-900'
+              isDark ? 'bg-[#101A2E] border-purple-900/40 text-white' : 'bg-white border-purple-100 text-slate-900'
             }`}
           >
             <div className="flex items-center gap-2 text-rose-500 font-bold text-base">
@@ -466,7 +467,7 @@ export const TaskWorkspaceView: React.FC = () => {
               onChange={(e) => setDisputeReason(e.target.value)}
               placeholder="State the exact acceptance criteria failure or defect..."
               className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
-                isDark ? 'bg-[#0D0F24] border-purple-900/50 focus:border-purple-500 text-white' : 'bg-purple-50/50 border-purple-100 focus:border-purple-400 text-slate-900'
+                isDark ? 'bg-[#0D1526] border-purple-900/50 focus:border-purple-500 text-white' : 'bg-purple-50/50 border-purple-100 focus:border-purple-400 text-slate-900'
               }`}
             />
             <div className="flex justify-end gap-2 pt-2">

@@ -148,7 +148,7 @@ export const SupportView: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="font-display font-bold text-2xl tracking-tight flex items-center gap-2">
-            <LifeBuoy className="w-6 h-6 text-[#36E4DA]" />
+            <LifeBuoy className="w-6 h-6 text-[#0284C7]" />
             {t('support_title')}
           </h1>
           <p className="text-xs md:text-sm text-slate-400 mt-1">
@@ -159,7 +159,7 @@ export const SupportView: React.FC = () => {
         <button
           onClick={handleRunDiagnostic}
           disabled={isDiagnosing}
-          className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#36E4DA] text-[#07111F] hover:bg-[#36E4DA]/90 transition-all flex items-center gap-2 shadow-md self-start md:self-auto cursor-pointer"
+          className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#0284C7] text-[#0A101F] hover:bg-[#0284C7]/90 transition-all flex items-center gap-2 shadow-md self-start md:self-auto cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isDiagnosing ? 'animate-spin' : ''}`} />
           {t('support_btn_run_diag')}
@@ -169,15 +169,15 @@ export const SupportView: React.FC = () => {
       {/* Diagnostics Grid */}
       <div
         className={`p-6 rounded-2xl border space-y-4 ${
-          isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+          isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
         }`}
       >
         <div className="flex items-center justify-between">
           <h2 className="font-display font-semibold text-sm tracking-tight flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#35D07F]" />
+            <ShieldCheck className="w-4 h-4 text-[#10B981]" />
             {t('support_diag_title')}
           </h2>
-          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#35D07F]/20 text-[#35D07F]">
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#10B981]/20 text-[#10B981]">
             {t('system_healthy')}
           </span>
         </div>
@@ -187,15 +187,15 @@ export const SupportView: React.FC = () => {
             <div
               key={diag.id}
               className={`p-3.5 rounded-xl border ${
-                isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
               }`}
             >
               <div className="flex items-center justify-between text-slate-400 mb-1">
                 <span className="font-sans font-medium text-slate-200 truncate">{diag.name}</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#35D07F] shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
               </div>
-              <p className="font-display text-lg font-bold text-[#36E4DA]">{diag.latency}</p>
-              <p className="text-[10px] text-slate-400 mt-1 font-sans truncate">{diag.detail}</p>
+              <p className="font-display text-lg font-bold text-[#0284C7]">{diag.latency}</p>
+              <p className="text-[11px] text-slate-400 mt-1 font-sans truncate">{diag.detail}</p>
             </div>
           ))}
         </div>
@@ -206,7 +206,7 @@ export const SupportView: React.FC = () => {
         {/* Left: Interactive FAQ (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           <h2 className="font-display font-semibold text-base tracking-tight flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-[#7568FF]" />
+            <HelpCircle className="w-4 h-4 text-[#6366F1]" />
             {t('support_faq_title')}
           </h2>
 
@@ -217,7 +217,7 @@ export const SupportView: React.FC = () => {
                 <div
                   key={faq.id}
                   className={`rounded-2xl border transition-all ${
-                    isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+                    isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
                   }`}
                 >
                   <button
@@ -245,14 +245,14 @@ export const SupportView: React.FC = () => {
         {/* Right: Submit Support Ticket Form (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           <h2 className="font-display font-semibold text-base tracking-tight flex items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-[#36E4DA]" />
+            <MessageSquare className="w-4 h-4 text-[#0284C7]" />
             {t('support_contact_title')}
           </h2>
 
           <form
             onSubmit={handleSubmitTicket}
             className={`p-5 rounded-2xl border space-y-4 text-xs ${
-              isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+              isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
             }`}
           >
             <div>
@@ -263,7 +263,7 @@ export const SupportView: React.FC = () => {
                 value={ticketCategory}
                 onChange={(e) => setTicketCategory(e.target.value)}
                 className={`w-full p-2.5 rounded-xl border text-xs ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               >
                 <option value="Escrow & Settlement">Escrow & Settlement</option>
@@ -284,7 +284,7 @@ export const SupportView: React.FC = () => {
                 onChange={(e) => setTicketSubject(e.target.value)}
                 placeholder={locale === 'zh-CN' ? '简述您遇到的技术问题...' : 'Brief summary of the issue...'}
                 className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               />
             </div>
@@ -303,7 +303,7 @@ export const SupportView: React.FC = () => {
                     : 'Provide step-by-step details, task ID, or transaction hash...'
                 }
                 className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none resize-none ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               />
             </div>
@@ -311,7 +311,7 @@ export const SupportView: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#7568FF] text-white hover:bg-[#6355E0] transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+              className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#6366F1] text-white hover:bg-[#4F46E5] transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
               {isSubmitting

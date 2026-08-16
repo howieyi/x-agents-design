@@ -83,7 +83,7 @@ const MainContent: React.FC = () => {
   return (
     <div
       className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
-        isDark ? 'bg-[#0A0C1B] text-[#F8FAFC]' : 'bg-[#FAF8FF] text-slate-900'
+        isDark ? 'text-[#F8FAFC]' : 'text-slate-900'
       }`}
     >
       {/* Modern C-End Top Navigation Bar */}

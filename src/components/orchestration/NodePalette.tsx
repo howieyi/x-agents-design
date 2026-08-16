@@ -138,7 +138,7 @@ export const NodePalette: React.FC<NodePaletteProps> = ({ onAddNode, isDark }) =
             <div className="text-xs font-semibold truncate w-full text-slate-200">
               {isZh ? item.titleZh : item.title}
             </div>
-            <div className="text-[10px] text-slate-400 line-clamp-1 mt-0.5">
+            <div className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
               {isZh ? item.descriptionZh : item.description}
             </div>
           </button>

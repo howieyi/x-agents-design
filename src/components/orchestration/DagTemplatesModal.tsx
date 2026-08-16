@@ -151,7 +151,7 @@ export const DagTemplatesModal: React.FC<DagTemplatesModalProps> = ({
                         <span className="font-bold text-sm text-slate-100">
                           {isZh ? tpl.nameZh || tpl.name : tpl.name}
                         </span>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                        <span className="px-2 py-0.5 rounded-full text-[11px] font-mono uppercase bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
                           {tpl.topology}
                         </span>
                       </div>

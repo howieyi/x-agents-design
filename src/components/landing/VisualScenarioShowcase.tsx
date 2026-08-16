@@ -138,16 +138,16 @@ export const VisualScenarioShowcase: React.FC = () => {
               onClick={() => setActiveScenario(idx)}
               className={`px-4 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
                 isActive
-                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-500 shadow-lg shadow-purple-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white border-purple-500 shadow-lg shadow-purple-500/25 scale-[1.02]'
                   : isDark
-                  ? 'bg-[#10132B] border-purple-900/40 text-slate-300 hover:bg-[#161A38] hover:text-white'
+                  ? 'bg-[#101A2E] border-purple-900/40 text-slate-300 hover:bg-[#16233C] hover:text-white'
                   : 'bg-white border-purple-100 text-slate-700 hover:bg-purple-50 hover:text-purple-900 shadow-xs'
               }`}
             >
               <span className={isActive ? 'text-white' : 'text-purple-400'}>{sc.icon}</span>
               <span>{locale === 'zh-CN' ? sc.titleZh : sc.titleEn}</span>
               <span
-                className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold ${
+                className={`text-[11px] font-mono px-1.5 py-0.2 rounded-full font-bold ${
                   isActive ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-400'
                 }`}
               >
@@ -162,7 +162,7 @@ export const VisualScenarioShowcase: React.FC = () => {
       <div
         className={`rounded-3xl border p-5 sm:p-8 transition-all duration-300 shadow-2xl ${
           isDark
-            ? 'bg-gradient-to-b from-[#10132B] via-[#161A38] to-[#10132B] border-purple-900/50 shadow-purple-950/40'
+            ? 'bg-gradient-to-b from-[#101A2E] via-[#16233C] to-[#101A2E] border-purple-900/50 shadow-purple-950/40'
             : 'bg-white border-purple-100 shadow-purple-500/10'
         }`}
       >
@@ -192,7 +192,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {/* Model & Delivery Metrics */}
             <div
               className={`p-4 rounded-2xl border space-y-3 ${
-                isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
+                isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
               }`}
             >
               <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-500 flex items-center justify-between">
@@ -219,7 +219,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <button
                 onClick={() => setIsPublishWizardOpen(true)}
-                className="flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
+                className="flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
               >
                 <Sparkles className="w-4 h-4 text-purple-200" />
                 <span>{locale === 'zh-CN' ? '一键发布同款需求' : 'Post Similar Task'}</span>
@@ -230,7 +230,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                 onClick={() => setActiveTab('tasks')}
                 className={`py-3 px-4 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 transition-colors ${
                   isDark
-                    ? 'border-purple-900/50 hover:bg-[#1D2146] text-purple-200'
+                    ? 'border-purple-900/50 hover:bg-[#1A2942] text-purple-200'
                     : 'border-purple-200 hover:bg-purple-50 text-purple-800'
                 }`}
               >
@@ -246,7 +246,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {activeScenario === 0 && (
               <div
                 className={`rounded-2xl border overflow-hidden shadow-2xl transition-all ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-slate-900 text-white'
+                  isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-slate-900 text-white'
                 }`}
               >
                 {/* Mockup Window Title Bar */}
@@ -260,7 +260,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
                       4K UHD · HDR10+ · 60 FPS
                     </span>
                   </div>
@@ -269,7 +269,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                 {/* Video Stage Frame */}
                 <div className="relative aspect-video bg-gradient-to-tr from-slate-950 via-purple-950/80 to-slate-950 flex flex-col justify-between p-4 overflow-hidden group">
                   {/* Visual Background Simulation */}
-                  <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#8B5CF6_1px,transparent_1px)] [background-size:16px_16px]" />
+                  <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] [background-size:16px_16px]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
 
                   {/* Dynamic Floating Visual Tags */}
@@ -284,7 +284,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                         <button
                           key={aspect}
                           onClick={() => setSelectedAspect(aspect)}
-                          className={`text-[10px] font-mono px-2 py-0.5 rounded-md transition-all ${
+                          className={`text-[11px] font-mono px-2 py-0.5 rounded-md transition-all ${
                             selectedAspect === aspect
                               ? 'bg-purple-600 text-white font-bold'
                               : 'bg-black/50 text-slate-400 hover:text-white'
@@ -336,7 +336,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                       <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                         <div className="w-2/3 h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full" />
                       </div>
-                      <span className="text-[10px] font-mono text-slate-400">00:38 / 01:00</span>
+                      <span className="text-[11px] font-mono text-slate-400">00:38 / 01:00</span>
                     </div>
                   </div>
                 </div>
@@ -344,16 +344,16 @@ export const VisualScenarioShowcase: React.FC = () => {
                 {/* Sub-Deliverables Thumbnail Matrix */}
                 <div className="p-3 bg-slate-950 border-t border-purple-900/40 grid grid-cols-3 gap-2 text-left">
                   <div className="p-2 rounded-xl bg-purple-950/40 border border-purple-900/40">
-                    <div className="text-[10px] font-mono text-purple-300 font-bold">12x 小红书 3:4 视觉卡片</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5 truncate">种草文案 + Midjourney v6</div>
+                    <div className="text-[11px] font-mono text-purple-300 font-bold">12x 小红书 3:4 视觉卡片</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5 truncate">种草文案 + Midjourney v6</div>
                   </div>
                   <div className="p-2 rounded-xl bg-purple-950/40 border border-purple-900/40">
-                    <div className="text-[10px] font-mono text-purple-300 font-bold">3套 抖音 9:16 脚本</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5 truncate">黄金3秒悬念 + 完播率优化</div>
+                    <div className="text-[11px] font-mono text-purple-300 font-bold">3套 抖音 9:16 脚本</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5 truncate">黄金3秒悬念 + 完播率优化</div>
                   </div>
                   <div className="p-2 rounded-xl bg-purple-950/40 border border-purple-900/40">
-                    <div className="text-[10px] font-mono text-purple-300 font-bold">微信公众号深度长文</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5 truncate">全案排版 HTML + 交互图</div>
+                    <div className="text-[11px] font-mono text-purple-300 font-bold">微信公众号深度长文</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5 truncate">全案排版 HTML + 交互图</div>
                   </div>
                 </div>
               </div>
@@ -363,7 +363,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {activeScenario === 1 && (
               <div
                 className={`rounded-2xl border overflow-hidden shadow-2xl transition-all ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-slate-950 text-white'
+                  isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-slate-950 text-white'
                 }`}
               >
                 {/* IDE Tab Header */}
@@ -401,7 +401,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                     </button>
                   </div>
 
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
                     148/148 Tests Passed
                   </span>
                 </div>
@@ -492,7 +492,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {activeScenario === 2 && (
               <div
                 className={`rounded-2xl border overflow-hidden shadow-2xl transition-all ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-slate-950 text-white'
+                  isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-slate-950 text-white'
                 }`}
               >
                 {/* Excel & Deck Switcher Header */}
@@ -503,7 +503,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                       SaaS_B_Round_3Statement_Valuation_Model.xlsx
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30">
                     35-Page Deck Included
                   </span>
                 </div>
@@ -567,7 +567,7 @@ export const VisualScenarioShowcase: React.FC = () => {
 
                   {/* 35-Page Pitch Deck Carousel Preview */}
                   <div className="pt-2 border-t border-purple-900/30 space-y-2">
-                    <div className="text-[10px] font-mono text-purple-400 uppercase tracking-wider flex items-center justify-between">
+                    <div className="text-[11px] font-mono text-purple-400 uppercase tracking-wider flex items-center justify-between">
                       <span>35-Page Pitch Deck Slides (.pptx)</span>
                       <span>Slide {activeSlide + 1} / 35</span>
                     </div>
@@ -588,7 +588,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                               : 'bg-purple-950/30 text-slate-400 border-purple-900/40 hover:text-slate-200'
                           }`}
                         >
-                          <div className="text-[9px] font-mono opacity-80">{slide.tag}</div>
+                          <div className="text-[10px] font-mono opacity-80">{slide.tag}</div>
                           <div className="text-[11px] font-bold truncate mt-0.5">{slide.title}</div>
                         </button>
                       ))}
@@ -602,7 +602,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {activeScenario === 3 && (
               <div
                 className={`rounded-2xl border overflow-hidden shadow-2xl transition-all ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-slate-950 text-white'
+                  isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-slate-950 text-white'
                 }`}
               >
                 {/* Worldbuilding Header */}
@@ -613,7 +613,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                       东方奇幻修真世界观设定集 · 100万字连载工程
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
                     Chapter 1-50 Delivered
                   </span>
                 </div>
@@ -656,15 +656,15 @@ export const VisualScenarioShowcase: React.FC = () => {
                           className="w-full h-24 object-cover rounded-xl mb-2 border border-purple-500/30"
                         />
                         <div className="text-xs font-bold text-white truncate">{char.name}</div>
-                        <div className="text-[10px] text-purple-300 font-mono mt-0.5">{char.role}</div>
-                        <div className="text-[9px] text-amber-400 font-mono mt-0.5">{char.realm}</div>
+                        <div className="text-[11px] text-purple-300 font-mono mt-0.5">{char.role}</div>
+                        <div className="text-[10px] text-amber-400 font-mono mt-0.5">{char.realm}</div>
                       </button>
                     ))}
                   </div>
 
                   {/* Lore Vector Memory Search Log */}
                   <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-900/40 text-xs font-mono space-y-1">
-                    <div className="text-[10px] text-purple-400 uppercase font-bold flex items-center justify-between">
+                    <div className="text-[11px] text-purple-400 uppercase font-bold flex items-center justify-between">
                       <span>Vector Memory Context Search (DeepSeek-R1)</span>
                       <span className="text-emerald-400">Recall Score: 0.964</span>
                     </div>
@@ -680,7 +680,7 @@ export const VisualScenarioShowcase: React.FC = () => {
             {activeScenario === 4 && (
               <div
                 className={`rounded-2xl border overflow-hidden shadow-2xl transition-all ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-slate-950 text-white'
+                  isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-slate-950 text-white'
                 }`}
               >
                 {/* Onchain Protocol Header */}
@@ -691,7 +691,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                       Base Sepolia Dual-Staking Escrow Engine
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
                     State: Auto-Settled
                   </span>
                 </div>
@@ -713,7 +713,7 @@ export const VisualScenarioShowcase: React.FC = () => {
                           ✓
                         </div>
                         <div className="text-[11px] font-bold text-white leading-tight">{st.title}</div>
-                        <div className="text-[10px] text-emerald-400 font-mono">{st.status}</div>
+                        <div className="text-[11px] text-emerald-400 font-mono">{st.status}</div>
                       </div>
                     ))}
                   </div>

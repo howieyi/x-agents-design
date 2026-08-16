@@ -84,14 +84,14 @@ export const MultiTokenCheckoutModal: React.FC = () => {
         id="multi-token-checkout-modal"
         className={`relative z-10 w-full max-w-lg rounded-2xl border shadow-2xl overflow-hidden flex flex-col ${
           isDark
-            ? 'bg-[#0A1424] border-[#243550] text-[#F4F7FB]'
+            ? 'bg-[#0E1628] border-[#1F2D4A] text-[#F8FAFC]'
             : 'bg-white border-slate-200 text-slate-900'
         }`}
       >
         {/* Header */}
         <div className="p-5 border-b flex items-center justify-between border-slate-700/20">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-[#FFC857]/20 text-[#FFC857]">
+            <div className="p-1.5 rounded-lg bg-[#F59E0B]/20 text-[#F59E0B]">
               <Coins className="w-5 h-5" />
             </div>
             <div>
@@ -117,7 +117,7 @@ export const MultiTokenCheckoutModal: React.FC = () => {
               {/* Target YD Needed Input */}
               <div
                 className={`p-4 rounded-xl border space-y-1.5 ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               >
                 <div className="flex justify-between items-center text-slate-400 text-[11px]">
@@ -129,9 +129,9 @@ export const MultiTokenCheckoutModal: React.FC = () => {
                     type="number"
                     value={targetYDAmount}
                     onChange={(e) => setTargetYDAmount(Math.max(1, Number(e.target.value)))}
-                    className="w-2/3 bg-transparent text-xl font-display font-bold font-mono-tabular text-[#FFC857] focus:outline-none"
+                    className="w-2/3 bg-transparent text-xl font-display font-bold font-mono-tabular text-[#F59E0B] focus:outline-none"
                   />
-                  <span className="font-bold text-sm text-[#FFC857] px-2 py-1 rounded bg-[#FFC857]/15">
+                  <span className="font-bold text-sm text-[#F59E0B] px-2 py-1 rounded bg-[#F59E0B]/15">
                     YD
                   </span>
                 </div>
@@ -155,9 +155,9 @@ export const MultiTokenCheckoutModal: React.FC = () => {
                         onClick={() => setSelectedToken(tok)}
                         className={`p-2.5 rounded-xl border text-center font-bold text-xs transition-all ${
                           isSelected
-                            ? 'bg-[#36E4DA] text-[#07111F] border-[#36E4DA] shadow-xs'
+                            ? 'bg-[#0284C7] text-[#0A101F] border-[#0284C7] shadow-xs'
                             : isDark
-                            ? 'bg-[#07111F] border-[#243550] text-slate-300 hover:border-slate-600'
+                            ? 'bg-[#0A101F] border-[#1F2D4A] text-slate-300 hover:border-slate-600'
                             : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                         }`}
                       >
@@ -171,7 +171,7 @@ export const MultiTokenCheckoutModal: React.FC = () => {
               {/* 0x Quote Route Summary */}
               <div
                 className={`p-3.5 rounded-xl border space-y-2 font-mono-tabular ${
-                  isDark ? 'bg-[#07111F]/80 border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F]/80 border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               >
                 <div className="flex justify-between text-slate-400">
@@ -188,13 +188,13 @@ export const MultiTokenCheckoutModal: React.FC = () => {
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <span>{t('price_impact')}</span>
-                  <span className="text-[#35D07F]">{'< 0.04%'}</span>
+                  <span className="text-[#10B981]">{'< 0.04%'}</span>
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <span>{t('slippage_tolerance')}</span>
                   <span className="text-slate-200">{slippage}</span>
                 </div>
-                <div className="pt-2 border-t border-slate-700/30 flex justify-between items-center text-[#35D07F] font-sans text-[11px]">
+                <div className="pt-2 border-t border-slate-700/30 flex justify-between items-center text-[#10B981] font-sans text-[11px]">
                   <span className="flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4" /> {t('alchemy_sim')}
                   </span>
@@ -204,8 +204,8 @@ export const MultiTokenCheckoutModal: React.FC = () => {
 
               {/* Transaction Progress Indicator */}
               {isProcessing && (
-                <div className="p-3 rounded-xl bg-[#7568FF]/10 border border-[#7568FF]/30 space-y-2">
-                  <div className="flex items-center gap-2 text-[#7568FF] font-semibold">
+                <div className="p-3 rounded-xl bg-[#6366F1]/10 border border-[#6366F1]/30 space-y-2">
+                  <div className="flex items-center gap-2 text-[#6366F1] font-semibold">
                     <RefreshCw className="w-4 h-4 animate-spin" />
                     <span>
                       {txStep === 2 ? t('step_token_approval') : t('step_swap_yd')}
@@ -220,17 +220,17 @@ export const MultiTokenCheckoutModal: React.FC = () => {
           ) : (
             /* Step 4: Transaction Confirmed */
             <div className="py-6 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-[#35D07F]/20 text-[#35D07F] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-full bg-[#10B981]/20 text-[#10B981] flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h4 className="font-display font-bold text-base text-[#35D07F]">
+              <h4 className="font-display font-bold text-base text-[#10B981]">
                 Swap & Escrow Deposit Confirmed!
               </h4>
               <p className="text-xs text-slate-400">
                 Successfully acquired {targetYDAmount.toLocaleString()} YD and funded your task escrow balance.
               </p>
-              <div className="p-3 rounded-xl bg-[#07111F] border border-[#243550] text-[11px] font-mono text-slate-400">
-                Tx: 0x8f2d...6e12 (Base Block #18942304)
+              <div className="p-3 rounded-xl bg-[#0A101F] border border-[#1F2D4A] text-[11px] font-mono text-slate-400">
+                Tx: 0x8f2d...6e12 (Base Block #22C55E04)
               </div>
             </div>
           )}
@@ -253,7 +253,7 @@ export const MultiTokenCheckoutModal: React.FC = () => {
                 disabled={!hasSufficientToken || isProcessing}
                 className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-lg ${
                   hasSufficientToken && !isProcessing
-                    ? 'bg-[#FFC857] text-[#07111F] hover:bg-[#FFD479] cursor-pointer'
+                    ? 'bg-[#F59E0B] text-[#0A101F] hover:bg-[#FBBF24] cursor-pointer'
                     : 'bg-slate-700 text-slate-400 opacity-60 cursor-not-allowed'
                 }`}
               >
@@ -267,7 +267,7 @@ export const MultiTokenCheckoutModal: React.FC = () => {
                 setTxStep(1);
                 setIsCheckoutOpen(false);
               }}
-              className="w-full py-2.5 rounded-xl text-xs font-semibold bg-[#36E4DA] text-[#07111F] hover:bg-[#36E4DA]/90 transition-colors"
+              className="w-full py-2.5 rounded-xl text-xs font-semibold bg-[#0284C7] text-[#0A101F] hover:bg-[#0284C7]/90 transition-colors"
             >
               {t('close_btn')}
             </button>

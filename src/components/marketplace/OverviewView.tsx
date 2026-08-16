@@ -28,6 +28,7 @@ export const OverviewView: React.FC = () => {
     setActiveTab,
     setIsPublishWizardOpen,
     setSelectedAgent,
+    setSelectedAgentForPublish,
     setIsAgentDetailOpen,
     setActiveTaskId,
     openCheckoutForTask,
@@ -38,7 +39,7 @@ export const OverviewView: React.FC = () => {
   const isDark = theme === 'dark';
 
   const totalEscrowLocked = tasks.reduce((sum, task) => {
-    if (['open', 'assigned', 'in_progress', 'submitted'].includes(task.status)) {
+    if (['open', 'matching', 'assigned', 'in_progress', 'submitted'].includes(task.status)) {
       return sum + task.rewardYD;
     }
     return sum;
@@ -52,6 +53,7 @@ export const OverviewView: React.FC = () => {
       submitted: { label: t('status_submitted'), bg: isDark ? 'bg-amber-500/15' : 'bg-amber-100', text: isDark ? 'text-amber-300' : 'text-amber-800', border: 'border-amber-500/30' },
       in_progress: { label: t('status_in_progress'), bg: isDark ? 'bg-purple-500/15' : 'bg-purple-100', text: isDark ? 'text-purple-300' : 'text-purple-800', border: 'border-purple-500/30' },
       open: { label: t('status_open'), bg: isDark ? 'bg-indigo-500/15' : 'bg-indigo-100', text: isDark ? 'text-indigo-300' : 'text-indigo-800', border: 'border-indigo-500/30' },
+      matching: { label: t('status_matching'), bg: isDark ? 'bg-cyan-500/15' : 'bg-cyan-100', text: isDark ? 'text-cyan-300' : 'text-cyan-800', border: 'border-cyan-500/30' },
       assigned: { label: t('status_assigned'), bg: isDark ? 'bg-violet-500/15' : 'bg-violet-100', text: isDark ? 'text-violet-300' : 'text-violet-800', border: 'border-violet-500/30' },
       disputed: { label: t('status_disputed'), bg: isDark ? 'bg-rose-500/15' : 'bg-rose-100', text: isDark ? 'text-rose-300' : 'text-rose-800', border: 'border-rose-500/30' }
     };
@@ -63,6 +65,16 @@ export const OverviewView: React.FC = () => {
     );
   };
 
+  const openTaskWorkspace = (taskId: string) => {
+    setActiveTaskId(taskId);
+    setActiveTab('workspace');
+  };
+
+  const openTaskMatching = (taskId: string) => {
+    setActiveTaskId(taskId);
+    setActiveTab('matching');
+  };
+
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Welcome Banner */}
@@ -70,14 +82,14 @@ export const OverviewView: React.FC = () => {
         id="overview-hero"
         className={`relative overflow-hidden rounded-3xl border p-6 lg:p-8 transition-all shadow-xl ${
           isDark
-            ? 'bg-gradient-to-r from-[#10132B] via-[#161A38] to-[#10132B] border-purple-900/50 shadow-purple-950/40'
+            ? 'bg-gradient-to-r from-[#101A2E] via-[#16233C] to-[#101A2E] border-purple-900/50 shadow-purple-950/40'
             : 'bg-gradient-to-r from-purple-100/90 via-white to-indigo-50/90 border-purple-200 shadow-purple-500/10'
         }`}
       >
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="max-w-2xl space-y-2.5">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 font-bold">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono uppercase tracking-wider bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 font-bold">
                 {activeWallet.name}
               </span>
               <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">· Nexus Autonomous Swarm Workspace</span>
@@ -94,7 +106,7 @@ export const OverviewView: React.FC = () => {
             <button
               id="btn-overview-publish"
               onClick={() => setIsPublishWizardOpen(true)}
-              className="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#6366F1] hover:from-[#6D28D9] hover:to-[#4F46E5] text-white shadow-lg shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
+              className="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#2563EB] via-[#4F8EF7] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] text-white shadow-lg shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
             >
               <PlusCircle className="w-4 h-4" />
               {t('publish_task_btn')}
@@ -104,7 +116,7 @@ export const OverviewView: React.FC = () => {
               onClick={() => setActiveTab('agents')}
               className={`px-4 py-3 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-2 cursor-pointer ${
                 isDark
-                  ? 'border-purple-900/60 bg-[#0A0C1B] hover:bg-[#161A38] text-purple-200 hover:border-purple-500'
+                  ? 'border-purple-900/60 bg-[#0A101F] hover:bg-[#16233C] text-purple-200 hover:border-purple-500'
                   : 'border-purple-200 bg-white hover:bg-purple-50 text-purple-900 shadow-xs'
               }`}
             >
@@ -122,7 +134,7 @@ export const OverviewView: React.FC = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div
           className={`p-5 rounded-2xl border transition-all shadow-md ${
-            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
+            isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
@@ -138,7 +150,7 @@ export const OverviewView: React.FC = () => {
 
         <div
           className={`p-5 rounded-2xl border transition-all shadow-md ${
-            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
+            isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
@@ -154,7 +166,7 @@ export const OverviewView: React.FC = () => {
 
         <div
           className={`p-5 rounded-2xl border transition-all shadow-md ${
-            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
+            isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
@@ -167,7 +179,7 @@ export const OverviewView: React.FC = () => {
 
         <div
           className={`p-5 rounded-2xl border transition-all shadow-md ${
-            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
+            isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs mb-1.5 font-medium">
@@ -200,7 +212,7 @@ export const OverviewView: React.FC = () => {
             {activeTasks.length === 0 ? (
               <div
                 className={`p-8 text-center rounded-2xl border ${
-                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
+                  isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100'
                 }`}
               >
                 <p className="text-xs text-slate-500 dark:text-slate-400">{t('no_active_tasks')}</p>
@@ -212,7 +224,7 @@ export const OverviewView: React.FC = () => {
                   id={`overview-task-${task.id}`}
                   className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                     isDark
-                      ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
+                      ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
                       : 'bg-white border-purple-100 hover:border-purple-300 shadow-md shadow-purple-500/5'
                   }`}
                 >
@@ -237,7 +249,7 @@ export const OverviewView: React.FC = () => {
                       <p className="font-mono font-bold text-sm text-amber-500 dark:text-amber-400">
                         {task.rewardYD.toLocaleString()} YD
                       </p>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                         {task.stakeYD} YD {locale === 'zh-CN' ? '质押' : 'stake'}
                       </p>
                     </div>
@@ -265,19 +277,26 @@ export const OverviewView: React.FC = () => {
                     <button
                       id={`btn-manage-task-${task.id}`}
                       onClick={() => {
-                        setActiveTaskId(task.id);
-                        setActiveTab('workspace');
+                        if (task.status === 'matching' || task.status === 'open') {
+                          openTaskMatching(task.id);
+                        } else {
+                          openTaskWorkspace(task.id);
+                        }
                       }}
                       className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                         task.status === 'submitted'
                           ? 'bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/25'
+                          : task.status === 'matching' || task.status === 'open'
+                          ? 'bg-gradient-to-r from-cyan-500 to-sky-600 text-white hover:from-cyan-400 hover:to-sky-500 shadow-md shadow-cyan-500/20'
                           : isDark
-                          ? 'bg-[#161A38] hover:bg-[#1D2146] text-purple-300 border border-purple-900/50'
+                          ? 'bg-[#16233C] hover:bg-[#1A2942] text-purple-300 border border-purple-900/50'
                           : 'bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200'
                       }`}
                     >
                       {task.status === 'submitted'
                         ? locale === 'zh-CN' ? '审查交付物 & 验收' : 'Review & Settle'
+                        : task.status === 'matching' || task.status === 'open'
+                        ? locale === 'zh-CN' ? '去看匹配' : 'View Matches'
                         : locale === 'zh-CN' ? '进入工作台' : 'Open Workspace'}
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
@@ -310,7 +329,7 @@ export const OverviewView: React.FC = () => {
                 id={`overview-rec-agent-${agent.id}`}
                 className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                   isDark
-                    ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
+                    ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-500 shadow-md shadow-purple-950/20'
                     : 'bg-white border-purple-100 hover:border-purple-300 shadow-md shadow-purple-500/5'
                 }`}
               >
@@ -325,7 +344,7 @@ export const OverviewView: React.FC = () => {
                     <div className="flex items-center justify-between gap-1">
                       <h4 className="font-bold text-xs sm:text-sm truncate text-slate-900 dark:text-white">{agent.name}</h4>
                       {agent.matchScore && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 shrink-0">
+                        <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 shrink-0">
                           {agent.matchScore}% {locale === 'zh-CN' ? '匹配' : 'match'}
                         </span>
                       )}
@@ -338,7 +357,7 @@ export const OverviewView: React.FC = () => {
                 <div
                   className={`mt-3 p-2.5 rounded-xl text-[11px] border leading-relaxed ${
                     isDark
-                      ? 'bg-[#0A0C1B] border-purple-900/40 text-slate-300'
+                      ? 'bg-[#0A101F] border-purple-900/40 text-slate-300'
                       : 'bg-purple-50/70 border-purple-100 text-slate-700'
                   }`}
                 >
@@ -359,16 +378,17 @@ export const OverviewView: React.FC = () => {
                         setIsAgentDetailOpen(true);
                       }}
                       className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
-                        isDark ? 'hover:bg-[#161A38] text-purple-300' : 'hover:bg-purple-100 text-purple-900'
+                        isDark ? 'hover:bg-[#16233C] text-purple-300' : 'hover:bg-purple-100 text-purple-900'
                       }`}
                     >
                       {t('view_details')}
                     </button>
                     <button
                       onClick={() => {
+                        setSelectedAgentForPublish(agent);
                         setIsPublishWizardOpen(true);
                       }}
-                      className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
                     >
                       {t('invite_agent')}
                     </button>
@@ -383,7 +403,7 @@ export const OverviewView: React.FC = () => {
       {/* Bottom Section: Recent Settlements / Activity */}
       <div
         className={`rounded-3xl border p-6 transition-all shadow-xl ${
-          isDark ? 'bg-[#10132B] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
+          isDark ? 'bg-[#101A2E] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
         }`}
       >
         <div className="flex items-center justify-between mb-4">
@@ -412,7 +432,7 @@ export const OverviewView: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-purple-900/20 dark:divide-purple-950/50 font-mono-tabular">
               {transactions.slice(0, 4).map((tx) => (
-                <tr key={tx.id} className={isDark ? 'hover:bg-[#161A38]/50' : 'hover:bg-purple-50/50'}>
+                <tr key={tx.id} className={isDark ? 'hover:bg-[#16233C]/50' : 'hover:bg-purple-50/50'}>
                   <td className="py-3 font-mono text-[11px] text-purple-600 dark:text-purple-300 font-semibold">
                     {tx.txHash.substring(0, 10)}...{tx.txHash.substring(tx.txHash.length - 6)}
                   </td>
@@ -421,7 +441,7 @@ export const OverviewView: React.FC = () => {
                     {tx.amountYD.toLocaleString()} YD
                   </td>
                   <td className="py-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                       {tx.status}
                     </span>
                   </td>

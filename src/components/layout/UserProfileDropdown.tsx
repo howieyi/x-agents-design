@@ -9,9 +9,9 @@ import {
   Settings,
   FileCode,
   LifeBuoy,
+  Globe,
   Moon,
   Sun,
-  Globe,
   ChevronDown,
   ChevronRight,
   Check,
@@ -54,7 +54,7 @@ export const UserProfileDropdown: React.FC = () => {
   const isDark = theme === 'dark';
 
   const activeTasksCount = tasks.filter((task) =>
-    ['open', 'assigned', 'in_progress', 'submitted'].includes(task.status)
+    ['open', 'matching', 'assigned', 'in_progress', 'submitted'].includes(task.status)
   ).length;
 
   // Close dropdown on outside click
@@ -112,10 +112,10 @@ export const UserProfileDropdown: React.FC = () => {
         className={`flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-xl border transition-all ${
           isOpen
             ? isDark
-              ? 'bg-[#161A38] border-[#A855F7] ring-2 ring-purple-500/25 shadow-sm'
+              ? 'bg-[#16233C] border-[#0EA5E9] ring-2 ring-purple-500/25 shadow-sm'
               : 'bg-purple-50 border-purple-500 ring-2 ring-purple-500/25 shadow-sm'
             : isDark
-            ? 'bg-[#10132B] border-purple-900/40 hover:bg-[#161A38] hover:border-purple-500/50'
+            ? 'bg-[#101A2E] border-purple-900/40 hover:bg-[#16233C] hover:border-purple-500/50'
             : 'bg-white border-purple-100 hover:bg-purple-50/50 hover:border-purple-300 shadow-xs'
         }`}
         aria-expanded={isOpen}
@@ -128,17 +128,17 @@ export const UserProfileDropdown: React.FC = () => {
             alt={userProfile.name}
             className="w-7 h-7 rounded-lg object-cover border border-purple-500/50 shrink-0 shadow-xs"
           />
-          <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#34D399] border-2 border-[#0A0C1B]" />
+          <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#10B981] border-2 border-[#0A101F]" />
         </div>
 
         <div className="text-left hidden sm:block">
           <div className="flex items-center gap-1.5 leading-none">
             <span className="text-xs font-bold text-slate-800 dark:text-slate-100">{userProfile.name}</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
               PRO
             </span>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono mt-0.5 block leading-none">
+          <span className="text-[11px] text-slate-400 font-mono mt-0.5 block leading-none">
             {shortenAddress(activeWallet.address)}
           </span>
         </div>
@@ -156,7 +156,7 @@ export const UserProfileDropdown: React.FC = () => {
           id="user-center-dropdown-menu"
           className={`absolute right-0 mt-2 w-84 sm:w-92 rounded-2xl border shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-fadeIn ${
             isDark
-              ? 'bg-[#10132B]/98 border-purple-900/50 text-[#F8FAFC] shadow-[0_20px_50px_rgba(0,0,0,0.7)]'
+              ? 'bg-[#101A2E]/98 border-purple-900/50 text-[#F8FAFC] shadow-[0_20px_50px_rgba(0,0,0,0.7)]'
               : 'bg-white/98 border-purple-100 text-slate-900 shadow-[0_20px_50px_rgba(124,58,237,0.15)]'
           }`}
         >
@@ -164,7 +164,7 @@ export const UserProfileDropdown: React.FC = () => {
           <div
             className={`p-4 border-b ${
               isDark
-                ? 'bg-gradient-to-br from-[#161A38] to-[#10132B] border-purple-900/40'
+                ? 'bg-gradient-to-br from-[#16233C] to-[#101A2E] border-purple-900/40'
                 : 'bg-gradient-to-br from-purple-50/80 via-white to-purple-50/40 border-purple-100'
             }`}
           >
@@ -178,12 +178,12 @@ export const UserProfileDropdown: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <h3 className="font-bold text-sm leading-tight text-slate-900 dark:text-white">{userProfile.name}</h3>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-300 font-bold font-mono border border-purple-500/30">
+                    <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-300 font-bold font-mono border border-purple-500/30">
                       Pro Node
                     </span>
                   </div>
                   <p className="text-[11px] text-purple-600/70 dark:text-purple-300/70 font-mono mt-0.5">{userProfile.handle}</p>
-                  <p className="text-[10px] text-slate-400 truncate max-w-[180px] mt-0.5">{userProfile.org}</p>
+                  <p className="text-[11px] text-slate-400 truncate max-w-[180px] mt-0.5">{userProfile.org}</p>
                 </div>
               </div>
 
@@ -192,7 +192,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={handleOpenProfileModal}
                 className={`p-2 rounded-xl border text-xs font-semibold flex items-center justify-center transition-all ${
                   isDark
-                    ? 'bg-[#0A0C1B] border-purple-900/50 hover:border-purple-400 text-purple-300 hover:bg-[#161A38]'
+                    ? 'bg-[#0A101F] border-purple-900/50 hover:border-purple-400 text-purple-300 hover:bg-[#16233C]'
                     : 'bg-white border-purple-200 hover:border-purple-400 text-purple-700 hover:bg-purple-50 shadow-xs'
                 }`}
                 title={locale === 'zh-CN' ? '编辑个人资料与通知偏好' : 'Edit Profile'}
@@ -208,11 +208,11 @@ export const UserProfileDropdown: React.FC = () => {
             {/* ========================================================= */}
             <div className="p-3.5 space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5">
                   <Wallet className="w-3.5 h-3.5 text-purple-400" />
                   {locale === 'zh-CN' ? '我的资产与质押' : 'My Assets & Escrow'}
                 </span>
-                <span className="text-[9px] px-1.5 py-0.5 rounded font-mono bg-purple-500/15 text-purple-400 font-semibold border border-purple-500/20">
+                <span className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-purple-500/15 text-purple-400 font-semibold border border-purple-500/20">
                   Base Sepolia
                 </span>
               </div>
@@ -220,14 +220,14 @@ export const UserProfileDropdown: React.FC = () => {
               {/* Active Wallet Box */}
               <div
                 className={`p-2.5 rounded-xl border flex items-center justify-between ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
+                  isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-xs text-slate-900 dark:text-white">{activeWallet.name}</span>
                     {activeWallet.provider === 'privy_embedded' && (
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">
                         Embedded
                       </span>
                     )}
@@ -255,7 +255,7 @@ export const UserProfileDropdown: React.FC = () => {
                   <span className="text-xs font-bold text-amber-500 dark:text-amber-400 block">
                     {ydBalance.toLocaleString()} YD
                   </span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">
+                  <span className="text-[11px] text-slate-400 block mt-0.5">
                     {activeWallet.balances.ETH} ETH · ${activeWallet.balances.USDC}
                   </span>
                 </div>
@@ -269,7 +269,7 @@ export const UserProfileDropdown: React.FC = () => {
                     setIsCheckoutOpen(true);
                     setIsOpen(false);
                   }}
-                  className="flex-1 py-2 px-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-purple-500/20"
+                  className="flex-1 py-2 px-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-purple-500/20"
                 >
                   <Coins className="w-3.5 h-3.5 text-amber-300" />
                   <span>{locale === 'zh-CN' ? '充值 YD 质押金' : 'Acquire YD'}</span>
@@ -279,7 +279,7 @@ export const UserProfileDropdown: React.FC = () => {
                   onClick={() => handleNavigate('wallets')}
                   className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
                     isDark
-                      ? 'border-purple-900/40 hover:bg-[#161A38] text-purple-200'
+                      ? 'border-purple-900/40 hover:bg-[#16233C] text-purple-200'
                       : 'border-purple-200 hover:bg-purple-50 text-purple-800'
                   }`}
                   title={locale === 'zh-CN' ? '查看钱包详情与链上账单' : 'View Wallets & Ledger'}
@@ -294,7 +294,7 @@ export const UserProfileDropdown: React.FC = () => {
             {/* SECTION 2: 个人业务与工作台 (My Business & Workspaces) */}
             {/* ========================================================= */}
             <div className="p-3.5 space-y-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5 mb-2">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5 mb-2">
                 <Layers className="w-3.5 h-3.5 text-purple-400" />
                 {locale === 'zh-CN' ? '我的业务与工作台' : 'My Workspaces & Orders'}
               </span>
@@ -304,7 +304,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={() => handleNavigate('workspace')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
                   isDark
-                    ? 'hover:bg-[#161A38] text-slate-200 hover:text-white'
+                    ? 'hover:bg-[#16233C] text-slate-200 hover:text-white'
                     : 'hover:bg-purple-50 text-slate-800'
                 }`}
               >
@@ -314,13 +314,13 @@ export const UserProfileDropdown: React.FC = () => {
                   </div>
                   <div className="text-left">
                     <span className="font-semibold block">{locale === 'zh-CN' ? '交付工作台' : 'Task Workspace'}</span>
-                    <span className="text-[10px] text-slate-400 font-mono block">
+                    <span className="text-[11px] text-slate-400 font-mono block">
                       {locale === 'zh-CN' ? '查看我承接/发布的履约订单' : 'Ongoing escrow & milestone deliverables'}
                     </span>
                   </div>
                 </div>
                 {activeTasksCount > 0 && (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-600 text-white font-bold">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-purple-600 text-white font-bold">
                     {activeTasksCount}
                   </span>
                 )}
@@ -331,7 +331,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={() => handleNavigate('studio')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
                   isDark
-                    ? 'hover:bg-[#161A38] text-slate-200 hover:text-white'
+                    ? 'hover:bg-[#16233C] text-slate-200 hover:text-white'
                     : 'hover:bg-purple-50 text-slate-800'
                 }`}
               >
@@ -341,7 +341,7 @@ export const UserProfileDropdown: React.FC = () => {
                   </div>
                   <div className="text-left">
                     <span className="font-semibold block">{locale === 'zh-CN' ? '协同工坊 (Studio)' : 'Workflow Studio'}</span>
-                    <span className="text-[10px] text-slate-400 font-mono block">
+                    <span className="text-[11px] text-slate-400 font-mono block">
                       {locale === 'zh-CN' ? '多 Agent 协同编排与测试' : 'Multi-Agent DAG workflows & testing'}
                     </span>
                   </div>
@@ -359,22 +359,22 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={handleOpenAdminConsole}
                 className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-xs transition-all ${
                   isDark
-                    ? 'bg-[#161A38]/90 border-purple-500/40 text-purple-200 hover:border-purple-400 hover:bg-[#1D2146]'
+                    ? 'bg-[#16233C]/90 border-purple-500/40 text-purple-200 hover:border-purple-400 hover:bg-[#1A2942]'
                     : 'bg-purple-50/90 border-purple-200 text-purple-900 hover:bg-purple-100'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-xs">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#2563EB] to-[#06B6D4] flex items-center justify-center text-white shadow-xs">
                     <Shield className="w-4 h-4" />
                   </div>
                   <div className="text-left">
                     <div className="flex items-center gap-1.5">
                       <span className="font-bold">{locale === 'zh-CN' ? '管理控制台' : 'Admin Console'}</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-500 text-slate-950">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-500 text-slate-950">
                         ADMIN
                       </span>
                     </div>
-                    <span className="text-[10px] text-purple-300/70 dark:text-purple-300/60 block mt-0.5">
+                    <span className="text-[11px] text-purple-300/70 dark:text-purple-300/60 block mt-0.5">
                       {locale === 'zh-CN' ? '运营监控 · 争议仲裁 · 风控审计' : 'Ops, Disputes & Risk Auditing'}
                     </span>
                   </div>
@@ -387,7 +387,7 @@ export const UserProfileDropdown: React.FC = () => {
             {/* SECTION 4: 开发者生态与支持 (Developer & Support) */}
             {/* ========================================================= */}
             <div className="p-3.5 space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5 mb-1.5">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5 mb-1.5">
                 <FileCode className="w-3.5 h-3.5 text-purple-400" />
                 {locale === 'zh-CN' ? '生态与支持' : 'Developer & Support'}
               </span>
@@ -397,7 +397,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={() => handleNavigate('docs')}
                 className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs transition-colors ${
                   isDark
-                    ? 'hover:bg-[#161A38] text-slate-300 hover:text-white'
+                    ? 'hover:bg-[#16233C] text-slate-300 hover:text-white'
                     : 'hover:bg-purple-50 text-slate-700'
                 }`}
               >
@@ -413,7 +413,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={() => handleNavigate('support')}
                 className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs transition-colors ${
                   isDark
-                    ? 'hover:bg-[#161A38] text-slate-300 hover:text-white'
+                    ? 'hover:bg-[#16233C] text-slate-300 hover:text-white'
                     : 'hover:bg-purple-50 text-slate-700'
                 }`}
               >
@@ -429,7 +429,7 @@ export const UserProfileDropdown: React.FC = () => {
                 onClick={() => handleNavigate('settings')}
                 className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs transition-colors ${
                   isDark
-                    ? 'hover:bg-[#161A38] text-slate-300 hover:text-white'
+                    ? 'hover:bg-[#16233C] text-slate-300 hover:text-white'
                     : 'hover:bg-purple-50 text-slate-700'
                 }`}
               >
@@ -444,12 +444,12 @@ export const UserProfileDropdown: React.FC = () => {
             {/* ========================================================= */}
             {/* SECTION 5: 偏好设置 (Theme & Language) */}
             {/* ========================================================= */}
-            <div className="p-3.5 space-y-2.5 bg-purple-950/10">
+            <div className="p-3.5 space-y-2.5 bg-blue-50/50 dark:bg-blue-950/30">
               <div className="flex items-center justify-between gap-2">
                 {/* Dark / Light Toggle */}
                 <div
                   className={`p-0.5 rounded-xl border flex items-center gap-1 flex-1 ${
-                    isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50 border-purple-100'
+                    isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-blue-50 border-blue-200'
                   }`}
                 >
                   <button
@@ -457,12 +457,12 @@ export const UserProfileDropdown: React.FC = () => {
                     onClick={() => !isDark && toggleTheme()}
                     className={`flex-1 py-1 px-2 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all ${
                       isDark
-                        ? 'bg-[#161A38] text-purple-300 shadow-xs border border-purple-900/50 font-bold'
-                        : 'text-slate-500 hover:text-purple-900'
+                        ? 'bg-[#16233C] text-sky-300 shadow-xs border border-[#1F2D4A] font-bold'
+                        : 'text-slate-500 hover:text-blue-700'
                     }`}
                   >
                     <Moon className="w-3 h-3" />
-                    <span>{locale === 'zh-CN' ? '暗黑' : 'Dark'}</span>
+                    <span>{locale === 'zh-CN' ? '深色' : 'Dark'}</span>
                   </button>
 
                   <button
@@ -470,7 +470,7 @@ export const UserProfileDropdown: React.FC = () => {
                     onClick={() => isDark && toggleTheme()}
                     className={`flex-1 py-1 px-2 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all ${
                       !isDark
-                        ? 'bg-white text-purple-900 shadow-xs border border-purple-200 font-bold'
+                        ? 'bg-white text-blue-700 shadow-xs border border-blue-200 font-bold'
                         : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -485,12 +485,12 @@ export const UserProfileDropdown: React.FC = () => {
                   onClick={toggleLocale}
                   className={`px-3 py-1.5 rounded-xl border text-xs font-bold font-mono transition-colors flex items-center gap-1.5 ${
                     isDark
-                      ? 'border-purple-900/40 bg-[#0A0C1B] text-purple-300 hover:border-purple-500'
-                      : 'border-purple-200 bg-white text-purple-900 hover:bg-purple-50'
+                      ? 'border-[#1F2D4A] bg-[#0A101F] text-sky-300 hover:border-sky-500'
+                      : 'border-blue-200 bg-white text-blue-700 hover:bg-blue-50'
                   }`}
                 >
-                  <Globe className="w-3.5 h-3.5 text-purple-500" />
-                  <span>{locale === 'zh-CN' ? '中文' : 'EN'}</span>
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>{locale === 'zh-CN' ? '中' : 'EN'}</span>
                 </button>
               </div>
             </div>
@@ -512,7 +512,7 @@ export const UserProfileDropdown: React.FC = () => {
                 }}
                 className={`w-full py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors ${
                   isDark
-                    ? 'text-purple-300/70 hover:text-purple-200 hover:bg-[#161A38]'
+                    ? 'text-purple-300/70 hover:text-purple-200 hover:bg-[#16233C]'
                     : 'text-slate-600 hover:text-purple-900 hover:bg-purple-50'
                 }`}
               >

@@ -48,7 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
       label: t('nav_matches'),
       icon: <Sparkles className="w-4 h-4" />,
       badge: compareAgents.length > 0 ? `${compareAgents.length}` : undefined,
-      badgeColor: 'bg-[#7568FF]/20 text-[#7568FF]'
+      badgeColor: 'bg-[#6366F1]/20 text-[#6366F1]'
     },
     {
       id: 'workspace',
@@ -74,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
       label: t('nav_disputes'),
       icon: <Scale className="w-4 h-4" />,
       badge: disputedCount > 0 ? `${disputedCount}` : undefined,
-      badgeColor: 'bg-[#FF647C]/20 text-[#FF647C]'
+      badgeColor: 'bg-[#EF4444]/20 text-[#EF4444]'
     },
     {
       id: 'config',
@@ -108,7 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
           ${isMobileOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
           ${
             isDark
-              ? 'bg-[#0C1728] border-[#243550] text-[#9CAEC5]'
+              ? 'bg-[#0F1829] border-[#1F2D4A] text-[#A9B4C6]'
               : 'bg-white border-slate-200 text-slate-600'
           }
           flex flex-col justify-between p-4 overflow-y-auto lg:sticky lg:top-20 lg:h-[calc(100vh-5.5rem)]
@@ -119,9 +119,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
           {/* Mobile Drawer Header */}
           <div className="flex lg:hidden items-center justify-between pb-3 border-b border-slate-700/30">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#36E4DA] to-[#7568FF] p-0.5 flex items-center justify-center">
-                <div className={`w-full h-full rounded-[5px] flex items-center justify-center font-bold text-xs ${isDark ? 'bg-[#07111F]' : 'bg-white'}`}>
-                  <span className="bg-gradient-to-r from-[#36E4DA] to-[#7568FF] bg-clip-text text-transparent font-black">X</span>
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#0284C7] to-[#6366F1] p-0.5 flex items-center justify-center">
+                <div className={`w-full h-full rounded-[5px] flex items-center justify-center font-bold text-xs ${isDark ? 'bg-[#0A101F]' : 'bg-white'}`}>
+                  <span className="bg-gradient-to-r from-[#0284C7] to-[#6366F1] bg-clip-text text-transparent font-black">X</span>
                 </div>
               </div>
               <span className="font-display font-bold text-sm">X Agents Space</span>
@@ -150,15 +150,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                       isActive
                         ? isDark
-                          ? 'bg-[#111F34] text-[#36E4DA] font-semibold shadow-sm border border-[#36E4DA]/30'
+                          ? 'bg-[#132036] text-[#0284C7] font-semibold shadow-sm border border-[#0284C7]/30'
                           : 'bg-sky-50 text-sky-700 font-semibold shadow-xs border border-sky-200'
                         : isDark
-                        ? 'hover:bg-[#111F34]/60 hover:text-slate-200 text-slate-400'
+                        ? 'hover:bg-[#132036]/60 hover:text-slate-200 text-slate-400'
                         : 'hover:bg-slate-50 hover:text-slate-900 text-slate-600'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={isActive ? (isDark ? 'text-[#36E4DA]' : 'text-sky-600') : 'text-slate-400'}>
+                      <span className={isActive ? (isDark ? 'text-[#0284C7]' : 'text-sky-600') : 'text-slate-400'}>
                         {item.icon}
                       </span>
                       <span>{item.label}</span>
@@ -166,10 +166,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
 
                     {item.badge && (
                       <span
-                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full ${
+                        className={`text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full ${
                           item.badgeColor ||
                           (isDark
-                            ? 'bg-[#07111F] text-[#36E4DA] border border-[#36E4DA]/20'
+                            ? 'bg-[#0A101F] text-[#0284C7] border border-[#0284C7]/20'
                             : 'bg-sky-100 text-sky-800')
                         }`}
                       >
@@ -186,12 +186,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen = false, onCloseM
           <div
             className={`p-3.5 rounded-2xl border text-xs ${
               isDark
-                ? 'bg-[#07111F] border-[#243550] text-slate-400'
+                ? 'bg-[#0A101F] border-[#1F2D4A] text-slate-400'
                 : 'bg-slate-50 border-slate-200 text-slate-600'
             }`}
           >
             <div className="flex items-center gap-2 mb-1.5">
-              <Flame className="w-3.5 h-3.5 text-[#FFC857]" />
+              <Flame className="w-3.5 h-3.5 text-[#F59E0B]" />
               <span className={`font-semibold text-xs ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                 Escrow Protocol
               </span>

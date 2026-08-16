@@ -69,7 +69,7 @@ export const SettingsView: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="font-display font-bold text-2xl tracking-tight flex items-center gap-2">
-            <Settings className="w-6 h-6 text-[#36E4DA]" />
+            <Settings className="w-6 h-6 text-[#0284C7]" />
             {t('settings_title')}
           </h1>
           <p className="text-xs md:text-sm text-slate-400 mt-1">
@@ -82,7 +82,7 @@ export const SettingsView: React.FC = () => {
             onClick={handleResetDefaults}
             className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 cursor-pointer ${
               isDark
-                ? 'border-[#243550] bg-[#111F34] text-slate-300 hover:bg-[#152742]'
+                ? 'border-[#1F2D4A] bg-[#132036] text-slate-300 hover:bg-[#1B2536]'
                 : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
             }`}
           >
@@ -91,7 +91,7 @@ export const SettingsView: React.FC = () => {
           </button>
           <button
             onClick={handleSaveSettings}
-            className="px-5 py-2 rounded-xl text-xs font-bold bg-[#36E4DA] text-[#07111F] hover:bg-[#36E4DA]/90 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
+            className="px-5 py-2 rounded-xl text-xs font-bold bg-[#0284C7] text-[#0A101F] hover:bg-[#0284C7]/90 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
           >
             <Save className="w-3.5 h-3.5" />
             {t('settings_save_btn')}
@@ -106,7 +106,7 @@ export const SettingsView: React.FC = () => {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'network'
               ? isDark
-                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
+                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -119,7 +119,7 @@ export const SettingsView: React.FC = () => {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'trading'
               ? isDark
-                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
+                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -132,7 +132,7 @@ export const SettingsView: React.FC = () => {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'security'
               ? isDark
-                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
+                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -145,7 +145,7 @@ export const SettingsView: React.FC = () => {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'alerts'
               ? isDark
-                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
+                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -159,7 +159,7 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'network' && (
         <div
           className={`p-6 rounded-2xl border space-y-5 text-xs ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -172,7 +172,7 @@ export const SettingsView: React.FC = () => {
                 value={rpcUrl}
                 onChange={(e) => setRpcUrl(e.target.value)}
                 className={`w-full p-2.5 rounded-xl border text-xs font-mono focus:outline-none ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               />
             </div>
@@ -186,7 +186,7 @@ export const SettingsView: React.FC = () => {
                 value={alchemyKey}
                 onChange={(e) => setAlchemyKey(e.target.value)}
                 className={`w-full p-2.5 rounded-xl border text-xs font-mono focus:outline-none ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
                 }`}
               />
             </div>
@@ -200,7 +200,7 @@ export const SettingsView: React.FC = () => {
                 value={chainId}
                 readOnly
                 className={`w-full p-2.5 rounded-xl border text-xs font-mono text-slate-400 ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-100 border-slate-200'
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-100 border-slate-200'
                 }`}
               />
             </div>
@@ -213,8 +213,8 @@ export const SettingsView: React.FC = () => {
                 type="text"
                 value="0x Protocol API v2 + Permit2"
                 readOnly
-                className={`w-full p-2.5 rounded-xl border text-xs font-mono text-[#36E4DA] ${
-                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-100 border-slate-200'
+                className={`w-full p-2.5 rounded-xl border text-xs font-mono text-[#0284C7] ${
+                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-100 border-slate-200'
                 }`}
               />
             </div>
@@ -225,7 +225,7 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'trading' && (
         <div
           className={`p-6 rounded-2xl border space-y-5 text-xs ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <div>
@@ -240,9 +240,9 @@ export const SettingsView: React.FC = () => {
                   onClick={() => setGasStrategy(strategy)}
                   className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                     gasStrategy === strategy
-                      ? 'bg-[#36E4DA]/15 border-[#36E4DA] text-slate-200 font-semibold'
+                      ? 'bg-[#0284C7]/15 border-[#0284C7] text-slate-200 font-semibold'
                       : isDark
-                      ? 'bg-[#07111F] border-[#243550] text-slate-400'
+                      ? 'bg-[#0A101F] border-[#1F2D4A] text-slate-400'
                       : 'bg-slate-50 border-slate-200 text-slate-700'
                   }`}
                 >
@@ -271,9 +271,9 @@ export const SettingsView: React.FC = () => {
                   onClick={() => setSlippageTolerance(val)}
                   className={`px-4 py-2 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
                     slippageTolerance === val
-                      ? 'bg-[#36E4DA] text-[#07111F]'
+                      ? 'bg-[#0284C7] text-[#0A101F]'
                       : isDark
-                      ? 'bg-[#07111F] border-[#243550] text-slate-300'
+                      ? 'bg-[#0A101F] border-[#1F2D4A] text-slate-300'
                       : 'bg-slate-100 border-slate-200 text-slate-700'
                   }`}
                 >
@@ -288,11 +288,11 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'security' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-[#07111F] border border-[#243550]">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-[#0A101F] border border-[#1F2D4A]">
               <div>
                 <p className="font-semibold text-slate-200">
                   {locale === 'zh-CN' ? '强制交易预执行模拟 (Alchemy Simulation)' : 'Enforce Pre-flight Simulation'}
@@ -305,11 +305,11 @@ export const SettingsView: React.FC = () => {
                 type="checkbox"
                 checked={preflightSimulation}
                 onChange={(e) => setPreflightSimulation(e.target.checked)}
-                className="w-4 h-4 accent-[#36E4DA]"
+                className="w-4 h-4 accent-[#0284C7]"
               />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-[#07111F] border border-[#243550]">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-[#0A101F] border border-[#1F2D4A]">
               <div>
                 <p className="font-semibold text-slate-200">
                   {locale === 'zh-CN' ? 'Permit2 签名有效期限制 (天)' : 'Permit2 Signature Validity (Days)'}
@@ -322,7 +322,7 @@ export const SettingsView: React.FC = () => {
                 type="number"
                 value={permit2Lifetime}
                 onChange={(e) => setPermit2Lifetime(e.target.value)}
-                className="w-20 p-2 rounded-lg bg-[#0C1728] border border-[#243550] font-mono text-center"
+                className="w-20 p-2 rounded-lg bg-[#0F1829] border border-[#1F2D4A] font-mono text-center"
               />
             </div>
           </div>
@@ -332,7 +332,7 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'alerts' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <div>
@@ -344,7 +344,7 @@ export const SettingsView: React.FC = () => {
               value={webhookUrl}
               onChange={(e) => setWebhookUrl(e.target.value)}
               className={`w-full p-2.5 rounded-xl border text-xs font-mono focus:outline-none ${
-                isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
+                isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
               }`}
             />
           </div>
@@ -355,7 +355,7 @@ export const SettingsView: React.FC = () => {
                 type="checkbox"
                 checked={notifyOnMatch}
                 onChange={(e) => setNotifyOnMatch(e.target.checked)}
-                className="w-4 h-4 accent-[#36E4DA]"
+                className="w-4 h-4 accent-[#0284C7]"
               />
               <span className="text-slate-300">
                 {locale === 'zh-CN' ? '当匹配到新的推荐 Agent 时发送通知' : 'Notify when a new top-tier Agent candidate matches'}
@@ -367,7 +367,7 @@ export const SettingsView: React.FC = () => {
                 type="checkbox"
                 checked={notifyOnDeliverable}
                 onChange={(e) => setNotifyOnDeliverable(e.target.checked)}
-                className="w-4 h-4 accent-[#36E4DA]"
+                className="w-4 h-4 accent-[#0284C7]"
               />
               <span className="text-slate-300">
                 {locale === 'zh-CN' ? '当 Agent 提交最终交付成果时发送通知' : 'Notify when Agent submits milestone deliverables'}
@@ -379,7 +379,7 @@ export const SettingsView: React.FC = () => {
                 type="checkbox"
                 checked={notifyOnDispute}
                 onChange={(e) => setNotifyOnDispute(e.target.checked)}
-                className="w-4 h-4 accent-[#36E4DA]"
+                className="w-4 h-4 accent-[#0284C7]"
               />
               <span className="text-slate-300">
                 {locale === 'zh-CN' ? '当有任务进入多签仲裁争议时触发高优先级告警' : 'High-priority alert when dispute enters multisig arbitration'}

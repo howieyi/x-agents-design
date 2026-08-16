@@ -27,6 +27,7 @@ export type TaskStatus =
   | 'draft'
   | 'awaiting_funding'
   | 'open'
+  | 'matching'
   | 'assigned'
   | 'awaiting_stake'
   | 'in_progress'
@@ -176,7 +177,7 @@ export interface InterAgentMessage {
   fromAgentName: string;
   toNodeId: string;
   toAgentName: string;
-  messageType: 'spec_handoff' | 'code_review' | 'security_alert' | 'qa_verdict' | 'approval_request' | 'data_payload';
+  messageType: 'spec_handoff' | 'style_review' | 'content_alert' | 'qa_verdict' | 'approval_request' | 'data_payload';
   timestamp: string;
   payloadSummary: string;
   fullDataPayload?: string;

@@ -33,7 +33,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
       subtitle: locale === 'zh-CN' ? '降低 90% 研发与外包成本' : '90% Cost Reduction & 100% Escrow Backed',
       icon: Building2,
       badge: 'Demand Side',
-      color: 'from-purple-600 to-indigo-600',
+      color: 'from-[#2563EB] to-[#06B6D4]',
       tagline: locale === 'zh-CN' ? '用一个 Prompt，调动全球顶尖 Agent 军团' : 'Deploy swarm agents with a single enterprise prompt'
     },
     {
@@ -88,10 +88,10 @@ export const EcosystemTriadShowcase: React.FC = () => {
               className={`p-6 rounded-3xl text-left transition-all relative overflow-hidden flex flex-col justify-between border cursor-pointer ${
                 isSelected
                   ? isDark
-                    ? 'bg-[#161A38] border-2 border-purple-500 shadow-xl shadow-purple-500/20'
+                    ? 'bg-[#16233C] border-2 border-purple-500 shadow-xl shadow-purple-500/20'
                     : 'bg-white border-2 border-purple-500 shadow-xl shadow-purple-500/15'
                   : isDark
-                  ? 'bg-[#10132B] border-purple-900/30 hover:border-purple-500/50 text-slate-400'
+                  ? 'bg-[#101A2E] border-purple-900/30 hover:border-purple-500/50 text-slate-400'
                   : 'bg-white border-purple-100 hover:border-purple-300 text-slate-600 shadow-md shadow-purple-500/5'
               }`}
             >
@@ -139,7 +139,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
       <div
         className={`p-6 sm:p-8 lg:p-10 rounded-3xl border transition-all shadow-2xl ${
           isDark
-            ? 'bg-[#10132B] border-purple-900/50 shadow-purple-950/30'
+            ? 'bg-[#101A2E] border-purple-900/50 shadow-purple-950/30'
             : 'bg-white border-purple-100 shadow-purple-500/10'
         }`}
       >
@@ -166,28 +166,28 @@ export const EcosystemTriadShowcase: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">分钟级智能匹配</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">基于技能标签与历史交付分自动撮合</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">零风险资金托管</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">验收通过前赏金锁定在 Base 智能合约</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">原生多格式交付物</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">支持 PPTX、4K 视频、动态 Excel、代码</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">72H 争议全额赔付</span>
@@ -198,7 +198,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
 
               <button
                 onClick={() => setIsPublishWizardOpen(true)}
-                className="px-6 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/25 cursor-pointer"
+                className="px-6 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/25 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
                 {locale === 'zh-CN' ? '立即发布企业业务需求 (Post Task)' : 'Post Enterprise Requirement'}
@@ -209,7 +209,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
             <div className="lg:col-span-5">
               <div
                 className={`p-6 rounded-3xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
+                  isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-purple-900/20 text-xs font-mono">
@@ -237,17 +237,17 @@ export const EcosystemTriadShowcase: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-4 rounded-2xl bg-white dark:bg-[#161A38] border border-purple-200 dark:border-purple-900/40">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-mono">传统外包耗时</span>
+                    <div className="p-4 rounded-2xl bg-white dark:bg-[#16233C] border border-purple-200 dark:border-purple-900/40">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-mono">传统外包耗时</span>
                       <span className="text-lg font-mono font-bold text-slate-900 dark:text-white">3 ~ 5 周</span>
-                      <span className="text-[10px] text-rose-500 block mt-0.5">沟通成本高、易延期</span>
+                      <span className="text-[11px] text-rose-500 block mt-0.5">沟通成本高、易延期</span>
                     </div>
                     <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/30">
-                      <span className="text-[10px] text-purple-600 dark:text-purple-300 block font-mono">YD 协议成本</span>
+                      <span className="text-[11px] text-purple-600 dark:text-purple-300 block font-mono">YD 协议成本</span>
                       <span className="text-lg font-mono font-bold text-purple-600 dark:text-purple-300">
                         ${Math.round(enterpriseBudget * 0.1).toLocaleString()} USD
                       </span>
-                      <span className="text-[10px] text-emerald-500 font-bold block mt-0.5">立省 90% · 24小时内交付</span>
+                      <span className="text-[11px] text-emerald-500 font-bold block mt-0.5">立省 90% · 24小时内交付</span>
                     </div>
                   </div>
                 </div>
@@ -279,28 +279,28 @@ export const EcosystemTriadShowcase: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">70% 顶格收益分配</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">无隐藏扣费，每笔任务结算全上链</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">极速 Webhook 与 API 接入</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">适配任意大模型或本地私有模型</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">链上信誉 SBT 勋章</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">高交付率 Agent 享有更高推荐权重与定价权</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">自动化测试沙箱</span>
@@ -311,7 +311,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
 
               <button
                 onClick={() => setActiveTab('studio')}
-                className="px-6 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/25 cursor-pointer"
+                className="px-6 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/25 cursor-pointer"
               >
                 <Bot className="w-4 h-4 text-purple-300" />
                 {locale === 'zh-CN' ? '进入 Agent 开发者中心 (Agent Studio)' : 'Launch Agent Studio'}
@@ -322,7 +322,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
             <div className="lg:col-span-5">
               <div
                 className={`p-6 rounded-3xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
+                  isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-purple-900/20 text-xs font-mono">
@@ -387,28 +387,28 @@ export const EcosystemTriadShowcase: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">18.4% 基准质押 APY</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">按区块实时复利计息，随时存取</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">仲裁陪审员额外分润</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">每次参与多签裁决获得争议金额 5% 分成</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">DAO 治理提案权重</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">决定平台佣金率与新 Agent 准入标准</span>
                   </div>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#161A38] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 dark:bg-[#16233C] border border-purple-100 dark:border-purple-900/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white block">双重审计防攻击机制</span>
@@ -430,7 +430,7 @@ export const EcosystemTriadShowcase: React.FC = () => {
             <div className="lg:col-span-5">
               <div
                 className={`p-6 rounded-3xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-pink-900/40' : 'bg-pink-50/60 border-pink-200'
+                  isDark ? 'bg-[#0A101F] border-pink-900/40' : 'bg-pink-50/60 border-pink-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-pink-900/20 text-xs font-mono">

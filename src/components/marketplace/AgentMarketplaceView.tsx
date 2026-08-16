@@ -41,7 +41,7 @@ export const AgentMarketplaceView: React.FC = () => {
   const [sortBy, setSortBy] = useState<'relevance' | 'rating' | 'price_low' | 'completed'>('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
-  const categories = ['All', 'Cloud & Infrastructure', 'Security & Audit', 'AI & Data Engineering', 'Zero Knowledge & L2', 'Web3 Fullstack'];
+  const categories = ['All', '视频创作与分片串联', '视觉与图片生成', 'PPT / 演示文稿生成', '全平台社媒素材矩阵', 'Excel / 财务与报表分析', 'Word / 文档与 PRD 撰写', '长篇故事与网文小说'];
 
   const filteredAgents = useMemo(() => {
     return agents
@@ -82,7 +82,7 @@ export const AgentMarketplaceView: React.FC = () => {
         {compareAgents.length > 0 && (
           <button
             onClick={() => setIsCompareOpen(true)}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-md shadow-purple-500/25 self-start md:self-auto cursor-pointer"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2 shadow-md shadow-purple-500/25 self-start md:self-auto cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-amber-300" />
             {locale === 'zh-CN'
@@ -95,14 +95,14 @@ export const AgentMarketplaceView: React.FC = () => {
       {/* Natural Language Search & Filter Bar */}
       <div
         className={`p-4 sm:p-5 rounded-3xl border transition-all space-y-4 shadow-xl ${
-          isDark ? 'bg-[#10132B] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
+          isDark ? 'bg-[#101A2E] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
         }`}
       >
         <div className="flex flex-col lg:flex-row gap-3">
           <div
             className={`flex-1 flex items-center rounded-xl border px-3.5 py-2.5 text-xs transition-all ${
               isDark
-                ? 'bg-[#0A0C1B] border-purple-900/50 focus-within:border-purple-500 text-white'
+                ? 'bg-[#0A101F] border-purple-900/50 focus-within:border-purple-500 text-white'
                 : 'bg-purple-50/50 border-purple-200 focus-within:border-purple-500 text-slate-900'
             }`}
           >
@@ -132,7 +132,7 @@ export const AgentMarketplaceView: React.FC = () => {
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className={`px-3.5 py-2.5 rounded-xl border text-xs font-semibold appearance-none pr-8 cursor-pointer ${
                   isDark
-                    ? 'bg-[#161A38] border-purple-900/50 text-purple-200'
+                    ? 'bg-[#16233C] border-purple-900/50 text-purple-200'
                     : 'bg-white border-purple-200 text-purple-900 shadow-xs'
                 }`}
               >
@@ -151,7 +151,7 @@ export const AgentMarketplaceView: React.FC = () => {
                 verifiedOnly
                   ? 'bg-emerald-500/20 border-emerald-500 text-emerald-600 dark:text-emerald-400'
                   : isDark
-                  ? 'bg-[#161A38] border-purple-900/50 text-slate-400 hover:text-white'
+                  ? 'bg-[#16233C] border-purple-900/50 text-slate-400 hover:text-white'
                   : 'bg-white border-purple-200 text-slate-600 hover:text-purple-900 shadow-xs'
               }`}
             >
@@ -162,7 +162,7 @@ export const AgentMarketplaceView: React.FC = () => {
             {/* View Mode Toggle: Grid / Table */}
             <div
               className={`flex items-center p-0.5 rounded-xl border text-xs ${
-                isDark ? 'bg-[#0A0C1B] border-purple-900/50' : 'bg-purple-50 border-purple-200'
+                isDark ? 'bg-[#0A101F] border-purple-900/50' : 'bg-purple-50 border-purple-200'
               }`}
             >
               <button
@@ -170,7 +170,7 @@ export const AgentMarketplaceView: React.FC = () => {
                 className={`p-2 rounded-lg transition-colors cursor-pointer ${
                   viewMode === 'grid'
                     ? isDark
-                      ? 'bg-[#161A38] text-purple-300 font-bold border border-purple-900/60 shadow-xs'
+                      ? 'bg-[#16233C] text-purple-300 font-bold border border-purple-900/60 shadow-xs'
                       : 'bg-white text-purple-900 font-bold border border-purple-200 shadow-xs'
                     : 'text-slate-400'
                 }`}
@@ -183,7 +183,7 @@ export const AgentMarketplaceView: React.FC = () => {
                 className={`p-2 rounded-lg transition-colors cursor-pointer ${
                   viewMode === 'table'
                     ? isDark
-                      ? 'bg-[#161A38] text-purple-300 font-bold border border-purple-900/60 shadow-xs'
+                      ? 'bg-[#16233C] text-purple-300 font-bold border border-purple-900/60 shadow-xs'
                       : 'bg-white text-purple-900 font-bold border border-purple-200 shadow-xs'
                     : 'text-slate-400'
                 }`}
@@ -205,9 +205,9 @@ export const AgentMarketplaceView: React.FC = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-md shadow-purple-500/25'
+                    ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-md shadow-purple-500/25'
                     : isDark
-                    ? 'bg-[#161A38] text-slate-300 hover:text-white border border-purple-900/40'
+                    ? 'bg-[#16233C] text-slate-300 hover:text-white border border-purple-900/40'
                     : 'bg-white text-slate-700 hover:text-purple-900 border border-purple-200 shadow-xs'
                 }`}
               >
@@ -244,7 +244,7 @@ export const AgentMarketplaceView: React.FC = () => {
                 id={`agent-card-${agent.id}`}
                 className={`flex flex-col justify-between p-5 rounded-3xl border transition-all ${
                   isDark
-                    ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-500 shadow-xl shadow-purple-950/20'
+                    ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-500 shadow-xl shadow-purple-950/20'
                     : 'bg-white border-purple-100 hover:border-purple-300 shadow-xl shadow-purple-500/5'
                 }`}
               >
@@ -295,15 +295,15 @@ export const AgentMarketplaceView: React.FC = () => {
                     {agent.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className={`text-[10px] px-2.5 py-0.5 rounded-lg font-mono font-medium ${
-                          isDark ? 'bg-[#161A38] text-purple-300 border border-purple-900/40' : 'bg-purple-50 text-purple-900 border border-purple-100'
+                        className={`text-[11px] px-2.5 py-0.5 rounded-lg font-mono font-medium ${
+                          isDark ? 'bg-[#16233C] text-purple-300 border border-purple-900/40' : 'bg-purple-50 text-purple-900 border border-purple-100'
                         }`}
                       >
                         {tag}
                       </span>
                     ))}
                     {agent.tags.length > 4 && (
-                      <span className="text-[10px] px-1 text-slate-400 font-mono">
+                      <span className="text-[11px] px-1 text-slate-400 font-mono">
                         +{agent.tags.length - 4}
                       </span>
                     )}
@@ -313,22 +313,22 @@ export const AgentMarketplaceView: React.FC = () => {
                   <div
                     className={`grid grid-cols-3 gap-2 p-3 rounded-2xl border text-center text-xs mb-4 ${
                       isDark
-                        ? 'bg-[#0A0C1B] border-purple-900/40'
+                        ? 'bg-[#0A101F] border-purple-900/40'
                         : 'bg-purple-50/50 border-purple-100'
                     }`}
                   >
                     <div>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('metric_completed')}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">{t('metric_completed')}</p>
                       <p className="font-mono font-bold text-xs mt-0.5 text-slate-900 dark:text-white">{agent.metrics.completedTasks}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('metric_ontime')}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">{t('metric_ontime')}</p>
                       <p className="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">
                         {agent.metrics.onTimeRate}%
                       </p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('metric_rating')}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">{t('metric_rating')}</p>
                       <p className="font-mono font-bold text-xs text-amber-500 dark:text-amber-400 mt-0.5 flex items-center justify-center gap-0.5">
                         <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                         {agent.metrics.qualityRating}
@@ -355,7 +355,7 @@ export const AgentMarketplaceView: React.FC = () => {
                         isCompared
                           ? 'bg-purple-500/20 border-purple-500 text-purple-600 dark:text-purple-300 font-bold'
                           : isDark
-                          ? 'border-purple-900/50 hover:bg-[#161A38] text-purple-300'
+                          ? 'border-purple-900/50 hover:bg-[#16233C] text-purple-300'
                           : 'border-purple-200 hover:bg-purple-50 text-purple-900'
                       }`}
                       title="Compare side-by-side"
@@ -367,7 +367,7 @@ export const AgentMarketplaceView: React.FC = () => {
                         setSelectedAgent(agent);
                         setIsAgentDetailOpen(true);
                       }}
-                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
                     >
                       {t('view_details')}
                     </button>
@@ -381,13 +381,13 @@ export const AgentMarketplaceView: React.FC = () => {
         /* Table View */
         <div
           className={`rounded-3xl border overflow-hidden transition-all shadow-xl ${
-            isDark ? 'bg-[#10132B] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
+            isDark ? 'bg-[#101A2E] border-purple-900/40 shadow-purple-950/20' : 'bg-white border-purple-100 shadow-purple-500/5'
           }`}
         >
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className={`border-b ${isDark ? 'bg-[#0A0C1B] border-purple-900/40 text-slate-400' : 'bg-purple-50/50 border-purple-100 text-slate-600'}`}>
+                <tr className={`border-b ${isDark ? 'bg-[#0A101F] border-purple-900/40 text-slate-400' : 'bg-purple-50/50 border-purple-100 text-slate-600'}`}>
                   <th className="p-4 font-bold uppercase font-mono text-[11px]">{t('table_agent')}</th>
                   <th className="p-4 font-bold uppercase font-mono text-[11px]">{t('table_category')}</th>
                   <th className="p-4 font-bold uppercase font-mono text-[11px]">{t('table_rate')}</th>
@@ -399,7 +399,7 @@ export const AgentMarketplaceView: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-purple-900/20 dark:divide-purple-950/50 font-mono-tabular">
                 {filteredAgents.map((agent) => (
-                  <tr key={agent.id} className={isDark ? 'hover:bg-[#161A38]/50' : 'hover:bg-purple-50/50'}>
+                  <tr key={agent.id} className={isDark ? 'hover:bg-[#16233C]/50' : 'hover:bg-purple-50/50'}>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
@@ -440,7 +440,7 @@ export const AgentMarketplaceView: React.FC = () => {
                           setSelectedAgent(agent);
                           setIsAgentDetailOpen(true);
                         }}
-                        className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
                       >
                         {t('view_details')}
                       </button>

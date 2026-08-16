@@ -40,8 +40,8 @@ export const QuantumCanvas: React.FC<QuantumCanvasProps> = ({ isDark = true }) =
     }> = [];
 
     const purplePalette = isDark
-      ? ['#8B5CF6', '#A855F7', '#7C3AED', '#6366F1', '#C084FC', '#38BDF8']
-      : ['#7C3AED', '#8B5CF6', '#6366F1', '#A855F7', '#4F46E5', '#0284C7'];
+      ? ['#3B82F6', '#0EA5E9', '#2563EB', '#0284C7', '#7DD3FC', '#38BDF8']
+      : ['#2563EB', '#3B82F6', '#0284C7', '#0EA5E9', '#0EA5E9', '#0284C7'];
 
     for (let i = 0; i < particleCount; i++) {
       const color = purplePalette[Math.floor(Math.random() * purplePalette.length)];

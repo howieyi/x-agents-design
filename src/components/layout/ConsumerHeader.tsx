@@ -20,7 +20,10 @@ import {
   Wallet,
   ArrowRight,
   Zap,
-  CheckCircle2
+  CheckCircle2,
+  LayoutDashboard,
+  Radar,
+  FolderKanban
 } from 'lucide-react';
 import { UserProfileDropdown } from './UserProfileDropdown';
 
@@ -37,8 +40,7 @@ export const ConsumerHeader: React.FC = () => {
     ydBalance,
     setIsPublishWizardOpen,
     setIsCheckoutOpen,
-    tasks,
-    agents,
+    setGlobalSearchQuery,
     showToast
   } = useApp();
 
@@ -46,31 +48,35 @@ export const ConsumerHeader: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const activeTasksCount = tasks.filter((task) =>
-    ['open', 'assigned', 'in_progress', 'submitted'].includes(task.status)
-  ).length;
-
   const navItems = [
     {
-      id: 'home',
-      label: locale === 'zh-CN' ? '官网首页' : 'Home',
-      icon: <Compass className="w-4 h-4" />
+      id: 'overview',
+      label: locale === 'zh-CN' ? '工作台' : 'Workbench',
+      icon: <LayoutDashboard className="w-4 h-4" />
     },
     {
       id: 'tasks',
       label: locale === 'zh-CN' ? '任务大厅' : 'Task Market',
-      icon: <ClipboardList className="w-4 h-4" />,
-      badge: activeTasksCount > 0 ? `${activeTasksCount}` : undefined
+      icon: <ClipboardList className="w-4 h-4" />
     },
     {
       id: 'agents',
-      label: locale === 'zh-CN' ? 'Agent 算力集市' : 'Agent Directory',
-      icon: <Bot className="w-4 h-4" />,
-      badge: `${agents.length}`
+      label: locale === 'zh-CN' ? 'Agent 集市' : 'Agent Directory',
+      icon: <Bot className="w-4 h-4" />
+    },
+    {
+      id: 'matching',
+      label: locale === 'zh-CN' ? '匹配中心' : 'Matching',
+      icon: <Radar className="w-4 h-4" />
+    },
+    {
+      id: 'workspace',
+      label: locale === 'zh-CN' ? '我的项目' : 'Projects',
+      icon: <FolderKanban className="w-4 h-4" />
     },
     {
       id: 'studio',
-      label: locale === 'zh-CN' ? '协同工坊' : 'Workflow Studio',
+      label: locale === 'zh-CN' ? '我的 Agent' : 'My Agents',
       icon: <Wrench className="w-4 h-4" />
     }
   ];
@@ -84,11 +90,13 @@ export const ConsumerHeader: React.FC = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
+    setGlobalSearchQuery(searchQuery.trim());
     setActiveTab('tasks');
+    setIsMobileMenuOpen(false);
     showToast(
       locale === 'zh-CN'
-        ? `正在根据关键词 "${searchQuery}" 匹配任务与 Agent 算力...`
-        : `Searching tasks and agents for "${searchQuery}"...`,
+        ? `正在任务大厅中检索 "${searchQuery}"`
+        : `Searching tasks for "${searchQuery}"...`,
       'info'
     );
   };
@@ -98,33 +106,10 @@ export const ConsumerHeader: React.FC = () => {
       id="consumer-header"
       className={`sticky top-0 z-40 w-full border-b transition-all duration-200 ${
         isDark
-          ? 'bg-[#0B0D1B]/90 border-purple-900/30 backdrop-blur-xl text-[#F4F7FB]'
+          ? 'bg-[#0A101F]/90 border-purple-900/30 backdrop-blur-xl text-[#F8FAFC]'
           : 'bg-white/95 border-purple-100 backdrop-blur-xl text-slate-900 shadow-sm shadow-purple-500/5'
       }`}
     >
-      {/* Top Banner Ticker */}
-      <div className={`hidden sm:flex items-center justify-between px-4 lg:px-8 py-1 text-[11px] font-mono border-b ${
-        isDark ? 'bg-[#101228]/80 border-purple-950/60 text-purple-200/70' : 'bg-purple-50/70 border-purple-100 text-purple-900/80'
-      }`}>
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-purple-400">
-            <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-ping" />
-            <span className="font-semibold">{locale === 'zh-CN' ? 'Base 结算网络在线' : 'Base Settlement Network Online'}</span>
-          </span>
-          <span className="hidden md:inline text-purple-400/40">|</span>
-          <span className="hidden md:inline text-slate-400">
-            {locale === 'zh-CN' ? '当前入网节点: 1,280+ · 智能合约双向质押已激活' : 'Active Nodes: 1,280+ · Dual-Staking Escrow Active'}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4 text-[11px] text-slate-400 font-mono">
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#35D07F]" />
-            <span>Base Sepolia Escrow: 0x99B3...525A</span>
-          </span>
-        </div>
-      </div>
-
       {/* Main Navigation Bar */}
       <div className="max-w-[1600px] mx-auto px-4 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
         {/* Left: Brand Logo & Navigation Links */}
@@ -134,13 +119,13 @@ export const ConsumerHeader: React.FC = () => {
             onClick={() => handleNav('home')}
             className="flex items-center gap-2.5 cursor-pointer group select-none"
           >
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#7C3AED] via-[#8B5CF6] to-[#C084FC] p-0.5 shadow-lg shadow-purple-500/25 group-hover:shadow-purple-500/40 transition-all duration-300">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#2563EB] via-[#3B82F6] to-[#7DD3FC] p-0.5 shadow-lg shadow-purple-500/25 group-hover:shadow-purple-500/40 transition-all duration-300">
               <div
                 className={`w-full h-full rounded-[10px] flex items-center justify-center font-bold text-sm ${
-                  isDark ? 'bg-[#0B0D1B]' : 'bg-white'
+                  isDark ? 'bg-[#0A101F]' : 'bg-white'
                 }`}
               >
-                <span className="bg-gradient-to-r from-[#A855F7] via-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent font-black text-lg">
+                <span className="bg-gradient-to-r from-[#0EA5E9] via-[#3B82F6] to-[#0284C7] bg-clip-text text-transparent font-black text-lg">
                   X
                 </span>
               </div>
@@ -150,11 +135,11 @@ export const ConsumerHeader: React.FC = () => {
                 <span className="font-display font-extrabold text-lg tracking-tight bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-800 dark:from-white dark:via-purple-100 dark:to-purple-300 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-indigo-500 transition-all">
                   X AGENTS
                 </span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/25">
+                <span className="text-[11px] px-1.5 py-0.5 rounded font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/25">
                   SPACE
                 </span>
               </div>
-              <p className="text-[10px] text-purple-600/70 dark:text-purple-300/60 font-mono tracking-wider hidden sm:block">
+              <p className="text-[11px] text-purple-600/70 dark:text-purple-300/60 font-mono tracking-wider hidden sm:block">
                 AUTONOMOUS WORKFORCE
               </p>
             </div>
@@ -183,17 +168,6 @@ export const ConsumerHeader: React.FC = () => {
                     {item.icon}
                   </span>
                   <span>{item.label}</span>
-                  {item.badge && (
-                    <span
-                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold ${
-                        isActive
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300'
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -208,7 +182,7 @@ export const ConsumerHeader: React.FC = () => {
           <div
             className={`relative w-full flex items-center rounded-xl border px-3 py-2 text-xs transition-all ${
               isDark
-                ? 'bg-[#101228]/90 border-purple-900/40 focus-within:border-purple-500 focus-within:shadow-[0_0_15px_rgba(168,85,247,0.15)]'
+                ? 'bg-[#101A30]/90 border-purple-900/40 focus-within:border-purple-500 focus-within:shadow-[0_0_15px_rgba(168,85,247,0.15)]'
                 : 'bg-purple-50/50 border-purple-100 focus-within:border-purple-500 focus-within:bg-white focus-within:shadow-sm'
             }`}
           >
@@ -238,7 +212,7 @@ export const ConsumerHeader: React.FC = () => {
           <button
             id="btn-publish-task-header"
             onClick={() => setIsPublishWizardOpen(true)}
-            className="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#6366F1] hover:from-[#6D28D9] hover:to-[#4F46E5] shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center gap-2"
+            className="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#2563EB] via-[#4F8EF7] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4 text-purple-200 group-hover:rotate-12 transition-transform duration-300" />
             <span className="hidden xs:inline">{locale === 'zh-CN' ? '发布需求' : 'Post Demand'}</span>
@@ -267,7 +241,7 @@ export const ConsumerHeader: React.FC = () => {
       {isMobileMenuOpen && (
         <div
           className={`xl:hidden border-b px-4 py-4 space-y-3 animate-fadeIn ${
-            isDark ? 'bg-[#101228] border-purple-900/40' : 'bg-white border-purple-100 shadow-lg'
+            isDark ? 'bg-[#101A30] border-purple-900/40' : 'bg-white border-purple-100 shadow-lg'
           }`}
         >
           <div className="grid grid-cols-2 gap-2">
@@ -291,11 +265,6 @@ export const ConsumerHeader: React.FC = () => {
                     <span className={isActive ? 'text-purple-400' : 'text-slate-400'}>{item.icon}</span>
                     <span>{item.label}</span>
                   </div>
-                  {item.badge && (
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-purple-600 text-white font-bold">
-                      {item.badge}
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -319,7 +288,7 @@ export const ConsumerHeader: React.FC = () => {
                 setIsPublishWizardOpen(true);
                 setIsMobileMenuOpen(false);
               }}
-              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm"
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white text-xs font-bold flex items-center gap-1.5 shadow-sm"
             >
               <PlusCircle className="w-3.5 h-3.5" />
               <span>{locale === 'zh-CN' ? '发布需求' : 'Post Demand'}</span>

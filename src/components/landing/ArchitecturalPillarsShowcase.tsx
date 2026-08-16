@@ -39,7 +39,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
       title: locale === 'zh-CN' ? 'Multi-Agent 拓扑协同引擎' : 'Multi-Agent Swarm Topology',
       subtitle: locale === 'zh-CN' ? 'DAG 状态图 + 分布式共识环' : 'DAG State Graph & Consensus Loop',
       icon: Layers,
-      color: 'from-purple-600 to-indigo-600',
+      color: 'from-[#2563EB] to-[#06B6D4]',
       borderAccent: 'border-purple-500',
       badge: 'LangGraph & DAG'
     },
@@ -104,10 +104,10 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
               className={`p-4 rounded-xl text-left transition-all relative overflow-hidden flex flex-col justify-between gap-3 cursor-pointer ${
                 isSelected
                   ? isDark
-                    ? 'bg-[#161A38] border-2 border-purple-500 shadow-lg shadow-purple-500/20'
+                    ? 'bg-[#16233C] border-2 border-purple-500 shadow-lg shadow-purple-500/20'
                     : 'bg-white border-2 border-purple-500 shadow-md shadow-purple-500/15'
                   : isDark
-                  ? 'hover:bg-[#10132B]/80 text-slate-400'
+                  ? 'hover:bg-[#101A2E]/80 text-slate-400'
                   : 'hover:bg-purple-50/80 text-slate-600'
               }`}
             >
@@ -121,7 +121,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20">
+                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20">
                   Pillar 0{p.id + 1}
                 </span>
               </div>
@@ -148,7 +148,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
       <div
         className={`p-6 sm:p-8 lg:p-10 rounded-3xl border transition-all shadow-2xl relative overflow-hidden ${
           isDark
-            ? 'bg-[#10132B] border-purple-900/50 shadow-purple-950/30'
+            ? 'bg-[#101A2E] border-purple-900/50 shadow-purple-950/30'
             : 'bg-white border-purple-100 shadow-purple-500/10'
         }`}
       >
@@ -193,7 +193,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
             <div className="lg:col-span-6">
               <div
                 className={`p-6 rounded-2xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
+                  isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/60 border-purple-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-purple-900/20 dark:border-purple-950/60 text-xs font-mono">
@@ -211,43 +211,43 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-600 dark:text-purple-300 flex items-center justify-center font-mono font-bold text-xs shrink-0 border border-purple-500/30">
                       01
                     </div>
-                    <div className="flex-1 p-3 rounded-xl bg-white dark:bg-[#161A38] border border-purple-200 dark:border-purple-900/40 shadow-xs flex items-center justify-between">
+                    <div className="flex-1 p-3 rounded-xl bg-white dark:bg-[#16233C] border border-purple-200 dark:border-purple-900/40 shadow-xs flex items-center justify-between">
                       <div>
                         <span className="text-xs font-bold text-slate-900 dark:text-white block">Lead Planner Node</span>
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Task Decomposition & Architecture Specs</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Task Decomposition & Architecture Specs</span>
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono font-bold">100% OK</span>
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono font-bold">100% OK</span>
                     </div>
                   </div>
 
                   {/* Step 2 (Parallel Fan-out) */}
                   <div className="pl-6 border-l-2 border-dashed border-purple-500/40 space-y-2.5 my-2">
-                    <div className="p-3 rounded-xl bg-white dark:bg-[#161A38] border border-indigo-200 dark:border-indigo-900/40 shadow-xs flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#16233C] border border-indigo-200 dark:border-indigo-900/40 shadow-xs flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-indigo-500" />
                         <div>
                           <span className="text-xs font-bold text-slate-900 dark:text-white block">Agent #01: Fullstack Engine Builder</span>
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Parallel Code Generation</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Parallel Code Generation</span>
                         </div>
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-mono font-bold">Synced</span>
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-mono font-bold">Synced</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-white dark:bg-[#161A38] border border-purple-200 dark:border-purple-900/40 shadow-xs flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#16233C] border border-purple-200 dark:border-purple-900/40 shadow-xs flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-purple-500" />
                         <div>
                           <span className="text-xs font-bold text-slate-900 dark:text-white block">Agent #02: Formal Verifier & SecAudit</span>
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">AST & Security Linting</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">AST & Security Linting</span>
                         </div>
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 font-mono font-bold">Passed</span>
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 font-mono font-bold">Passed</span>
                     </div>
                   </div>
 
                   {/* Step 3 (Consensus Loop) */}
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-md">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#2563EB] to-[#06B6D4] text-white flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-md">
                       03
                     </div>
                     <div className="flex-1 p-3 rounded-xl bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-400/40 shadow-xs flex items-center justify-between">
@@ -256,9 +256,9 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                           <Sparkles className="w-3.5 h-3.5 text-purple-500" />
                           Consensus Loop Finalization
                         </span>
-                        <span className="text-[10px] text-purple-600 dark:text-purple-300 font-mono">100% Quality Score Validated</span>
+                        <span className="text-[11px] text-purple-600 dark:text-purple-300 font-mono">100% Quality Score Validated</span>
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500 text-white font-mono font-bold">Ready</span>
+                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500 text-white font-mono font-bold">Ready</span>
                     </div>
                   </div>
                 </div>
@@ -300,7 +300,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                       escrowState === 'locked'
                         ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25'
                         : isDark
-                        ? 'bg-[#161A38] text-slate-400'
+                        ? 'bg-[#16233C] text-slate-400'
                         : 'bg-slate-100 text-slate-600'
                     }`}
                   >
@@ -312,7 +312,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                       escrowState === 'settled'
                         ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/25'
                         : isDark
-                        ? 'bg-[#161A38] text-slate-400'
+                        ? 'bg-[#16233C] text-slate-400'
                         : 'bg-slate-100 text-slate-600'
                     }`}
                   >
@@ -324,7 +324,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                       escrowState === 'slashed'
                         ? 'bg-rose-500 text-white shadow-md shadow-rose-500/25'
                         : isDark
-                        ? 'bg-[#161A38] text-slate-400'
+                        ? 'bg-[#16233C] text-slate-400'
                         : 'bg-slate-100 text-slate-600'
                     }`}
                   >
@@ -338,7 +338,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
             <div className="lg:col-span-6">
               <div
                 className={`p-6 rounded-2xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-amber-900/40' : 'bg-amber-50/40 border-amber-200'
+                  isDark ? 'bg-[#0A101F] border-amber-900/40' : 'bg-amber-50/40 border-amber-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-amber-900/20 text-xs font-mono">
@@ -351,7 +351,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
 
                 <div className="py-6 space-y-4">
                   {/* Employer Bounty Pool */}
-                  <div className="p-4 rounded-xl bg-white dark:bg-[#161A38] border border-amber-200 dark:border-amber-900/40 shadow-xs flex items-center justify-between">
+                  <div className="p-4 rounded-xl bg-white dark:bg-[#16233C] border border-amber-200 dark:border-amber-900/40 shadow-xs flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-slate-900 dark:text-white block">Employer Bounty Locked</span>
                       <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">100% Principal in Smart Vault</span>
@@ -360,7 +360,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                   </div>
 
                   {/* Agent 6% Stake */}
-                  <div className="p-4 rounded-xl bg-white dark:bg-[#161A38] border border-amber-200 dark:border-amber-900/40 shadow-xs flex items-center justify-between">
+                  <div className="p-4 rounded-xl bg-white dark:bg-[#16233C] border border-amber-200 dark:border-amber-900/40 shadow-xs flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-slate-900 dark:text-white block">Agent Performance Bond (6%)</span>
                       <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Slashed if timeline/quality breached</span>
@@ -419,7 +419,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     activeArtifactTab === 'pptx'
                       ? 'bg-indigo-600 text-white shadow-md'
                       : isDark
-                      ? 'bg-[#161A38] text-slate-400'
+                      ? 'bg-[#16233C] text-slate-400'
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -432,7 +432,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     activeArtifactTab === 'video'
                       ? 'bg-indigo-600 text-white shadow-md'
                       : isDark
-                      ? 'bg-[#161A38] text-slate-400'
+                      ? 'bg-[#16233C] text-slate-400'
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -445,7 +445,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     activeArtifactTab === 'excel'
                       ? 'bg-indigo-600 text-white shadow-md'
                       : isDark
-                      ? 'bg-[#161A38] text-slate-400'
+                      ? 'bg-[#16233C] text-slate-400'
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -458,7 +458,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     activeArtifactTab === 'code'
                       ? 'bg-indigo-600 text-white shadow-md'
                       : isDark
-                      ? 'bg-[#161A38] text-slate-400'
+                      ? 'bg-[#16233C] text-slate-400'
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -472,7 +472,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
             <div className="lg:col-span-6">
               <div
                 className={`p-6 rounded-2xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-indigo-900/40' : 'bg-indigo-50/40 border-indigo-200'
+                  isDark ? 'bg-[#0A101F] border-indigo-900/40' : 'bg-indigo-50/40 border-indigo-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-indigo-900/20 text-xs font-mono">
@@ -484,7 +484,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                 </div>
 
                 <div className="py-6 space-y-4">
-                  <div className="p-4 rounded-xl bg-white dark:bg-[#161A38] border border-indigo-200 dark:border-indigo-900/40 shadow-xs space-y-2">
+                  <div className="p-4 rounded-xl bg-white dark:bg-[#16233C] border border-indigo-200 dark:border-indigo-900/40 shadow-xs space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-900 dark:text-white">
                         {activeArtifactTab === 'pptx' && 'Executive_Deck_v2.4.pptx (18 Slides)'}
@@ -492,7 +492,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                         {activeArtifactTab === 'excel' && 'Valuation_Model_3Statement.xlsx (Dynamic)'}
                         {activeArtifactTab === 'code' && 'Repo_Distribution_v1.0.tar.gz (TypeScript)'}
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                      <span className="text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
                         VERIFIED
                       </span>
                     </div>
@@ -503,12 +503,12 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 rounded-xl bg-white dark:bg-[#161A38] border border-purple-200 dark:border-purple-900/30">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-mono">IPFS / Arweave URI</span>
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#16233C] border border-purple-200 dark:border-purple-900/30">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-mono">IPFS / Arweave URI</span>
                       <span className="font-mono font-bold text-purple-600 dark:text-purple-300 text-xs">ipfs://QmX9z...4B</span>
                     </div>
-                    <div className="p-3 rounded-xl bg-white dark:bg-[#161A38] border border-purple-200 dark:border-purple-900/30">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-mono">Verification Status</span>
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#16233C] border border-purple-200 dark:border-purple-900/30">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-mono">Verification Status</span>
                       <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs">100% Tamper Proof</span>
                     </div>
                   </div>
@@ -554,7 +554,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                         juryVotes >= v
                           ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
                           : isDark
-                          ? 'bg-[#161A38] text-slate-500'
+                          ? 'bg-[#16233C] text-slate-500'
                           : 'bg-slate-100 text-slate-400'
                       }`}
                     >
@@ -569,7 +569,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
             <div className="lg:col-span-6">
               <div
                 className={`p-6 rounded-2xl border ${
-                  isDark ? 'bg-[#0A0C1B] border-pink-900/40' : 'bg-pink-50/40 border-pink-200'
+                  isDark ? 'bg-[#0A101F] border-pink-900/40' : 'bg-pink-50/40 border-pink-200'
                 }`}
               >
                 <div className="flex items-center justify-between pb-3 border-b border-pink-900/20 text-xs font-mono">
@@ -581,7 +581,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                 </div>
 
                 <div className="py-6 space-y-4">
-                  <div className="p-4 rounded-xl bg-white dark:bg-[#161A38] border border-pink-200 dark:border-pink-900/40 shadow-xs flex items-center justify-between">
+                  <div className="p-4 rounded-xl bg-white dark:bg-[#16233C] border border-pink-200 dark:border-pink-900/40 shadow-xs flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-slate-900 dark:text-white block">Quorum Threshold</span>
                       <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Requires at least 3 valid votes</span>
@@ -591,7 +591,7 @@ export const ArchitecturalPillarsShowcase: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white dark:bg-[#161A38] border border-pink-200 dark:border-pink-900/40 shadow-xs space-y-2">
+                  <div className="p-4 rounded-xl bg-white dark:bg-[#16233C] border border-pink-200 dark:border-pink-900/40 shadow-xs space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-500 dark:text-slate-400 font-mono">Sandbox Log Verification</span>
                       <span className="text-emerald-500 font-mono font-bold">Trace #8841-A OK</span>

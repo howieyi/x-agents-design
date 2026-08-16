@@ -45,6 +45,29 @@ interface AppContextType {
   setSurface: (surface: SurfaceType) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  navigateTo: (tab: string, taskId?: string) => void;
+
+  // Global search (header search → lands on Task Market with query)
+  globalSearchQuery: string;
+  setGlobalSearchQuery: (q: string) => void;
+
+  // Selected agent context for "Post demand with this agent"
+  selectedAgentForPublish: Agent | null;
+  setSelectedAgentForPublish: (agent: Agent | null) => void;
+  clearSelectedAgentForPublish: () => void;
+
+  // Content-agent publishing (Agent Studio → Marketplace)
+  publishNewAgent: (data: {
+    name: string;
+    handle: string;
+    category: string;
+    priceYD: number;
+    tags: string[];
+    tools: string[];
+  }) => void;
+
+  // Multi-agent orchestration generation from matched selection
+  generateOrchestrationFromAgents: (taskId: string, selectedAgents: Agent[]) => void;
 
   // User Profile
   userProfile: UserProfile;
@@ -118,8 +141,33 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+// ---- Prototype persistence & hash-routing helpers ----
+const STORAGE_KEYS = {
+  tasks: 'x_agents_tasks_v1',
+  agents: 'x_agents_agents_v1',
+  wallets: 'x_agents_wallets_v1',
+  transactions: 'x_agents_transactions_v1',
+  activeTaskId: 'x_agents_active_task_v1'
+};
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) return JSON.parse(raw) as T;
+  } catch (e) {
+    // corrupted storage → fallback to mock seed
+  }
+  return fallback;
+}
+
+function tabFromHash(): { tab: string; taskId?: string } {
+  const h = window.location.hash.replace(/^#\/?/, '');
+  const [tab, taskId] = h.split('/');
+  return { tab: tab || 'home', taskId };
+}
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Theme state: dark default as specified in design brief
+  // 主题：默认深色（企业蓝深色调），可切换亮色
   const [theme, setThemeState] = useState<ThemeMode>(() => {
     const saved = localStorage.getItem('x_agents_theme');
     return (saved as ThemeMode) || 'dark';
@@ -133,7 +181,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Surface: Marketplace vs Operations Console
   const [surface, setSurface] = useState<SurfaceType>('marketplace');
-  const [activeTab, setActiveTab] = useState<string>('home');
+  const [activeTab, setActiveTabState] = useState<string>(() => tabFromHash().tab);
+
+  // Global search query (header search → Task Market)
+  const [globalSearchQuery, setGlobalSearchQuery] = useState<string>('');
+
+  // Agent selected as context for "Post demand with this agent"
+  const [selectedAgentForPublish, setSelectedAgentForPublish] = useState<Agent | null>(null);
 
   // User Profile
   const [userProfile, setUserProfileState] = useState<UserProfile>(() => {
@@ -162,13 +216,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Wallets & Transactions
-  const [wallets, setWallets] = useState<UserWallet[]>(mockWallets);
+  const [wallets, setWallets] = useState<UserWallet[]>(() => loadFromStorage(STORAGE_KEYS.wallets, mockWallets));
   const [activeWalletId, setActiveWalletIdState] = useState<string>(mockWallets[0].id);
-  const [tasks, setTasks] = useState<Task[]>(mockTasks);
-  const [agents, setAgents] = useState<Agent[]>(mockAgents);
-  const [activeTaskId, setActiveTaskId] = useState<string>(mockTasks[0].id);
-  const [transactions, setTransactions] = useState<TransactionRecord[]>(mockTransactions);
+  const [tasks, setTasks] = useState<Task[]>(() => loadFromStorage(STORAGE_KEYS.tasks, mockTasks));
+  const [agents, setAgents] = useState<Agent[]>(() => loadFromStorage(STORAGE_KEYS.agents, mockAgents));
+  const [activeTaskId, setActiveTaskId] = useState<string>(() => loadFromStorage(STORAGE_KEYS.activeTaskId, mockTasks[0].id));
+  const [transactions, setTransactions] = useState<TransactionRecord[]>(() => loadFromStorage(STORAGE_KEYS.transactions, mockTransactions));
   const [systemStatus] = useState<SystemStatus>(mockSystemStatus);
+
+  // ---- Persist prototype state ----
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.tasks, JSON.stringify(tasks)); }, [tasks]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.agents, JSON.stringify(agents)); }, [agents]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.wallets, JSON.stringify(wallets)); }, [wallets]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.transactions, JSON.stringify(transactions)); }, [transactions]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.activeTaskId, activeTaskId); }, [activeTaskId]);
+
+  // ---- Hash-based navigation (refresh / share / back-forward support) ----
+  useEffect(() => {
+    const onHashChange = () => {
+      const { tab, taskId } = tabFromHash();
+      setActiveTabState(tab);
+      if (taskId) setActiveTaskId(taskId);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const navigateTo = (tab: string, taskId?: string) => {
+    if (taskId) setActiveTaskId(taskId);
+    setActiveTabState(tab);
+    const hash = tab === 'home' ? '#/' : `#/${tab}${taskId ? `/${taskId}` : ''}`;
+    if (window.location.hash !== hash) window.location.hash = hash;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const setActiveTab = (tab: string) => {
+    navigateTo(tab);
+  };
 
   // Modals & Selection
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
@@ -219,18 +303,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return dict[key] || translations['en-US'][key] || String(key);
   };
 
-  // Sync document class with theme
+  // 同步主题：背景渐变由 index.css 的 html.theme-dark/light 控制
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('theme-dark', 'dark');
       root.classList.remove('theme-light');
-      document.body.style.backgroundColor = '#07111F';
-      document.body.style.color = '#F4F7FB';
+      document.body.style.color = '#E2E8F0';
     } else {
       root.classList.add('theme-light');
       root.classList.remove('theme-dark', 'dark');
-      document.body.style.backgroundColor = '#F6F8FB';
       document.body.style.color = '#0F172A';
     }
   }, [theme]);
@@ -331,32 +413,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newTask: Task = {
       id: taskId,
-      title: taskData.title || 'Untitled Technical Task',
-      category: taskData.category || 'Cloud & Infrastructure',
-      tags: taskData.tags || ['Go', 'AWS'],
+      title: taskData.title || 'Untitled Content Creation Task',
+      category: taskData.category || '全平台社媒素材矩阵',
+      tags: taskData.tags || ['小红书图文', '爆款文案'],
       description: taskData.description || '',
       deliverables: taskData.deliverables || [
         {
           id: 'del-new-1',
-          title: 'Initial Module Deliverable',
-          description: 'Core source code repository and deployment documentation.',
+          title: 'Content Asset Bundle',
+          description: 'Platform-tailored media assets: visual cards, scripts, and formatted long-form copy.',
           status: 'pending'
         }
       ],
       acceptanceCriteria: taskData.acceptanceCriteria || [
-        'Automated CI/CD build passes with 0 lint warnings',
-        'Demonstrate end-to-end functionality in staging environment'
+        'All assets conform to the target platform specifications with no banned words',
+        'Copy includes viral headline formulas and platform-fit hashtag matrix'
       ],
       rewardYD: reward,
       stakeYD: stake,
       platformFeeYD: fee,
       deadline: taskData.deadline || new Date(Date.now() + 7 * 86400000).toISOString(),
-      status: 'open',
+      status: 'matching',
       owner: {
         id: 'usr-org-01',
-        name: 'Nexus Liquidity Corp',
+        name: 'Nexus Media Studio',
         walletAddress: activeWallet.address,
-        org: 'Nexus Trading'
+        org: 'Nexus Content'
       },
       escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
       createdAt: new Date().toISOString(),
@@ -393,8 +475,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setTransactions((prev) => [newTx, ...prev]);
     setTasks((prev) => [newTask, ...prev]);
-    setActiveTaskId(taskId);
     setIsPublishWizardOpen(false);
+    navigateTo('matching', taskId);
     showToast(t('toast_task_published'), 'success');
   };
 
@@ -438,6 +520,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
     setActiveTaskId(taskId);
     setActiveTab('workspace');
+    setSelectedAgentForPublish(null);
     showToast(locale === 'zh-CN' ? `已指派 ${agent.name} 处理任务` : `Assigned ${agent.name} to task`, 'success');
   };
 
@@ -871,6 +954,177 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(locale === 'zh-CN' ? '已重置编排流程状态' : 'Reset orchestration workflow state', 'info');
   };
 
+  // ---- Agent Studio → Marketplace: publish a new content agent ----
+  const publishNewAgent = (data: {
+    name: string;
+    handle: string;
+    category: string;
+    priceYD: number;
+    tags: string[];
+    tools: string[];
+  }) => {
+    const stamp = Date.now();
+    const agent: Agent = {
+      id: `agent-studio-${stamp}`,
+      name: data.name || '未命名内容创作 Agent',
+      handle: data.handle || `@agent_${stamp.toString().slice(-6)}`,
+      avatar: mockAgents[0].avatar,
+      summary: locale === 'zh-CN' ? `专注 ${data.category} 场景的内容生成 Agent，支持多平台素材一键产出。` : `Content generation agent specialized in ${data.category} assets across platforms.`,
+      category: data.category || '视觉与图片生成',
+      tags: data.tags.length ? data.tags : ['内容创作'],
+      version: 'v1.0.0',
+      verified: false,
+      status: 'active',
+      priceYD: data.priceYD || 800,
+      pricingModel: 'per_task',
+      author: {
+        id: 'auth-mine',
+        name: userProfile.name,
+        payoutWallet: activeWallet.address,
+        reputation: 100
+      },
+      metrics: {
+        completedTasks: 0,
+        onTimeRate: 100,
+        qualityRating: 5.0,
+        communicationRating: 5.0,
+        disputeRate: 0,
+        lastActive: locale === 'zh-CN' ? '刚刚上架' : 'Just listed',
+        totalEarnedYD: 0
+      },
+      capabilities: [
+        locale === 'zh-CN' ? `围绕「${data.category}」类目生成高质量内容素材` : `Generate high-quality assets for the ${data.category} category`
+      ],
+      supportedTools: data.tools.length ? data.tools : ['Flux_Pro_Renderer'],
+      runtimeConstraints: {
+        maxSteps: 50,
+        maxTokens: 160000,
+        maxCostYD: 60,
+        timeoutSeconds: 300,
+        allowedTools: data.tools
+      },
+      descriptionZh: locale === 'zh-CN' ? `全新上架的 ${data.category} 创作 Agent，等待首次任务验证。` : `Newly listed ${data.category} creation agent awaiting first task.`,
+      descriptionEn: `Newly listed ${data.category} creation agent awaiting first task.`
+    };
+    setAgents((prev) => [agent, ...prev]);
+    showToast(
+      locale === 'zh-CN' ? `「${agent.name}」已发布并上架至 Agent 集市！` : `"${agent.name}" published to the Agent marketplace!`,
+      'success'
+    );
+  };
+
+  // ---- Matching → Orchestration: one-click DAG generation from selected agents ----
+  const generateOrchestrationFromAgents = (taskId: string, selectedAgents: Agent[]) => {
+    if (!selectedAgents.length) return;
+    const stamp = Date.now();
+    const prefix = `gen-${stamp}`;
+    const list = selectedAgents;
+
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id !== taskId) return t;
+        const total = list.length + 1; // +1 aggregator
+        const baseRewardYD = Math.round((t.rewardYD || 1000) / total);
+        const baseRewardPct = Math.round(100 / total);
+
+        const agentNodes: OrchestrationNode[] = list.map((a, i) => ({
+          id: `${prefix}-${i}`,
+          name: `${a.name} · ${a.category}`,
+          stageIndex: i + 1,
+          nodeType: 'agent_worker' as const,
+          position: { x: 80 + (i % 3) * 360, y: 80 + Math.floor(i / 3) * 260 },
+          role: a.category,
+          assignedAgentId: a.id,
+          assignedAgentName: a.name,
+          assignedAgentAvatar: a.avatar,
+          assignedAgentHandle: a.handle,
+          inputArtifacts: i === 0 ? [t.title, '创作需求 Brief'] : ['前置阶段产出物'],
+          outputArtifacts: [`${a.handle.replace('@', '')}_deliverable.zip`],
+          status: i === 0 ? ('running' as const) : ('pending' as const),
+          rewardAllocationPct: baseRewardPct,
+          rewardAllocationYD: baseRewardYD,
+          dependencies: i === 0 ? [] : [`${prefix}-${i - 1}`],
+          requireHumanApproval: i === list.length - 1,
+          approved: false,
+          logs: [
+            {
+              id: `log-gen-${i}`,
+              timestamp: new Date().toLocaleTimeString(),
+              level: 'info' as const,
+              message: locale === 'zh-CN' ? `编排节点已生成，等待 ${a.name} 执行` : `Orchestration node ready, waiting for ${a.name}`
+            }
+          ]
+        }));
+
+        const aggregatorNode: OrchestrationNode = {
+          id: `${prefix}-agg`,
+          name: '内容成果打包与结算',
+          stageIndex: list.length + 1,
+          nodeType: 'aggregator' as const,
+          position: { x: 80 + (list.length % 3) * 360, y: 80 + Math.floor(list.length / 3) * 260 },
+          role: 'Content Deliverable Packager & Settlement',
+          assignedAgentId: list[list.length - 1].id,
+          assignedAgentName: list[list.length - 1].name,
+          assignedAgentAvatar: list[list.length - 1].avatar,
+          assignedAgentHandle: list[list.length - 1].handle,
+          inputArtifacts: list.map((a) => `${a.handle.replace('@', '')}_deliverable.zip`),
+          outputArtifacts: ['final_asset_bundle.zip', 'deliverable_proof.json'],
+          status: 'pending' as const,
+          rewardAllocationPct: 100 - baseRewardPct * list.length,
+          rewardAllocationYD: Math.max(0, (t.rewardYD || 1000) - baseRewardYD * list.length),
+          dependencies: agentNodes.map((n) => n.id),
+          requireHumanApproval: true,
+          approved: false,
+          logs: []
+        };
+
+        const allNodes = [...agentNodes, aggregatorNode];
+        const edges: OrchestrationEdge[] = allNodes.flatMap((n) =>
+          (n.dependencies || []).map((depId) => ({
+            id: `edge-${depId}-${n.id}`,
+            sourceNodeId: depId,
+            targetNodeId: n.id,
+            status: n.status === 'running' ? ('active' as const) : ('idle' as const),
+            animated: n.status === 'running'
+          }))
+        );
+
+        const newOrch: TaskOrchestration = {
+          enabled: true,
+          topology: 'pipeline',
+          supervisorAgentId: list[0].id,
+          supervisorAgentName: list[0].name,
+          supervisorAgentAvatar: list[0].avatar,
+          activeNodeId: agentNodes[0].id,
+          executionProgressPct: 0,
+          totalExecutionCostYD: 0,
+          nodes: allNodes,
+          edges,
+          interAgentMessages: [],
+          sharedContextPool: [
+            { key: 'TASK_SPEC', value: t.title, updatedBy: list[0].name, timestamp: new Date().toLocaleTimeString() }
+          ]
+        };
+
+        return {
+          ...t,
+          assignedAgent: list[0],
+          assignedAgentVersion: list[0].version,
+          status: 'assigned' as const,
+          orchestration: newOrch
+        };
+      })
+    );
+
+    setActiveTaskId(taskId);
+    navigateTo('workspace', taskId);
+    setSelectedAgentForPublish(null);
+    showToast(
+      locale === 'zh-CN' ? `已按 ${list.length} 个 Agent 生成编排 DAG，请检查画布后执行` : `Generated DAG from ${list.length} agents — review the canvas and run`,
+      'success'
+    );
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -885,6 +1139,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSurface,
         activeTab,
         setActiveTab,
+        navigateTo,
+        globalSearchQuery,
+        setGlobalSearchQuery,
+        selectedAgentForPublish,
+        setSelectedAgentForPublish,
+        clearSelectedAgentForPublish: () => setSelectedAgentForPublish(null),
+        publishNewAgent,
+        generateOrchestrationFromAgents,
         userProfile,
         updateUserProfile,
         isProfileModalOpen,
