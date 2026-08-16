@@ -16,14 +16,12 @@ import {
   ClipboardList,
   Bot,
   Layers,
-  Wrench,
   Wallet,
   ArrowRight,
   Zap,
   CheckCircle2,
   LayoutDashboard,
-  Radar,
-  FolderKanban
+  UserRound
 } from 'lucide-react';
 import { UserProfileDropdown } from './UserProfileDropdown';
 
@@ -38,6 +36,9 @@ export const ConsumerHeader: React.FC = () => {
     setActiveTab,
     setSurface,
     ydBalance,
+    isLoggedIn,
+    setIsLoginOpen,
+    setLoginIntent,
     setIsPublishWizardOpen,
     setIsCheckoutOpen,
     setGlobalSearchQuery,
@@ -48,43 +49,56 @@ export const ConsumerHeader: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const navItems = [
-    {
-      id: 'overview',
-      label: locale === 'zh-CN' ? '工作台' : 'Workbench',
-      icon: <LayoutDashboard className="w-4 h-4" />
-    },
-    {
-      id: 'tasks',
-      label: locale === 'zh-CN' ? '任务大厅' : 'Task Market',
-      icon: <ClipboardList className="w-4 h-4" />
-    },
-    {
-      id: 'agents',
-      label: locale === 'zh-CN' ? 'Agent 集市' : 'Agent Directory',
-      icon: <Bot className="w-4 h-4" />
-    },
-    {
-      id: 'matching',
-      label: locale === 'zh-CN' ? '匹配中心' : 'Matching',
-      icon: <Radar className="w-4 h-4" />
-    },
-    {
-      id: 'workspace',
-      label: locale === 'zh-CN' ? '我的项目' : 'Projects',
-      icon: <FolderKanban className="w-4 h-4" />
-    },
-    {
-      id: 'studio',
-      label: locale === 'zh-CN' ? '我的 Agent' : 'My Agents',
-      icon: <Wrench className="w-4 h-4" />
-    }
-  ];
+  // 登录前：首页（价值主张）/ 任务大厅 / Agent 集市；登录后：工作台 / 任务大厅 / Agent 集市
+  const navItems = isLoggedIn
+    ? [
+        {
+          id: 'overview',
+          label: locale === 'zh-CN' ? '工作台' : 'Workbench',
+          icon: <LayoutDashboard className="w-4 h-4" />
+        },
+        {
+          id: 'tasks',
+          label: locale === 'zh-CN' ? '任务大厅' : 'Task Market',
+          icon: <ClipboardList className="w-4 h-4" />
+        },
+        {
+          id: 'agents',
+          label: locale === 'zh-CN' ? 'Agent 集市' : 'Agent Directory',
+          icon: <Bot className="w-4 h-4" />
+        }
+      ]
+    : [
+        {
+          id: 'home',
+          label: locale === 'zh-CN' ? '首页' : 'Home',
+          icon: <Compass className="w-4 h-4" />
+        },
+        {
+          id: 'tasks',
+          label: locale === 'zh-CN' ? '任务大厅' : 'Task Market',
+          icon: <ClipboardList className="w-4 h-4" />
+        },
+        {
+          id: 'agents',
+          label: locale === 'zh-CN' ? 'Agent 集市' : 'Agent Directory',
+          icon: <Bot className="w-4 h-4" />
+        }
+      ];
 
   const handleNav = (tabId: string) => {
     setActiveTab(tabId);
     setIsMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handlePublishClick = () => {
+    if (!isLoggedIn) {
+      setLoginIntent('publish');
+      setIsLoginOpen(true);
+      return;
+    }
+    setIsPublishWizardOpen(true);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -208,19 +222,33 @@ export const ConsumerHeader: React.FC = () => {
 
         {/* Right: Actions & User Dropdown */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Radiant Enterprise Purple Publish Task Button */}
+          {/* Publish Task Button（未登录 → 登录引导） */}
           <button
             id="btn-publish-task-header"
-            onClick={() => setIsPublishWizardOpen(true)}
-            className="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#2563EB] via-[#4F8EF7] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center gap-2"
+            onClick={handlePublishClick}
+            className="btn-shine relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#2563EB] via-[#4F8EF7] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4 text-purple-200 group-hover:rotate-12 transition-transform duration-300" />
             <span className="hidden xs:inline">{locale === 'zh-CN' ? '发布需求' : 'Post Demand'}</span>
             <span className="xs:hidden">{locale === 'zh-CN' ? '发单' : 'Post'}</span>
           </button>
 
-          {/* User Profile Avatar Dropdown (Houses YD Balance, Language, Theme, Admin Console & Workspaces) */}
-          <UserProfileDropdown />
+          {/* 已登录 → 头像下拉；未登录 → 登录按钮 */}
+          {isLoggedIn ? (
+            <UserProfileDropdown />
+          ) : (
+            <button
+              id="btn-login-header"
+              onClick={() => {
+                setLoginIntent(null);
+                setIsLoginOpen(true);
+              }}
+              className="px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center gap-1.5 bg-white/5 border-purple-300/50 hover:border-purple-400 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/40"
+            >
+              <UserRound className="w-4 h-4" />
+              <span>{locale === 'zh-CN' ? '登录' : 'Log in'}</span>
+            </button>
+          )}
 
           {/* Mobile Menu Toggle Button */}
           <button

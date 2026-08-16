@@ -14,7 +14,6 @@ import { TaskKanbanView } from './components/marketplace/TaskKanbanView';
 import { MatchingResultsView } from './components/marketplace/MatchingResultsView';
 import { TaskWorkspaceView } from './components/marketplace/TaskWorkspaceView';
 import { WalletsPaymentsView } from './components/marketplace/WalletsPaymentsView';
-import { AgentStudioView } from './components/marketplace/AgentStudioView';
 
 // Common Views
 import { SettingsView } from './components/common/SettingsView';
@@ -27,6 +26,7 @@ import { PublishTaskWizardModal } from './components/marketplace/PublishTaskWiza
 import { MultiTokenCheckoutModal } from './components/marketplace/MultiTokenCheckoutModal';
 import { CompareAgentsDrawer } from './components/marketplace/CompareAgentsDrawer';
 import { UserProfileModal } from './components/profile/UserProfileModal';
+import { LoginModal } from './components/auth/LoginModal';
 
 // Dedicated Admin Console Layout
 import { AdminLayout } from './components/admin/AdminLayout';
@@ -68,7 +68,7 @@ const MainContent: React.FC = () => {
       case 'wallets':
         return <WalletsPaymentsView />;
       case 'studio':
-        return <AgentStudioView />;
+        return <OverviewView />;
       case 'settings':
         return <SettingsView />;
       case 'support':
@@ -103,6 +103,7 @@ const MainContent: React.FC = () => {
       <MultiTokenCheckoutModal />
       <CompareAgentsDrawer />
       <UserProfileModal />
+      <LoginModal />
       <ToastContainer />
     </div>
   );

@@ -25,7 +25,8 @@ import {
   Wrench,
   Bot,
   Flame,
-  ArrowUpRight
+  ArrowUpRight,
+  Radar
 } from 'lucide-react';
 
 export const UserProfileDropdown: React.FC = () => {
@@ -45,6 +46,7 @@ export const UserProfileDropdown: React.FC = () => {
     setActiveTab,
     setSurface,
     tasks,
+    logout,
     showToast
   } = useApp();
 
@@ -291,63 +293,15 @@ export const UserProfileDropdown: React.FC = () => {
             </div>
 
             {/* ========================================================= */}
-            {/* SECTION 2: 个人业务与工作台 (My Business & Workspaces) */}
+            {/* SECTION 2: 我的订单 (My Orders) */}
             {/* ========================================================= */}
             <div className="p-3.5 space-y-1.5">
               <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400 font-mono flex items-center gap-1.5 mb-2">
                 <Layers className="w-3.5 h-3.5 text-purple-400" />
-                {locale === 'zh-CN' ? '我的业务与工作台' : 'My Workspaces & Orders'}
+                {locale === 'zh-CN' ? '我的订单与资产' : 'My Orders & Assets'}
               </span>
 
-              <button
-                id="btn-nav-workspace-dropdown"
-                onClick={() => handleNavigate('workspace')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
-                  isDark
-                    ? 'hover:bg-[#16233C] text-slate-200 hover:text-white'
-                    : 'hover:bg-purple-50 text-slate-800'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-6 h-6 rounded-lg bg-purple-500/15 flex items-center justify-center text-purple-400">
-                    <Layers className="w-3.5 h-3.5" />
-                  </div>
-                  <div className="text-left">
-                    <span className="font-semibold block">{locale === 'zh-CN' ? '交付工作台' : 'Task Workspace'}</span>
-                    <span className="text-[11px] text-slate-400 font-mono block">
-                      {locale === 'zh-CN' ? '查看我承接/发布的履约订单' : 'Ongoing escrow & milestone deliverables'}
-                    </span>
-                  </div>
-                </div>
-                {activeTasksCount > 0 && (
-                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-purple-600 text-white font-bold">
-                    {activeTasksCount}
-                  </span>
-                )}
-              </button>
-
-              <button
-                id="btn-nav-studio-dropdown"
-                onClick={() => handleNavigate('studio')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
-                  isDark
-                    ? 'hover:bg-[#16233C] text-slate-200 hover:text-white'
-                    : 'hover:bg-purple-50 text-slate-800'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-6 h-6 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-400">
-                    <Wrench className="w-3.5 h-3.5" />
-                  </div>
-                  <div className="text-left">
-                    <span className="font-semibold block">{locale === 'zh-CN' ? '协同工坊 (Studio)' : 'Workflow Studio'}</span>
-                    <span className="text-[11px] text-slate-400 font-mono block">
-                      {locale === 'zh-CN' ? '多 Agent 协同编排与测试' : 'Multi-Agent DAG workflows & testing'}
-                    </span>
-                  </div>
-                </div>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-              </button>
+              
             </div>
 
             {/* ========================================================= */}
@@ -496,28 +450,23 @@ export const UserProfileDropdown: React.FC = () => {
             </div>
 
             {/* ========================================================= */}
-            {/* SECTION 6: 安全与重置 (Security & Session) */}
+            {/* SECTION 6: 安全与退出 (Security & Session) */}
             {/* ========================================================= */}
-            <div className="p-3 bg-purple-950/20">
+            <div className="p-3 bg-purple-950/20 space-y-1">
               <button
                 type="button"
                 onClick={() => {
-                  showToast(
-                    locale === 'zh-CN'
-                      ? '已重置本地会话与缓存，重新载入环境配置！'
-                      : 'Local session and mock cache successfully reset!',
-                    'info'
-                  );
+                  logout();
                   setIsOpen(false);
                 }}
-                className={`w-full py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors ${
+                className={`w-full py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors ${
                   isDark
-                    ? 'text-purple-300/70 hover:text-purple-200 hover:bg-[#16233C]'
-                    : 'text-slate-600 hover:text-purple-900 hover:bg-purple-50'
+                    ? 'text-rose-300/80 hover:text-rose-300 hover:bg-rose-500/10'
+                    : 'text-rose-600 hover:text-rose-700 hover:bg-rose-50'
                 }`}
               >
-                <LogOut className="w-3.5 h-3.5 text-slate-400" />
-                <span>{locale === 'zh-CN' ? '断开连接 / 重置会话' : 'Disconnect Session'}</span>
+                <LogOut className="w-3.5 h-3.5" />
+                <span>{locale === 'zh-CN' ? '退出登录' : 'Sign Out'}</span>
               </button>
             </div>
           </div>

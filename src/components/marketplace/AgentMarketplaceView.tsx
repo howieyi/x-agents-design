@@ -24,6 +24,7 @@ export const AgentMarketplaceView: React.FC = () => {
     t,
     agents,
     setSelectedAgent,
+    setSelectedAgentForPublish,
     setIsAgentDetailOpen,
     setIsPublishWizardOpen,
     addToCompare,
@@ -350,26 +351,26 @@ export const AgentMarketplaceView: React.FC = () => {
 
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => addToCompare(agent)}
-                      className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-colors cursor-pointer ${
-                        isCompared
-                          ? 'bg-purple-500/20 border-purple-500 text-purple-600 dark:text-purple-300 font-bold'
-                          : isDark
-                          ? 'border-purple-900/50 hover:bg-[#16233C] text-purple-300'
-                          : 'border-purple-200 hover:bg-purple-50 text-purple-900'
-                      }`}
-                      title="Compare side-by-side"
+                      onClick={() => {
+                        setSelectedAgentForPublish(agent);
+                        setIsPublishWizardOpen(true);
+                      }}
+                      className="btn-shine px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] text-white transition-all shadow-xs cursor-pointer"
                     >
-                      {isCompared ? '✓ Added' : '+ Compare'}
+                      {locale === 'zh-CN' ? '立即下单' : 'Order Now'}
                     </button>
                     <button
                       onClick={() => {
                         setSelectedAgent(agent);
                         setIsAgentDetailOpen(true);
                       }}
-                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-xs cursor-pointer"
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-colors cursor-pointer ${
+                        isDark
+                          ? 'border-purple-900/50 hover:bg-[#16233C] text-purple-300'
+                          : 'border-purple-200 hover:bg-purple-50 text-purple-900'
+                      }`}
                     >
-                      {t('view_details')}
+                      {locale === 'zh-CN' ? '详情' : 'Details'}
                     </button>
                   </div>
                 </div>

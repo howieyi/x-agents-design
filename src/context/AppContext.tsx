@@ -47,6 +47,16 @@ interface AppContextType {
   setActiveTab: (tab: string) => void;
   navigateTo: (tab: string, taskId?: string) => void;
 
+  // Auth (mock): 登录前游客 / 登录后用户（可同时是需求方与创作者）
+  isLoggedIn: boolean;
+  userRoles: Array<'buyer' | 'creator'>;
+  login: (roles: Array<'buyer' | 'creator'>) => void;
+  logout: () => void;
+  isLoginOpen: boolean;
+  setIsLoginOpen: (open: boolean) => void;
+  loginIntent: 'publish' | 'studio' | null;
+  setLoginIntent: (intent: 'publish' | 'studio' | null) => void;
+
   // Global search (header search → lands on Task Market with query)
   globalSearchQuery: string;
   setGlobalSearchQuery: (q: string) => void;
@@ -56,15 +66,6 @@ interface AppContextType {
   setSelectedAgentForPublish: (agent: Agent | null) => void;
   clearSelectedAgentForPublish: () => void;
 
-  // Content-agent publishing (Agent Studio → Marketplace)
-  publishNewAgent: (data: {
-    name: string;
-    handle: string;
-    category: string;
-    priceYD: number;
-    tags: string[];
-    tools: string[];
-  }) => void;
 
   // Multi-agent orchestration generation from matched selection
   generateOrchestrationFromAgents: (taskId: string, selectedAgents: Agent[]) => void;
@@ -188,6 +189,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Agent selected as context for "Post demand with this agent"
   const [selectedAgentForPublish, setSelectedAgentForPublish] = useState<Agent | null>(null);
+
+  // ---- Auth (mock): 游客 / 用户 ----
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('x_agents_logged_in') === '1';
+    } catch (e) {
+      return false;
+    }
+  });
+  const [userRoles, setUserRoles] = useState<Array<'buyer' | 'creator'>>(['buyer', 'creator']);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [loginIntent, setLoginIntent] = useState<'publish' | 'studio' | null>(null);
+
+  const login = (roles: Array<'buyer' | 'creator'>) => {
+    setUserRoles(roles);
+    setIsLoggedIn(true);
+    try {
+      localStorage.setItem('x_agents_logged_in', '1');
+    } catch (e) {
+      // ignore
+    }
+    showToast(locale === 'zh-CN' ? '欢迎回来，已进入你的工作空间' : 'Welcome back!', 'success');
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    try {
+      localStorage.removeItem('x_agents_logged_in');
+    } catch (e) {
+      // ignore
+    }
+    navigateTo('home');
+    showToast(locale === 'zh-CN' ? '已退出登录' : 'Signed out', 'info');
+  };
 
   // User Profile
   const [userProfile, setUserProfileState] = useState<UserProfile>(() => {
@@ -408,8 +443,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const publishNewTask = (taskData: Partial<Task>) => {
     const taskId = `task-${Math.floor(1000 + Math.random() * 9000)}`;
     const reward = taskData.rewardYD || 1000;
-    const stake = Math.round(reward * 0.06);
-    const fee = Math.round(reward * 0.02);
+    const stake = taskData.stakeYD ?? Math.round(reward * 0.06);
+    const fee = taskData.platformFeeYD ?? Math.round(reward * 0.02);
 
     const newTask: Task = {
       id: taskId,
@@ -435,17 +470,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       deadline: taskData.deadline || new Date(Date.now() + 7 * 86400000).toISOString(),
       status: 'matching',
       owner: {
-        id: 'usr-org-01',
-        name: 'Nexus Media Studio',
+        id: userProfile.id,
+        name: userProfile.name,
         walletAddress: activeWallet.address,
-        org: 'Nexus Content'
+        org: userProfile.org
       },
       escrowContract: '0x99B34e1525b425bB298dF19f72bBf573D4D1525A',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
 
-    // Deduct YD from active wallet
+    // Deduct YD from active wallet（含质押金）
+    const totalDebit = reward + fee + stake;
     setWallets((prev) =>
       prev.map((w) => {
         if (w.id === activeWallet.id) {
@@ -453,7 +489,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             ...w,
             balances: {
               ...w.balances,
-              YD: Math.max(0, w.balances.YD - (reward + fee))
+              YD: Math.max(0, w.balances.YD - totalDebit)
             }
           };
         }
@@ -465,7 +501,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       id: `tx-${Date.now()}`,
       txHash: `0x${Math.random().toString(16).substring(2)}${Math.random().toString(16).substring(2)}`,
       type: 'escrow_deposit',
-      amountYD: reward + fee,
+      amountYD: totalDebit,
       status: 'confirmed',
       timestamp: new Date().toISOString(),
       blockNumber: systemStatus.blockHeight + 2,
@@ -507,21 +543,99 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const assignAgentToTask = (taskId: string, agent: Agent) => {
     setTasks((prev) =>
       prev.map((t) => {
-        if (t.id === taskId) {
-          return {
-            ...t,
-            assignedAgent: agent,
-            assignedAgentVersion: agent.version,
-            status: 'assigned'
+        if (t.id !== taskId) return t;
+
+        // 若任务尚无编排，自动生成「执行节点 + 结算节点」最小流水线，
+        // 避免指派后进入空画布导致流程卡住。
+        const hasNodes = t.orchestration?.nodes && t.orchestration.nodes.length > 0;
+        let orchestration = t.orchestration;
+        if (!hasNodes) {
+          const stamp = Date.now();
+          const reward = t.rewardYD || 1000;
+          const workerId = `node-${stamp}-w`;
+          const aggId = `node-${stamp}-a`;
+          const worker: OrchestrationNode = {
+            id: workerId,
+            name: `${agent.name} · ${agent.category}`,
+            stageIndex: 1,
+            nodeType: 'agent_worker',
+            position: { x: 80, y: 120 },
+            role: agent.category,
+            assignedAgentId: agent.id,
+            assignedAgentName: agent.name,
+            assignedAgentAvatar: agent.avatar,
+            assignedAgentHandle: agent.handle,
+            inputArtifacts: [t.title, '创作需求 Brief'],
+            outputArtifacts: [`${agent.handle.replace('@', '')}_deliverable.zip`],
+            status: 'running',
+            rewardAllocationPct: 70,
+            rewardAllocationYD: Math.round(reward * 0.7),
+            dependencies: [],
+            requireHumanApproval: false,
+            approved: false,
+            logs: [
+              {
+                id: `log-${stamp}-w`,
+                timestamp: new Date().toLocaleTimeString(),
+                level: 'info',
+                message: locale === 'zh-CN' ? `已指派 ${agent.name}，等待执行` : `Assigned to ${agent.name}, ready to run`
+              }
+            ]
+          };
+          const aggregator: OrchestrationNode = {
+            id: aggId,
+            name: '内容成果打包与结算',
+            stageIndex: 2,
+            nodeType: 'aggregator',
+            position: { x: 440, y: 120 },
+            role: 'Content Deliverable Packager & Settlement',
+            assignedAgentId: agent.id,
+            assignedAgentName: agent.name,
+            assignedAgentAvatar: agent.avatar,
+            assignedAgentHandle: agent.handle,
+            inputArtifacts: worker.outputArtifacts,
+            outputArtifacts: ['final_asset_bundle.zip', 'deliverable_proof.json'],
+            status: 'pending',
+            rewardAllocationPct: 30,
+            rewardAllocationYD: Math.round(reward * 0.3),
+            dependencies: [workerId],
+            requireHumanApproval: true,
+            approved: false,
+            logs: []
+          };
+          orchestration = {
+            enabled: true,
+            topology: 'pipeline',
+            supervisorAgentId: agent.id,
+            supervisorAgentName: agent.name,
+            supervisorAgentAvatar: agent.avatar,
+            activeNodeId: workerId,
+            executionProgressPct: 0,
+            totalExecutionCostYD: 0,
+            nodes: [worker, aggregator],
+            edges: [
+              { id: `edge-${workerId}-${aggId}`, sourceNodeId: workerId, targetNodeId: aggId, status: 'active', animated: true }
+            ],
+            interAgentMessages: [],
+            sharedContextPool: [
+              { key: 'TASK_SPEC', value: t.title, updatedBy: agent.name, timestamp: new Date().toLocaleTimeString() }
+            ]
           };
         }
-        return t;
+
+        return {
+          ...t,
+          assignedAgent: agent,
+          assignedAgentVersion: agent.version,
+          status: 'assigned',
+          orchestration
+        };
       })
     );
     setActiveTaskId(taskId);
     setActiveTab('workspace');
     setSelectedAgentForPublish(null);
-    showToast(locale === 'zh-CN' ? `已指派 ${agent.name} 处理任务` : `Assigned ${agent.name} to task`, 'success');
+    showToast(locale === 'zh-CN' ? `已指派 ${agent.name} 并生成执行流水线` : `Assigned ${agent.name} and generated pipeline`, 'success');
   };
 
   const updateTaskOrchestration = (taskId: string, orchestration: TaskOrchestration) => {
@@ -954,65 +1068,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(locale === 'zh-CN' ? '已重置编排流程状态' : 'Reset orchestration workflow state', 'info');
   };
 
-  // ---- Agent Studio → Marketplace: publish a new content agent ----
-  const publishNewAgent = (data: {
-    name: string;
-    handle: string;
-    category: string;
-    priceYD: number;
-    tags: string[];
-    tools: string[];
-  }) => {
-    const stamp = Date.now();
-    const agent: Agent = {
-      id: `agent-studio-${stamp}`,
-      name: data.name || '未命名内容创作 Agent',
-      handle: data.handle || `@agent_${stamp.toString().slice(-6)}`,
-      avatar: mockAgents[0].avatar,
-      summary: locale === 'zh-CN' ? `专注 ${data.category} 场景的内容生成 Agent，支持多平台素材一键产出。` : `Content generation agent specialized in ${data.category} assets across platforms.`,
-      category: data.category || '视觉与图片生成',
-      tags: data.tags.length ? data.tags : ['内容创作'],
-      version: 'v1.0.0',
-      verified: false,
-      status: 'active',
-      priceYD: data.priceYD || 800,
-      pricingModel: 'per_task',
-      author: {
-        id: 'auth-mine',
-        name: userProfile.name,
-        payoutWallet: activeWallet.address,
-        reputation: 100
-      },
-      metrics: {
-        completedTasks: 0,
-        onTimeRate: 100,
-        qualityRating: 5.0,
-        communicationRating: 5.0,
-        disputeRate: 0,
-        lastActive: locale === 'zh-CN' ? '刚刚上架' : 'Just listed',
-        totalEarnedYD: 0
-      },
-      capabilities: [
-        locale === 'zh-CN' ? `围绕「${data.category}」类目生成高质量内容素材` : `Generate high-quality assets for the ${data.category} category`
-      ],
-      supportedTools: data.tools.length ? data.tools : ['Flux_Pro_Renderer'],
-      runtimeConstraints: {
-        maxSteps: 50,
-        maxTokens: 160000,
-        maxCostYD: 60,
-        timeoutSeconds: 300,
-        allowedTools: data.tools
-      },
-      descriptionZh: locale === 'zh-CN' ? `全新上架的 ${data.category} 创作 Agent，等待首次任务验证。` : `Newly listed ${data.category} creation agent awaiting first task.`,
-      descriptionEn: `Newly listed ${data.category} creation agent awaiting first task.`
-    };
-    setAgents((prev) => [agent, ...prev]);
-    showToast(
-      locale === 'zh-CN' ? `「${agent.name}」已发布并上架至 Agent 集市！` : `"${agent.name}" published to the Agent marketplace!`,
-      'success'
-    );
-  };
-
   // ---- Matching → Orchestration: one-click DAG generation from selected agents ----
   const generateOrchestrationFromAgents = (taskId: string, selectedAgents: Agent[]) => {
     if (!selectedAgents.length) return;
@@ -1140,12 +1195,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeTab,
         setActiveTab,
         navigateTo,
+        isLoggedIn,
+        userRoles,
+        login,
+        logout,
+        isLoginOpen,
+        setIsLoginOpen,
+        loginIntent,
+        setLoginIntent,
         globalSearchQuery,
         setGlobalSearchQuery,
         selectedAgentForPublish,
         setSelectedAgentForPublish,
         clearSelectedAgentForPublish: () => setSelectedAgentForPublish(null),
-        publishNewAgent,
         generateOrchestrationFromAgents,
         userProfile,
         updateUserProfile,

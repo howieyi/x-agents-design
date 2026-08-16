@@ -11,6 +11,7 @@ import {
   Plus,
   Check,
   ArrowRight,
+  ChevronDown,
   SearchX
 } from 'lucide-react';
 
@@ -30,6 +31,7 @@ export const MatchingResultsView: React.FC = () => {
     setIsCompareOpen,
     compareAgents,
     selectedAgentForPublish,
+    userProfile,
     navigateTo,
     theme,
     locale
@@ -39,6 +41,8 @@ export const MatchingResultsView: React.FC = () => {
 
   // Agents queued for one-click DAG orchestration (multi-select)
   const [selectedForDag, setSelectedForDag] = useState<string[]>([]);
+  // 展开详情（评分拆解/对比/加入编排）的候选
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   // Candidates are derived live from the marketplace agents, bound to the active task
   const candidates = useMemo<MatchingCandidate[]>(() => {
@@ -116,8 +120,8 @@ export const MatchingResultsView: React.FC = () => {
         )}
       </div>
 
-      {/* Task Selector & Pinned Card */}
-      {activeTask ? (
+      {/* Task Selector & Pinned Card（仅我的需求参与匹配） */}
+      {activeTask && activeTask.owner.id === userProfile.id ? (
         <div
           className={`p-4 sm:p-5 rounded-2xl border flex flex-col md:flex-row md:items-center justify-between gap-4 ${
             isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-gradient-to-r from-purple-50 to-white border-purple-200'
@@ -126,7 +130,7 @@ export const MatchingResultsView: React.FC = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300">
-                {locale === 'zh-CN' ? '当前匹配任务' : 'Task in matching'}
+                {locale === 'zh-CN' ? '我的匹配任务' : 'My task in matching'}
               </span>
               <span className="font-mono text-xs text-slate-400">#{activeTask.id}</span>
               {activeTask.status === 'matching' && (
@@ -151,7 +155,7 @@ export const MatchingResultsView: React.FC = () => {
               }`}
             >
               {tasks
-                .filter((task) => task.status === 'matching' || task.status === 'open')
+                .filter((task) => task.owner.id === userProfile.id && (task.status === 'matching' || task.status === 'open'))
                 .map((task) => (
                   <option key={task.id} value={task.id}>
                     #{task.id} - {task.title.substring(0, 28)}...
@@ -261,92 +265,116 @@ export const MatchingResultsView: React.FC = () => {
                 </div>
               </div>
 
-              {/* "Why this match" explanation box */}
-              <div
-                className={`p-3 rounded-xl border text-xs mb-4 ${
-                  isDark ? 'bg-[#0D1526] border-purple-900/40 text-slate-300' : 'bg-purple-50/60 border-purple-100 text-slate-700'
-                }`}
-              >
-                <div className="flex items-start gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-purple-600 dark:text-purple-300 mr-1">
-                      {locale === 'zh-CN' ? '推荐理由' : 'Why this match'}:
-                    </span>
-                    <span className="leading-relaxed">
-                      {locale === 'zh-CN' ? cand.whyMatch.zh : cand.whyMatch.en}
-                    </span>
+              {/* 一句话推荐理由（收起态） */}
+              {expandedId !== agent.id && (
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2">
+                  {locale === 'zh-CN' ? cand.whyMatch.zh : cand.whyMatch.en}
+                </p>
+              )}
+
+              {/* 展开详情：完整理由 + 评分拆解 + 多选操作 */}
+              {expandedId === agent.id && (
+                <div className="space-y-4 mb-4 animate-fadeIn">
+                  <div
+                    className={`p-3 rounded-xl border text-xs ${
+                      isDark ? 'bg-[#0D1526] border-purple-900/40 text-slate-300' : 'bg-purple-50/60 border-purple-100 text-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      <Sparkles className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-semibold text-purple-600 dark:text-purple-300 mr-1">
+                          {locale === 'zh-CN' ? '推荐理由' : 'Why this match'}:
+                        </span>
+                        <span className="leading-relaxed">
+                          {locale === 'zh-CN' ? cand.whyMatch.zh : cand.whyMatch.en}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Match Factors Breakdown Bars */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono-tabular">
+                    {[
+                      { label: t('score_semantic'), value: cand.scoreBreakdown.semanticMatch, color: 'bg-purple-500' },
+                      { label: t('score_skills'), value: cand.scoreBreakdown.categoryTagMatch, color: 'bg-cyan-500' },
+                      { label: t('score_ontime'), value: cand.scoreBreakdown.onTimeRate, color: 'bg-emerald-500' },
+                      { label: t('score_reputation'), value: cand.scoreBreakdown.qualityRating, color: 'bg-amber-500' }
+                    ].map((m) => (
+                      <div key={m.label}>
+                        <div className="flex justify-between text-[11px] text-slate-400 mb-1">
+                          <span>{m.label}</span>
+                          <span className="font-semibold text-slate-200">{Math.round(m.value)}%</span>
+                        </div>
+                        <div className="h-1.5 rounded-full bg-slate-700/60 overflow-hidden">
+                          <div className={`h-full ${m.color}`} style={{ width: `${Math.min(100, m.value)}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {agent.tags.slice(0, 4).map((tag) => (
+                      <span
+                        key={tag}
+                        className={`text-[11px] px-2 py-0.5 rounded-md font-mono ${
+                          isDark ? 'bg-[#0D1526] text-slate-300' : 'bg-slate-100 text-slate-700'
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Match Factors Breakdown Bars */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mb-4 font-mono-tabular">
-                {[
-                  { label: t('score_semantic'), value: cand.scoreBreakdown.semanticMatch, color: 'bg-purple-500' },
-                  { label: t('score_skills'), value: cand.scoreBreakdown.categoryTagMatch, color: 'bg-cyan-500' },
-                  { label: t('score_ontime'), value: cand.scoreBreakdown.onTimeRate, color: 'bg-emerald-500' },
-                  { label: t('score_reputation'), value: cand.scoreBreakdown.qualityRating, color: 'bg-amber-500' }
-                ].map((m) => (
-                  <div key={m.label}>
-                    <div className="flex justify-between text-[11px] text-slate-400 mb-1">
-                      <span>{m.label}</span>
-                      <span className="font-semibold text-slate-200">{Math.round(m.value)}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-slate-700/60 overflow-hidden">
-                      <div className={`h-full ${m.color}`} style={{ width: `${Math.min(100, m.value)}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              )}
 
               {/* Action Buttons */}
               <div className="pt-3 border-t border-purple-900/20 dark:border-purple-950/60 flex items-center justify-between gap-3 flex-wrap">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {agent.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className={`text-[11px] px-2 py-0.5 rounded-md font-mono ${
-                        isDark ? 'bg-[#0D1526] text-slate-300' : 'bg-slate-100 text-slate-700'
-                      }`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                <button
+                  onClick={() => setExpandedId(expandedId === agent.id ? null : agent.id)}
+                  className="text-xs font-semibold text-purple-600 dark:text-purple-300 hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  {expandedId === agent.id ? (
+                    <>{locale === 'zh-CN' ? '收起详情' : 'Collapse'}<ChevronDown className="w-3.5 h-3.5 rotate-180" /></>
+                  ) : (
+                    <>{locale === 'zh-CN' ? '查看详情' : 'Details'}<ChevronDown className="w-3.5 h-3.5" /></>
+                  )}
+                </button>
 
                 <div className="flex items-center gap-2 flex-wrap">
-                  {isMatchingState && (
-                    <button
-                      onClick={() => toggleForDag(agent.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-colors ${
-                        isInDag
-                          ? 'bg-purple-600 text-white border-purple-600'
-                          : isDark
-                          ? 'border-purple-900/50 hover:bg-purple-950/40 text-slate-300'
-                          : 'border-purple-200 hover:bg-purple-50 text-slate-700'
-                      }`}
-                    >
-                      {isInDag ? (
-                        <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5" />{locale === 'zh-CN' ? '已加入编排' : 'In DAG'}</span>
-                      ) : (
-                        <span className="flex items-center gap-1"><Plus className="w-3.5 h-3.5" />{locale === 'zh-CN' ? '加入编排' : 'Add to DAG'}</span>
-                      )}
-                    </button>
-                  )}
+                  {isMatchingState && expandedId === agent.id && (
+                    <>
+                      <button
+                        onClick={() => toggleForDag(agent.id)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-colors ${
+                          isInDag
+                            ? 'bg-purple-600 text-white border-purple-600'
+                            : isDark
+                            ? 'border-purple-900/50 hover:bg-purple-950/40 text-slate-300'
+                            : 'border-purple-200 hover:bg-purple-50 text-slate-700'
+                        }`}
+                      >
+                        {isInDag ? (
+                          <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5" />{locale === 'zh-CN' ? '已加入编排' : 'In DAG'}</span>
+                        ) : (
+                          <span className="flex items-center gap-1"><Plus className="w-3.5 h-3.5" />{locale === 'zh-CN' ? '加入编排' : 'Add to DAG'}</span>
+                        )}
+                      </button>
 
-                  <button
-                    onClick={() => addToCompare(agent)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
-                      isCompared
-                        ? 'bg-purple-600/20 border-purple-500 text-purple-600 dark:text-purple-300'
-                        : isDark
-                        ? 'border-purple-900/50 hover:bg-purple-950/40 text-slate-300'
-                        : 'border-purple-200 hover:bg-purple-50 text-slate-700'
-                    }`}
-                  >
-                    {isCompared ? '✓ Compare' : '+ Compare'}
-                  </button>
+                      <button
+                        onClick={() => addToCompare(agent)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                          isCompared
+                            ? 'bg-purple-600/20 border-purple-500 text-purple-600 dark:text-purple-300'
+                            : isDark
+                            ? 'border-purple-900/50 hover:bg-purple-950/40 text-slate-300'
+                            : 'border-purple-200 hover:bg-purple-50 text-slate-700'
+                        }`}
+                      >
+                        {isCompared ? '✓ Compare' : '+ Compare'}
+                      </button>
+                    </>
+                  )}
 
                   {isMatchingState && (
                     <button
@@ -355,9 +383,9 @@ export const MatchingResultsView: React.FC = () => {
                           assignAgentToTask(activeTask.id, agent);
                         }
                       }}
-                      className="px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-colors shadow-sm"
+                      className="btn-shine px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] text-white transition-colors shadow-sm"
                     >
-                      {locale === 'zh-CN' ? '指派此 Agent' : 'Assign Agent'}
+                      {locale === 'zh-CN' ? '一键下单' : 'Order Now'}
                     </button>
                   )}
                 </div>
