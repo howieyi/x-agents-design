@@ -49,7 +49,7 @@ export const ScreenScrollNavigator: React.FC<ScreenScrollNavigatorProps> = ({
         <div
           className={`p-2 rounded-2xl border backdrop-blur-xl flex flex-col items-center gap-2 shadow-2xl transition-all duration-300 ${
             isDark
-              ? 'bg-[#101A2E]/85 border-purple-900/40 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+              ? 'bg-[#10132B]/85 border-purple-900/40 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
               : 'bg-white/90 border-purple-100 shadow-[0_10px_30px_rgba(124,58,237,0.12)]'
           }`}
         >
@@ -81,7 +81,7 @@ export const ScreenScrollNavigator: React.FC<ScreenScrollNavigatorProps> = ({
                   <div
                     className={`absolute right-7 px-2.5 py-1 rounded-lg text-xs font-mono font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 border shadow-lg ${
                       isDark
-                        ? 'bg-[#16233C] text-purple-200 border-purple-800/60 shadow-black/60'
+                        ? 'bg-[#161A38] text-purple-200 border-purple-800/60 shadow-black/60'
                         : 'bg-white text-purple-950 border-purple-200 shadow-purple-500/10'
                     }`}
                   >
@@ -120,7 +120,7 @@ export const ScreenScrollNavigator: React.FC<ScreenScrollNavigatorProps> = ({
         <div
           className={`px-2.5 py-1 rounded-full border text-[11px] font-mono font-bold backdrop-blur-md shadow-md ${
             isDark
-              ? 'bg-[#101A2E]/85 border-purple-900/50 text-purple-300'
+              ? 'bg-[#10132B]/85 border-purple-900/50 text-purple-300'
               : 'bg-white/90 border-purple-200 text-purple-900'
           }`}
         >
@@ -133,7 +133,7 @@ export const ScreenScrollNavigator: React.FC<ScreenScrollNavigatorProps> = ({
         <div
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border shadow-2xl backdrop-blur-xl ${
             isDark
-              ? 'bg-[#101A2E]/90 border-purple-900/50 text-white'
+              ? 'bg-[#10132B]/90 border-purple-900/50 text-white'
               : 'bg-white/95 border-purple-200 text-slate-900'
           }`}
         >

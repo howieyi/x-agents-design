@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
       id="app-header"
       className={`sticky top-0 z-30 w-full border-b transition-colors ${
         isDark
-          ? 'bg-[#0F1829]/95 border-[#1F2D4A] backdrop-blur-md text-[#F8FAFC]'
+          ? 'bg-[#0C1728]/95 border-[#243550] backdrop-blur-md text-[#F4F7FB]'
           : 'bg-white/95 border-slate-200 backdrop-blur-md text-slate-900 shadow-sm'
       }`}
     >
@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={onToggleMobileSidebar}
             className={`lg:hidden p-2 rounded-xl border transition-colors ${
               isDark
-                ? 'border-[#1F2D4A] hover:bg-[#132036] text-slate-300'
+                ? 'border-[#243550] hover:bg-[#111F34] text-slate-300'
                 : 'border-slate-200 hover:bg-slate-100 text-slate-700'
             }`}
             aria-label="Toggle Navigation Menu"
@@ -60,9 +60,9 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('overview')}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0284C7] via-[#6366F1] to-[#F59E0B] p-0.5 shadow-md flex items-center justify-center">
-              <div className={`w-full h-full rounded-[10px] flex items-center justify-center font-bold text-sm ${isDark ? 'bg-[#0A101F]' : 'bg-white'}`}>
-                <span className="bg-gradient-to-r from-[#0284C7] to-[#6366F1] bg-clip-text text-transparent font-black">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#36E4DA] via-[#7568FF] to-[#FFC857] p-0.5 shadow-md flex items-center justify-center">
+              <div className={`w-full h-full rounded-[10px] flex items-center justify-center font-bold text-sm ${isDark ? 'bg-[#07111F]' : 'bg-white'}`}>
+                <span className="bg-gradient-to-r from-[#36E4DA] to-[#7568FF] bg-clip-text text-transparent font-black">
                   X
                 </span>
               </div>
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="font-display font-bold text-base tracking-tight leading-none">
                   X Agents Space
                 </span>
-                <span className="text-[11px] px-1.5 py-0.5 rounded font-mono font-medium bg-[#0284C7]/15 text-[#0284C7]">
+                <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-medium bg-[#36E4DA]/15 text-[#36E4DA]">
                   v0.1
                 </span>
               </div>
@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div
             id="surface-switcher"
             className={`hidden md:flex p-1 rounded-xl border text-xs font-medium ${
-              isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-100 border-slate-200'
+              isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-100 border-slate-200'
             }`}
           >
             <button
@@ -97,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                 surface === 'marketplace'
-                  ? 'bg-[#0284C7] text-[#0A101F] font-semibold shadow-xs'
+                  ? 'bg-[#36E4DA] text-[#07111F] font-semibold shadow-xs'
                   : isDark
                   ? 'text-slate-400 hover:text-slate-200'
                   : 'text-slate-600 hover:text-slate-900'
@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                 surface === 'admin'
-                  ? 'bg-[#6366F1] text-white font-semibold shadow-xs'
+                  ? 'bg-[#7568FF] text-white font-semibold shadow-xs'
                   : isDark
                   ? 'text-slate-400 hover:text-slate-200'
                   : 'text-slate-600 hover:text-slate-900'
@@ -131,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div
             className={`relative w-full flex items-center rounded-xl border px-3 py-1.5 text-xs transition-all ${
               isDark
-                ? 'bg-[#0A101F] border-[#1F2D4A] focus-within:border-[#0284C7]'
+                ? 'bg-[#07111F] border-[#243550] focus-within:border-[#36E4DA]'
                 : 'bg-slate-50 border-slate-200 focus-within:border-sky-500'
             }`}
           >
@@ -143,8 +143,8 @@ export const Header: React.FC<HeaderProps> = ({
               className="w-full bg-transparent focus:outline-none placeholder:text-slate-500 text-xs"
             />
             <span
-              className={`hidden xl:inline-block px-1.5 py-0.5 rounded text-[11px] font-mono border ${
-                isDark ? 'bg-[#132036] border-[#1F2D4A] text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-500'
+              className={`hidden xl:inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${
+                isDark ? 'bg-[#111F34] border-[#243550] text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-500'
               }`}
             >
               ⌘K
@@ -159,23 +159,23 @@ export const Header: React.FC<HeaderProps> = ({
             id="yd-balance-pill"
             className={`flex items-center rounded-xl border pl-3 pr-1.5 py-1 text-xs transition-all ${
               isDark
-                ? 'bg-[#132036] border-[#1F2D4A] hover:border-[#F59E0B]/50'
+                ? 'bg-[#111F34] border-[#243550] hover:border-[#FFC857]/50'
                 : 'bg-amber-50/80 border-amber-200 hover:border-amber-300'
             }`}
           >
             <div className="flex items-center gap-1.5 mr-2 font-mono-tabular">
-              <Coins className="w-4 h-4 text-[#F59E0B]" />
+              <Coins className="w-4 h-4 text-[#FFC857]" />
               <div>
-                <span className="font-semibold text-xs text-[#F59E0B]">
+                <span className="font-semibold text-xs text-[#FFC857]">
                   {ydBalance.toLocaleString()}
                 </span>
-                <span className="ml-1 text-[11px] text-slate-400 font-sans">YD</span>
+                <span className="ml-1 text-[10px] text-slate-400 font-sans">YD</span>
               </div>
             </div>
             <button
               id="btn-acquire-yd-header"
               onClick={() => setIsCheckoutOpen(true)}
-              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#F59E0B] text-[#0A101F] hover:bg-[#FBBF24] transition-colors shrink-0 shadow-xs"
+              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#FFC857] text-[#07111F] hover:bg-[#ffcf6e] transition-colors shrink-0 shadow-xs"
             >
               {t('acquire_yd')}
             </button>

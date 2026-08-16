@@ -60,7 +60,7 @@ export const WalletsPaymentsView: React.FC = () => {
             onClick={() => setIsLinkWalletModalOpen(true)}
             className={`px-4 py-2.5 rounded-2xl text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer ${
               isDark
-                ? 'border-purple-900/40 bg-[#101A2E] hover:bg-purple-950/40 text-slate-200'
+                ? 'border-purple-900/40 bg-[#10132B] hover:bg-purple-950/40 text-slate-200'
                 : 'border-purple-100 bg-white hover:bg-purple-50 text-slate-800 shadow-sm'
             }`}
           >
@@ -74,7 +74,7 @@ export const WalletsPaymentsView: React.FC = () => {
       <div
         className={`p-6 rounded-3xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 ${
           isDark
-            ? 'bg-gradient-to-r from-[#101A2E] via-[#1D2133] to-[#101A2E] border-purple-900/50 shadow-lg shadow-purple-950/20'
+            ? 'bg-gradient-to-r from-[#10132B] via-[#171B3D] to-[#10132B] border-purple-900/50 shadow-lg shadow-purple-950/20'
             : 'bg-gradient-to-r from-purple-50/80 via-white to-amber-50/40 border-purple-100 shadow-sm'
         }`}
       >
@@ -100,15 +100,15 @@ export const WalletsPaymentsView: React.FC = () => {
 
         <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
           <div className={`p-3.5 rounded-2xl border text-xs text-center min-w-[140px] ${
-            isDark ? 'bg-[#0D1526] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+            isDark ? 'bg-[#0D0F24] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
           }`}>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-medium block">Settlement Chain</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-medium block">Settlement Chain</span>
             <span className="font-bold text-purple-600 dark:text-purple-400 mt-0.5 block">Base Sepolia (84532)</span>
           </div>
           <div className={`p-3.5 rounded-2xl border text-xs text-center min-w-[140px] ${
-            isDark ? 'bg-[#0D1526] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+            isDark ? 'bg-[#0D0F24] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
           }`}>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-medium block">Escrow Contract</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-medium block">Escrow Contract</span>
             <span className="font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">0x99B3...1525A</span>
           </div>
         </div>
@@ -131,10 +131,10 @@ export const WalletsPaymentsView: React.FC = () => {
                 className={`p-5 rounded-3xl border transition-all flex flex-col justify-between space-y-4 ${
                   isSelected
                     ? isDark
-                      ? 'bg-[#101A2E] border-purple-500 shadow-lg shadow-purple-950/40 ring-1 ring-purple-500/40'
+                      ? 'bg-[#10132B] border-purple-500 shadow-lg shadow-purple-950/40 ring-1 ring-purple-500/40'
                       : 'bg-white border-purple-400 shadow-md ring-2 ring-purple-400/30'
                     : isDark
-                    ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+                    ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
                     : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
                 }`}
               >
@@ -151,7 +151,7 @@ export const WalletsPaymentsView: React.FC = () => {
                       <p className="font-mono text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{shorten(w.address)}</p>
                     </div>
 
-                    <span className="text-[11px] px-2.5 py-0.5 rounded-full font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
                       {w.provider.replace('_', ' ')}
                     </span>
                   </div>
@@ -159,7 +159,7 @@ export const WalletsPaymentsView: React.FC = () => {
                   {/* Token Balances Grid */}
                   <div
                     className={`p-3.5 rounded-2xl border text-xs font-mono space-y-1.5 mb-3.5 ${
-                      isDark ? 'bg-[#0D1526] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
+                      isDark ? 'bg-[#0D0F24] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
                     }`}
                   >
                     <div className="flex justify-between items-center">
@@ -178,7 +178,7 @@ export const WalletsPaymentsView: React.FC = () => {
 
                   {/* Role Assignment Chips */}
                   <div>
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase block mb-1.5 font-semibold">
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase block mb-1.5 font-semibold">
                       {t('wallet_role_label')}
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -188,11 +188,11 @@ export const WalletsPaymentsView: React.FC = () => {
                           <button
                             key={r}
                             onClick={() => switchWalletRole(w.id, r)}
-                            className={`text-[11px] px-2.5 py-1 rounded-xl font-mono transition-all cursor-pointer ${
+                            className={`text-[10px] px-2.5 py-1 rounded-xl font-mono transition-all cursor-pointer ${
                               hasRole
-                                ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-bold shadow-xs'
+                                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold shadow-xs'
                                 : isDark
-                                ? 'bg-[#0D1526] text-slate-400 border border-purple-900/40 hover:text-white'
+                                ? 'bg-[#0D0F24] text-slate-400 border border-purple-900/40 hover:text-white'
                                 : 'bg-purple-50 text-slate-600 border border-purple-100 hover:text-purple-700'
                             }`}
                           >
@@ -228,7 +228,7 @@ export const WalletsPaymentsView: React.FC = () => {
       {/* Transaction & Settlement Ledger */}
       <div
         className={`p-5 rounded-3xl border transition-colors shadow-sm ${
-          isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100'
+          isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
         }`}
       >
         <h3 className="font-display font-bold text-base text-slate-900 dark:text-white tracking-tight mb-4">
@@ -255,11 +255,11 @@ export const WalletsPaymentsView: React.FC = () => {
                   </td>
                   <td className="py-3 capitalize font-sans text-slate-800 dark:text-slate-200">{tx.type.replace('_', ' ')}</td>
                   <td className="py-3 font-bold text-amber-600 dark:text-amber-400">{tx.amountYD.toLocaleString()} YD</td>
-                  <td className="py-3 text-slate-500 dark:text-slate-400 text-[11px]">
+                  <td className="py-3 text-slate-500 dark:text-slate-400 text-[10px]">
                     {shorten(tx.fromAddress)} → {shorten(tx.toAddress)}
                   </td>
                   <td className="py-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-sans">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-sans">
                       {tx.status}
                     </span>
                   </td>
@@ -282,7 +282,7 @@ export const WalletsPaymentsView: React.FC = () => {
           />
           <div
             className={`relative z-10 w-full max-w-md rounded-3xl border p-6 space-y-4 shadow-2xl ${
-              isDark ? 'bg-[#101A2E] border-purple-900/40 text-white' : 'bg-white border-purple-100 text-slate-900'
+              isDark ? 'bg-[#10132B] border-purple-900/40 text-white' : 'bg-white border-purple-100 text-slate-900'
             }`}
           >
             <div className="flex justify-between items-center">
@@ -303,7 +303,7 @@ export const WalletsPaymentsView: React.FC = () => {
                 }}
                 className={`w-full p-3.5 rounded-2xl border flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
                   isDark
-                    ? 'bg-[#0D1526] border-purple-900/40 hover:border-purple-500'
+                    ? 'bg-[#0D0F24] border-purple-900/40 hover:border-purple-500'
                     : 'bg-purple-50/50 border-purple-100 hover:border-purple-300'
                 }`}
               >
@@ -317,7 +317,7 @@ export const WalletsPaymentsView: React.FC = () => {
                 }}
                 className={`w-full p-3.5 rounded-2xl border flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
                   isDark
-                    ? 'bg-[#0D1526] border-purple-900/40 hover:border-purple-500'
+                    ? 'bg-[#0D0F24] border-purple-900/40 hover:border-purple-500'
                     : 'bg-purple-50/50 border-purple-100 hover:border-purple-300'
                 }`}
               >

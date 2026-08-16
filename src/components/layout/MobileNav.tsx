@@ -27,7 +27,7 @@ export const MobileNav: React.FC = () => {
       id="mobile-bottom-nav"
       className={`lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t flex items-center justify-around py-2 px-2 transition-colors ${
         isDark
-          ? 'bg-[#0F1829]/95 border-[#1F2D4A] backdrop-blur-md text-[#A9B4C6]'
+          ? 'bg-[#0C1728]/95 border-[#243550] backdrop-blur-md text-[#9CAEC5]'
           : 'bg-white/95 border-slate-200 backdrop-blur-md text-slate-600 shadow-lg'
       }`}
     >
@@ -38,10 +38,10 @@ export const MobileNav: React.FC = () => {
             key={item.id}
             id={`mobile-nav-${item.id}`}
             onClick={() => setActiveTab(item.id)}
-            className={`flex flex-col items-center justify-center py-1 px-3 rounded-lg text-[11px] font-medium transition-all ${
+            className={`flex flex-col items-center justify-center py-1 px-3 rounded-lg text-[10px] font-medium transition-all ${
               isActive
                 ? isDark
-                  ? 'text-[#0284C7]'
+                  ? 'text-[#36E4DA]'
                   : 'text-sky-600 font-semibold'
                 : 'text-slate-400 hover:text-slate-200'
             }`}

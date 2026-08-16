@@ -28,8 +28,8 @@ export const ConsumerFooter: React.FC = () => {
       id="consumer-footer"
       className={`border-t transition-colors mt-20 ${
         isDark
-          ? 'bg-[#0A101F] border-purple-950/60 text-[#E2E8F0]'
-          : 'bg-[#F6F8FB] border-purple-100 text-slate-600'
+          ? 'bg-[#0B0D1B] border-purple-950/60 text-[#CBD5E1]'
+          : 'bg-[#F9F7FD] border-purple-100 text-slate-600'
       }`}
     >
       {/* Main Footer Links */}
@@ -38,11 +38,11 @@ export const ConsumerFooter: React.FC = () => {
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#2563EB] via-[#3B82F6] to-[#7DD3FC] p-0.5 shadow-md flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#7C3AED] via-[#8B5CF6] to-[#C084FC] p-0.5 shadow-md flex items-center justify-center">
                 <div className={`w-full h-full rounded-[10px] flex items-center justify-center font-bold text-sm ${
-                  isDark ? 'bg-[#0A101F]' : 'bg-white'
+                  isDark ? 'bg-[#0B0D1B]' : 'bg-white'
                 }`}>
-                  <span className="bg-gradient-to-r from-[#0EA5E9] via-[#3B82F6] to-[#0284C7] bg-clip-text text-transparent font-black">
+                  <span className="bg-gradient-to-r from-[#A855F7] via-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent font-black">
                     X
                   </span>
                 </div>

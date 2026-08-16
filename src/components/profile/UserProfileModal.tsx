@@ -118,19 +118,19 @@ export const UserProfileModal: React.FC = () => {
       <div
         id="user-profile-maintenance-modal"
         className={`w-full max-w-2xl rounded-2xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transition-all ${
-          isDark ? 'bg-[#0F1829] border-[#1F2D4A] text-[#F8FAFC]' : 'bg-white border-slate-200 text-slate-900'
+          isDark ? 'bg-[#0C1728] border-[#243550] text-[#F4F7FB]' : 'bg-white border-slate-200 text-slate-900'
         }`}
       >
         {/* Modal Header */}
         <div
           className={`px-6 py-4 border-b flex items-center justify-between ${
-            isDark ? 'border-[#1F2D4A] bg-[#132036]/70' : 'border-slate-100 bg-slate-50'
+            isDark ? 'border-[#243550] bg-[#111F34]/70' : 'border-slate-100 bg-slate-50'
           }`}
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0284C7] to-[#6366F1] p-0.5 flex items-center justify-center shadow-md">
-              <div className={`w-full h-full rounded-[10px] flex items-center justify-center ${isDark ? 'bg-[#0A101F]' : 'bg-white'}`}>
-                <User className="w-5 h-5 text-[#0284C7]" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#36E4DA] to-[#7568FF] p-0.5 flex items-center justify-center shadow-md">
+              <div className={`w-full h-full rounded-[10px] flex items-center justify-center ${isDark ? 'bg-[#07111F]' : 'bg-white'}`}>
+                <User className="w-5 h-5 text-[#36E4DA]" />
               </div>
             </div>
             <div>
@@ -148,7 +148,7 @@ export const UserProfileModal: React.FC = () => {
             onClick={() => setIsProfileModalOpen(false)}
             className={`p-2 rounded-xl border transition-colors ${
               isDark
-                ? 'border-[#1F2D4A] hover:bg-[#152238] text-slate-400 hover:text-white'
+                ? 'border-[#243550] hover:bg-[#1A2C46] text-slate-400 hover:text-white'
                 : 'border-slate-200 hover:bg-slate-100 text-slate-500 hover:text-slate-800'
             }`}
           >
@@ -159,14 +159,14 @@ export const UserProfileModal: React.FC = () => {
         {/* Sub-tab Navigation */}
         <div
           className={`px-6 pt-3 flex gap-4 border-b text-xs font-medium ${
-            isDark ? 'border-[#1F2D4A] bg-[#0F1829]' : 'border-slate-100 bg-white'
+            isDark ? 'border-[#243550] bg-[#0C1728]' : 'border-slate-100 bg-white'
           }`}
         >
           <button
             onClick={() => setActiveTab('profile')}
             className={`pb-3 border-b-2 font-semibold transition-colors flex items-center gap-1.5 ${
               activeTab === 'profile'
-                ? 'border-[#0284C7] text-[#0284C7]'
+                ? 'border-[#36E4DA] text-[#36E4DA]'
                 : 'border-transparent text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -178,7 +178,7 @@ export const UserProfileModal: React.FC = () => {
             onClick={() => setActiveTab('notifications')}
             className={`pb-3 border-b-2 font-semibold transition-colors flex items-center gap-1.5 ${
               activeTab === 'notifications'
-                ? 'border-[#0284C7] text-[#0284C7]'
+                ? 'border-[#36E4DA] text-[#36E4DA]'
                 : 'border-transparent text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -190,7 +190,7 @@ export const UserProfileModal: React.FC = () => {
             onClick={() => setActiveTab('api')}
             className={`pb-3 border-b-2 font-semibold transition-colors flex items-center gap-1.5 ${
               activeTab === 'api'
-                ? 'border-[#0284C7] text-[#0284C7]'
+                ? 'border-[#36E4DA] text-[#36E4DA]'
                 : 'border-transparent text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -212,7 +212,7 @@ export const UserProfileModal: React.FC = () => {
                   <img
                     src={avatar}
                     alt={name}
-                    className="w-16 h-16 rounded-2xl object-cover border-2 border-[#0284C7] shadow-md shrink-0"
+                    className="w-16 h-16 rounded-2xl object-cover border-2 border-[#36E4DA] shadow-md shrink-0"
                   />
                   <div className="flex-1">
                     <p className="text-[11px] text-slate-400 mb-2">
@@ -225,7 +225,7 @@ export const UserProfileModal: React.FC = () => {
                           type="button"
                           onClick={() => setAvatar(url)}
                           className={`w-9 h-9 rounded-xl overflow-hidden border-2 transition-all ${
-                            avatar === url ? 'border-[#0284C7] scale-105 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                            avatar === url ? 'border-[#36E4DA] scale-105 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
                           }`}
                         >
                           <img src={url} alt={`Preset ${idx}`} className="w-full h-full object-cover" />
@@ -242,7 +242,7 @@ export const UserProfileModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                     {locale === 'zh-CN' ? '操作者姓名' : 'Full Name'}
                   </label>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
                     <User className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                     <input
                       type="text"
@@ -258,7 +258,7 @@ export const UserProfileModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                     {locale === 'zh-CN' ? '唯一账号标识 (@Handle)' : 'Username Handle'}
                   </label>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
                     <AtSign className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                     <input
                       type="text"
@@ -274,7 +274,7 @@ export const UserProfileModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                     {locale === 'zh-CN' ? '业务联系邮箱' : 'Contact Email'}
                   </label>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
                     <Mail className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                     <input
                       type="email"
@@ -290,7 +290,7 @@ export const UserProfileModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                     {locale === 'zh-CN' ? '所属企业 / 研发组织' : 'Organization / Enterprise'}
                   </label>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
                     <Building className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                     <input
                       type="text"
@@ -308,8 +308,8 @@ export const UserProfileModal: React.FC = () => {
                 <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                   {locale === 'zh-CN' ? '系统角色与权限标识' : 'Role & Permission Level'}
                 </label>
-                <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
-                  <Shield className="w-4 h-4 text-[#F59E0B] mr-2 shrink-0" />
+                <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
+                  <Shield className="w-4 h-4 text-[#FFC857] mr-2 shrink-0" />
                   <input
                     type="text"
                     value={role}
@@ -330,7 +330,7 @@ export const UserProfileModal: React.FC = () => {
                   rows={3}
                   placeholder="Lead Architect & Agent Operator. Deploying multi-agent DAG pipelines..."
                   className={`w-full rounded-xl border p-3 focus:outline-none text-xs resize-none ${
-                    isDark ? 'bg-[#0A101F] border-[#1F2D4A] focus:border-[#0284C7]' : 'bg-slate-50 border-slate-200 focus:border-sky-500'
+                    isDark ? 'bg-[#07111F] border-[#243550] focus:border-[#36E4DA]' : 'bg-slate-50 border-slate-200 focus:border-sky-500'
                   }`}
                 />
               </div>
@@ -341,8 +341,8 @@ export const UserProfileModal: React.FC = () => {
                   {locale === 'zh-CN' ? '开发者社区与通讯绑定' : 'Developer & Communication Handles'}
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
-                    <Send className="w-3.5 h-3.5 text-[#0284C7] mr-2" />
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
+                    <Send className="w-3.5 h-3.5 text-[#36E4DA] mr-2" />
                     <input
                       type="text"
                       value={telegram}
@@ -351,7 +351,7 @@ export const UserProfileModal: React.FC = () => {
                       className="w-full bg-transparent focus:outline-none text-xs"
                     />
                   </div>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
                     <Github className="w-3.5 h-3.5 text-slate-300 mr-2" />
                     <input
                       type="text"
@@ -361,8 +361,8 @@ export const UserProfileModal: React.FC = () => {
                       className="w-full bg-transparent focus:outline-none text-xs"
                     />
                   </div>
-                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'}`}>
-                    <Globe className="w-3.5 h-3.5 text-[#6366F1] mr-2" />
+                  <div className={`flex items-center rounded-xl border px-3 py-2 ${isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'}`}>
+                    <Globe className="w-3.5 h-3.5 text-[#7568FF] mr-2" />
                     <input
                       type="text"
                       value={twitter}
@@ -387,7 +387,7 @@ export const UserProfileModal: React.FC = () => {
               <div className="space-y-3">
                 <div
                   className={`p-3.5 rounded-xl border flex items-center justify-between transition-colors ${
-                    isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
+                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
                   <div>
@@ -404,17 +404,17 @@ export const UserProfileModal: React.FC = () => {
                     type="checkbox"
                     checked={notifyTaskSettled}
                     onChange={(e) => setNotifyTaskSettled(e.target.checked)}
-                    className="w-4 h-4 accent-[#0284C7] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#36E4DA] rounded cursor-pointer"
                   />
                 </div>
 
                 <div
                   className={`p-3.5 rounded-xl border flex items-center justify-between transition-colors ${
-                    isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
+                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
                   <div>
-                    <span className="font-semibold text-xs block text-[#EF4444]">
+                    <span className="font-semibold text-xs block text-[#FF647C]">
                       {locale === 'zh-CN' ? '仲裁争议与 6% 质押扣除紧急通知' : 'Dispute Arbitration & Stake Slash Emergency Alerts'}
                     </span>
                     <span className="text-[11px] text-slate-400">
@@ -427,13 +427,13 @@ export const UserProfileModal: React.FC = () => {
                     type="checkbox"
                     checked={notifyDispute}
                     onChange={(e) => setNotifyDispute(e.target.checked)}
-                    className="w-4 h-4 accent-[#EF4444] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#FF647C] rounded cursor-pointer"
                   />
                 </div>
 
                 <div
                   className={`p-3.5 rounded-xl border flex items-center justify-between transition-colors ${
-                    isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
+                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
                   <div>
@@ -450,13 +450,13 @@ export const UserProfileModal: React.FC = () => {
                     type="checkbox"
                     checked={notifyMilestone}
                     onChange={(e) => setNotifyMilestone(e.target.checked)}
-                    className="w-4 h-4 accent-[#0284C7] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#36E4DA] rounded cursor-pointer"
                   />
                 </div>
 
                 <div
                   className={`p-3.5 rounded-xl border flex items-center justify-between transition-colors ${
-                    isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
+                    isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
                   <div>
@@ -473,7 +473,7 @@ export const UserProfileModal: React.FC = () => {
                     type="checkbox"
                     checked={notifyTelegram}
                     onChange={(e) => setNotifyTelegram(e.target.checked)}
-                    className="w-4 h-4 accent-[#0284C7] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#36E4DA] rounded cursor-pointer"
                   />
                 </div>
               </div>
@@ -484,11 +484,11 @@ export const UserProfileModal: React.FC = () => {
             <div className="space-y-4">
               <div
                 className={`p-4 rounded-xl border text-xs ${
-                  isDark ? 'bg-[#0A101F] border-[#1F2D4A]' : 'bg-slate-50 border-slate-200'
+                  isDark ? 'bg-[#07111F] border-[#243550]' : 'bg-slate-50 border-slate-200'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <Key className="w-4 h-4 text-[#F59E0B]" />
+                  <Key className="w-4 h-4 text-[#FFC857]" />
                   <span className="font-semibold text-xs">
                     {locale === 'zh-CN' ? '企业专属 REST & WebSocket API Key' : 'Enterprise REST & WebSocket API Key'}
                   </span>
@@ -501,7 +501,7 @@ export const UserProfileModal: React.FC = () => {
 
                 <div
                   className={`flex items-center justify-between p-2.5 rounded-xl border font-mono text-xs ${
-                    isDark ? 'bg-[#132036] border-[#1F2D4A]' : 'bg-white border-slate-200'
+                    isDark ? 'bg-[#111F34] border-[#243550]' : 'bg-white border-slate-200'
                   }`}
                 >
                   <span className="text-slate-300 truncate mr-2">
@@ -527,7 +527,7 @@ export const UserProfileModal: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleRegenerateKey}
-                      className="p-1.5 rounded-lg hover:bg-slate-700/30 text-[#0284C7] transition-colors"
+                      className="p-1.5 rounded-lg hover:bg-slate-700/30 text-[#36E4DA] transition-colors"
                       title="Regenerate Key"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
@@ -542,7 +542,7 @@ export const UserProfileModal: React.FC = () => {
         {/* Modal Footer */}
         <div
           className={`px-6 py-4 border-t flex items-center justify-between ${
-            isDark ? 'border-[#1F2D4A] bg-[#132036]/50' : 'border-slate-100 bg-slate-50'
+            isDark ? 'border-[#243550] bg-[#111F34]/50' : 'border-slate-100 bg-slate-50'
           }`}
         >
           <button
@@ -559,7 +559,7 @@ export const UserProfileModal: React.FC = () => {
             }}
             className={`px-3 py-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors ${
               isDark
-                ? 'border-[#1F2D4A] hover:bg-[#152238] text-slate-400 hover:text-slate-200'
+                ? 'border-[#243550] hover:bg-[#1A2C46] text-slate-400 hover:text-slate-200'
                 : 'border-slate-200 hover:bg-slate-100 text-slate-600'
             }`}
           >
@@ -582,7 +582,7 @@ export const UserProfileModal: React.FC = () => {
               id="btn-save-profile"
               type="button"
               onClick={handleSave}
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-[#0284C7] text-[#0A101F] hover:bg-[#22D3EE] transition-all shadow-md flex items-center gap-1.5"
+              className="px-5 py-2 rounded-xl text-xs font-bold bg-[#36E4DA] text-[#07111F] hover:bg-[#2bc9bf] transition-all shadow-md flex items-center gap-1.5"
             >
               <Save className="w-3.5 h-3.5" />
               {locale === 'zh-CN' ? '保存个人信息' : 'Save Profile'}

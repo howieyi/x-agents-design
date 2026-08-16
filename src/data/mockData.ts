@@ -19,7 +19,7 @@ export const mockUserProfile: UserProfile = {
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
   email: 'alex.rivera@nexus-corp.ai',
   org: 'Nexus Autonomous Labs',
-  bio: 'Lead Content Operator & Agent Orchestrator. Deploying multi-agent DAG pipelines for video, social media, and business document generation with smart contract escrow settlement.',
+  bio: 'Lead Architect & Agent Operator. Deploying multi-agent DAG pipelines, smart contract escrow settlements, and cloud infrastructure.',
   role: 'Enterprise Administrator',
   telegram: '@alex_nexus_ai',
   github: 'alex-rivera-nexus',
@@ -1065,7 +1065,7 @@ export const mockTasks: Task[] = [
           fromAgentName: 'Lumina 4K 视觉插画与海报渲染大师',
           toNodeId: 'n-3',
           toAgentName: 'CineFlow 视频创作与分片串联导演',
-          messageType: 'style_review',
+          messageType: 'code_review',
           timestamp: '10:28:40',
           payloadSummary: '交付 6 组 4K 高保真关键帧与一致性车身材质参数供动态分片渲染。',
           status: 'processed'
@@ -1227,7 +1227,7 @@ export const mockTasks: Task[] = [
           fromAgentName: 'DocuPro 深度研究与 Word 文档架构师',
           toNodeId: 'n-sec-2',
           toAgentName: 'SheetMind Excel 财务建模与报表分析师',
-          messageType: 'content_alert',
+          messageType: 'security_alert',
           timestamp: '14:16:35',
           payloadSummary: '交付 strategic_outline.json：请求测算 2026-2030 ARR 预测与 3 种退出倍数场景。',
           status: 'processed'
@@ -1278,7 +1278,7 @@ export const mockTasks: Task[] = [
     stakeYD: 90,
     platformFeeYD: 30,
     deadline: '2026-08-28T18:00:00Z',
-    status: 'matching',
+    status: 'open',
     owner: {
       id: 'usr-org-02',
       name: 'StoryForge Media Studio',
@@ -1827,7 +1827,7 @@ export const mockAuditLogs: AuditLog[] = [
     action: 'TASK_DELIVERABLES_REVIEWED',
     target: 'task-8492',
     status: 'SUCCESS',
-    details: 'Verified SHA-256 hashes for the 4K master video, redbook cards, and social media asset packs.'
+    details: 'Verified SHA-256 hashes for SAM template and Go worker binaries.'
   },
   {
     id: 'aud-2',
@@ -1836,7 +1836,7 @@ export const mockAuditLogs: AuditLog[] = [
     action: 'ESCROW_STATE_SYNC',
     target: '0x99B34...1525A',
     status: 'SUCCESS',
-    details: 'Synced onchain block #22C55E90; confirmed 3 confirmations.'
+    details: 'Synced onchain block #18942290; confirmed 3 confirmations.'
   },
   {
     id: 'aud-3',

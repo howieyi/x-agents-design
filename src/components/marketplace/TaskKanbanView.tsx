@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Task } from '../../types';
 import {
@@ -37,7 +37,6 @@ export const TaskKanbanView: React.FC = () => {
     setActiveTaskId,
     setActiveTab,
     setIsPublishWizardOpen,
-    globalSearchQuery,
     theme,
     locale
   } = useApp();
@@ -47,18 +46,13 @@ export const TaskKanbanView: React.FC = () => {
   // View & Filter States
   const [viewMode, setViewMode] = useState<ViewMode>('board');
   const [density, setDensity] = useState<DensityMode>('comfortable');
-  const [searchQuery, setSearchQuery] = useState(globalSearchQuery);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedAgent, setSelectedAgent] = useState('All');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [collapsedColumns, setCollapsedColumns] = useState<Record<string, boolean>>({});
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
-
-  // Header global search lands here
-  useEffect(() => {
-    if (globalSearchQuery) setSearchQuery(globalSearchQuery);
-  }, [globalSearchQuery]);
 
   // Derive dynamic categories from tasks
   const dynamicCategories = useMemo(() => {
@@ -100,7 +94,7 @@ export const TaskKanbanView: React.FC = () => {
 
         // Quick status filter (from metric pills or status selector)
         if (selectedStatusFilter !== 'all') {
-          if (selectedStatusFilter === 'open' && !['open', 'matching', 'draft', 'assigned'].includes(task.status)) return false;
+          if (selectedStatusFilter === 'open' && !['open', 'draft', 'assigned'].includes(task.status)) return false;
           if (selectedStatusFilter === 'in_progress' && task.status !== 'in_progress') return false;
           if (selectedStatusFilter === 'submitted' && task.status !== 'submitted') return false;
           if (selectedStatusFilter === 'settled' && task.status !== 'settled') return false;
@@ -171,7 +165,7 @@ export const TaskKanbanView: React.FC = () => {
       id: 'open',
       title: t('kanban_col_open'),
       description: locale === 'zh-CN' ? '已发布需求，等待智能匹配或指派 Agent' : 'Awaiting matching or agent assignment',
-      statuses: ['open', 'matching', 'draft', 'assigned'],
+      statuses: ['open', 'draft', 'assigned'],
       color: '#38bdf8',
       accentClass: 'text-sky-600 dark:text-sky-400 bg-sky-500/10 border-sky-500/30',
       dotClass: 'bg-sky-500',
@@ -182,7 +176,7 @@ export const TaskKanbanView: React.FC = () => {
       title: t('kanban_col_progress'),
       description: locale === 'zh-CN' ? '多 Agent 协同编排与任务分片执行中' : 'Active multi-agent execution & DAG pipeline',
       statuses: ['in_progress'],
-      color: '#2563EB',
+      color: '#8b5cf6',
       accentClass: 'text-purple-600 dark:text-purple-300 bg-purple-500/10 border-purple-500/30',
       dotClass: 'bg-purple-500',
       borderCol: isDark ? 'border-purple-500/20' : 'border-purple-200'
@@ -192,7 +186,7 @@ export const TaskKanbanView: React.FC = () => {
       title: t('kanban_col_review'),
       description: locale === 'zh-CN' ? '交付物已完成提交，等待客户验收与结算' : 'Artifacts uploaded, awaiting review & payout',
       statuses: ['submitted'],
-      color: '#F59E0B',
+      color: '#f59e0b',
       accentClass: 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/30',
       dotClass: 'bg-amber-500',
       borderCol: isDark ? 'border-amber-500/20' : 'border-amber-200'
@@ -202,7 +196,7 @@ export const TaskKanbanView: React.FC = () => {
       title: t('kanban_col_settled'),
       description: locale === 'zh-CN' ? '已验收通过，Escrow 资金已转入 Agent 钱包' : 'Accepted and funds paid from Escrow',
       statuses: ['settled'],
-      color: '#10B981',
+      color: '#10b981',
       accentClass: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
       dotClass: 'bg-emerald-500',
       borderCol: isDark ? 'border-emerald-500/20' : 'border-emerald-200'
@@ -212,7 +206,7 @@ export const TaskKanbanView: React.FC = () => {
       title: t('kanban_col_disputed'),
       description: locale === 'zh-CN' ? '交付存在争议，进入多签仲裁与 AI 判定' : 'Dispute raised, multisig review in progress',
       statuses: ['disputed'],
-      color: '#EF4444',
+      color: '#f43f5e',
       accentClass: 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/30',
       dotClass: 'bg-rose-500',
       borderCol: isDark ? 'border-rose-500/20' : 'border-rose-200'
@@ -314,14 +308,14 @@ export const TaskKanbanView: React.FC = () => {
           {/* View Mode Switcher */}
           <div
             className={`flex items-center p-1 rounded-2xl border ${
-              isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-slate-100 border-slate-200'
+              isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-slate-100 border-slate-200'
             }`}
           >
             <button
               onClick={() => setViewMode('board')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'board'
-                  ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white shadow-sm'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title={t('kanban_view_board')}
@@ -333,7 +327,7 @@ export const TaskKanbanView: React.FC = () => {
               onClick={() => setViewMode('list')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 viewMode === 'list'
-                  ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white shadow-sm'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title={t('kanban_view_list')}
@@ -347,7 +341,7 @@ export const TaskKanbanView: React.FC = () => {
           {viewMode === 'board' && (
             <div
               className={`hidden sm:flex items-center p-1 rounded-2xl border ${
-                isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-slate-100 border-slate-200'
+                isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-slate-100 border-slate-200'
               }`}
             >
               <button
@@ -382,7 +376,7 @@ export const TaskKanbanView: React.FC = () => {
           {/* Publish Task Button */}
           <button
             onClick={() => setIsPublishWizardOpen(true)}
-            className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer shrink-0"
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer shrink-0"
           >
             <PlusCircle className="w-4 h-4" />
             <span>{t('publish_task_btn')}</span>
@@ -399,7 +393,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'all'
               ? 'ring-2 ring-purple-500 bg-purple-500/15 border-purple-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -422,7 +416,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'open'
               ? 'ring-2 ring-sky-500 bg-sky-500/15 border-sky-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -445,7 +439,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'in_progress'
               ? 'ring-2 ring-purple-500 bg-purple-500/15 border-purple-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -468,7 +462,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'submitted'
               ? 'ring-2 ring-amber-500 bg-amber-500/15 border-amber-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -491,7 +485,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'settled'
               ? 'ring-2 ring-emerald-500 bg-emerald-500/15 border-emerald-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -514,7 +508,7 @@ export const TaskKanbanView: React.FC = () => {
             selectedStatusFilter === 'disputed'
               ? 'ring-2 ring-rose-500 bg-rose-500/15 border-rose-500'
               : isDark
-              ? 'bg-[#101A2E] border-purple-900/40 hover:border-purple-700'
+              ? 'bg-[#10132B] border-purple-900/40 hover:border-purple-700'
               : 'bg-white border-purple-100 hover:border-purple-300 shadow-sm'
           }`}
         >
@@ -534,7 +528,7 @@ export const TaskKanbanView: React.FC = () => {
       {/* Control Toolbar: Search + Categories + Filters + Sorting */}
       <div
         className={`p-4 rounded-3xl border transition-colors space-y-3.5 ${
-          isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+          isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
         }`}
       >
         <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
@@ -542,7 +536,7 @@ export const TaskKanbanView: React.FC = () => {
           <div
             className={`flex-1 flex items-center rounded-2xl border px-3.5 py-2 text-xs transition-all ${
               isDark
-                ? 'bg-[#0D1526] border-purple-900/50 focus-within:border-purple-500'
+                ? 'bg-[#0D0F24] border-purple-900/50 focus-within:border-purple-500'
                 : 'bg-purple-50/50 border-purple-100 focus-within:border-purple-400'
             }`}
           >
@@ -573,7 +567,7 @@ export const TaskKanbanView: React.FC = () => {
                 onChange={(e) => setSelectedAgent(e.target.value)}
                 className={`appearance-none pl-8 pr-8 py-2 rounded-2xl text-xs font-medium border cursor-pointer transition-all ${
                   isDark
-                    ? 'bg-[#0D1526] border-purple-900/50 text-slate-200 focus:border-purple-500'
+                    ? 'bg-[#0D0F24] border-purple-900/50 text-slate-200 focus:border-purple-500'
                     : 'bg-purple-50/50 border-purple-100 text-slate-800 focus:border-purple-400'
                 }`}
               >
@@ -596,7 +590,7 @@ export const TaskKanbanView: React.FC = () => {
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className={`appearance-none pl-8 pr-8 py-2 rounded-2xl text-xs font-medium border cursor-pointer transition-all ${
                   isDark
-                    ? 'bg-[#0D1526] border-purple-900/50 text-slate-200 focus:border-purple-500'
+                    ? 'bg-[#0D0F24] border-purple-900/50 text-slate-200 focus:border-purple-500'
                     : 'bg-purple-50/50 border-purple-100 text-slate-800 focus:border-purple-400'
                 }`}
               >
@@ -644,15 +638,15 @@ export const TaskKanbanView: React.FC = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-xl text-xs whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-gradient-to-r from-[#2563EB] to-[#06B6D4] text-white font-semibold shadow-xs'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-xs'
                     : isDark
-                    ? 'bg-[#0D1526] text-slate-300 hover:text-white border border-purple-900/50'
+                    ? 'bg-[#0D0F24] text-slate-300 hover:text-white border border-purple-900/50'
                     : 'bg-purple-50 text-slate-700 hover:text-purple-900 border border-purple-100'
                 }`}
               >
                 <span>{cat === 'All' ? t('kanban_filter_all') : cat}</span>
                 <span
-                  className={`text-[11px] font-mono px-1.5 py-0.2 rounded-full ${
+                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                     isSelected ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-600 dark:text-purple-300'
                   }`}
                 >
@@ -682,7 +676,7 @@ export const TaskKanbanView: React.FC = () => {
                     key={col.id}
                     onClick={() => toggleColumnCollapse(col.id)}
                     className={`rounded-3xl border transition-all cursor-pointer flex flex-col items-center py-4 px-2.5 shrink-0 min-h-[500px] w-14 hover:border-purple-500 ${
-                      isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                      isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
                     }`}
                     title={`${col.title} (${colTasks.length}) - ${t('col_expand')}`}
                   >
@@ -720,7 +714,7 @@ export const TaskKanbanView: React.FC = () => {
                 <div
                   key={col.id}
                   className={`rounded-3xl border flex flex-col min-h-[520px] p-4 transition-all shrink-0 w-[330px] md:w-[350px] shadow-sm ${
-                    isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100'
+                    isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
                   }`}
                 >
                   {/* Column Header */}
@@ -749,7 +743,7 @@ export const TaskKanbanView: React.FC = () => {
                   </div>
 
                   {/* Sub-header: Column volume summary */}
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-3 px-1">
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-400 mb-3 px-1">
                     <span className="truncate max-w-[200px]">{col.description}</span>
                     <span className="font-mono text-purple-600 dark:text-purple-300 font-bold shrink-0">
                       {totalColYD.toLocaleString()} YD
@@ -762,7 +756,7 @@ export const TaskKanbanView: React.FC = () => {
                       <div className="p-8 text-center rounded-2xl border border-dashed border-purple-300 dark:border-purple-900/50 my-auto">
                         <FolderArchive className="w-6 h-6 text-purple-400 mx-auto mb-2 opacity-50" />
                         <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">{t('kanban_no_tasks')}</p>
-                        <p className="text-[11px] text-slate-400 mt-1">
+                        <p className="text-[10px] text-slate-400 mt-1">
                           {locale === 'zh-CN' ? '无匹配条件任务' : 'No tasks in this lane'}
                         </p>
                       </div>
@@ -779,11 +773,11 @@ export const TaskKanbanView: React.FC = () => {
                               onClick={() => handleOpenWorkspace(task)}
                               className={`p-3 rounded-2xl border transition-all cursor-pointer group hover:-translate-y-0.5 ${
                                 isDark
-                                  ? 'bg-[#0D1526] border-purple-900/40 hover:border-purple-500 shadow-purple-950/20'
+                                  ? 'bg-[#0D0F24] border-purple-900/40 hover:border-purple-500 shadow-purple-950/20'
                                   : 'bg-purple-50/40 border-purple-100 hover:border-purple-300 hover:bg-white shadow-xs'
                               }`}
                             >
-                              <div className="flex items-center justify-between gap-1 text-[11px] mb-1.5">
+                              <div className="flex items-center justify-between gap-1 text-[10px] mb-1.5">
                                 <span className="font-mono font-bold text-purple-600 dark:text-purple-400">#{task.id}</span>
                                 <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400">
                                   {task.rewardYD.toLocaleString()} YD
@@ -794,7 +788,7 @@ export const TaskKanbanView: React.FC = () => {
                                 {task.title}
                               </h3>
 
-                              <div className="flex items-center justify-between pt-2 border-t border-purple-100 dark:border-purple-900/40 text-[11px] text-slate-500 dark:text-slate-400">
+                              <div className="flex items-center justify-between pt-2 border-t border-purple-100 dark:border-purple-900/40 text-[10px] text-slate-500 dark:text-slate-400">
                                 <div className="flex items-center gap-1.5 truncate">
                                   {task.assignedAgent ? (
                                     <>
@@ -803,7 +797,7 @@ export const TaskKanbanView: React.FC = () => {
                                         alt=""
                                         className="w-4 h-4 rounded-full object-cover shrink-0 ring-1 ring-purple-500/40"
                                       />
-                                      <span className="text-slate-700 dark:text-slate-300 truncate text-[11px] font-medium">
+                                      <span className="text-slate-700 dark:text-slate-300 truncate text-[10px] font-medium">
                                         {task.assignedAgent.name}
                                       </span>
                                     </>
@@ -832,11 +826,11 @@ export const TaskKanbanView: React.FC = () => {
                             onClick={() => handleOpenWorkspace(task)}
                             className={`p-4 rounded-2xl border transition-all cursor-pointer group hover:-translate-y-0.5 shadow-sm ${
                               isDark
-                                ? 'bg-[#0D1526] border-purple-900/40 hover:border-purple-500 shadow-purple-950/20'
+                                ? 'bg-[#0D0F24] border-purple-900/40 hover:border-purple-500 shadow-purple-950/20'
                                 : 'bg-purple-50/40 border-purple-100 hover:border-purple-300 hover:bg-white'
                             }`}
                           >
-                            <div className="flex items-center justify-between gap-1 text-[11px] text-slate-500 dark:text-slate-400 mb-2">
+                            <div className="flex items-center justify-between gap-1 text-[10px] text-slate-500 dark:text-slate-400 mb-2">
                               <div className="flex items-center gap-1.5">
                                 <span className="font-mono font-semibold text-purple-600 dark:text-purple-300 bg-purple-500/10 px-1.5 py-0.5 rounded-md">
                                   #{task.id}
@@ -846,7 +840,7 @@ export const TaskKanbanView: React.FC = () => {
                                 </span>
                               </div>
 
-                              <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
                                 <Clock className="w-3 h-3 text-purple-400" />
                                 {deadlineText}
                               </span>
@@ -857,8 +851,8 @@ export const TaskKanbanView: React.FC = () => {
                             </h3>
 
                             {/* Deliverables snippet box */}
-                            <div className="text-[11px] mb-3 p-2.5 rounded-xl border space-y-1.5 bg-white/70 dark:bg-[#101A2E] border-purple-100 dark:border-purple-900/40">
-                              <div className="flex items-center justify-between text-[11px]">
+                            <div className="text-[11px] mb-3 p-2.5 rounded-xl border space-y-1.5 bg-white/70 dark:bg-[#10132B] border-purple-100 dark:border-purple-900/40">
+                              <div className="flex items-center justify-between text-[10px]">
                                 <span className="text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1">
                                   <FileCheck2 className="w-3 h-3 text-purple-500" />
                                   {locale === 'zh-CN' ? '交付成果清单' : 'Deliverables'}
@@ -867,7 +861,7 @@ export const TaskKanbanView: React.FC = () => {
                                   {task.deliverables.filter((d) => d.status === 'submitted' || d.status === 'accepted').length} / {task.deliverables.length} 项
                                 </span>
                               </div>
-                              <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                                 {task.deliverables[0]?.title || (locale === 'zh-CN' ? '标准交付包' : 'Standard deliverables')}
                               </p>
                             </div>
@@ -885,12 +879,12 @@ export const TaskKanbanView: React.FC = () => {
                                     {task.assignedAgent.name}
                                   </span>
                                 </div>
-                                <span className="text-[10px] font-mono text-purple-600 dark:text-purple-300 bg-purple-500/20 px-1.5 py-0.5 rounded shrink-0 font-bold">
+                                <span className="text-[9px] font-mono text-purple-600 dark:text-purple-300 bg-purple-500/20 px-1.5 py-0.5 rounded shrink-0 font-bold">
                                   {task.assignedAgentVersion || 'v1.0'}
                                 </span>
                               </div>
                             ) : (
-                              <div className="flex items-center justify-between gap-2 mb-3 p-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-[11px] text-sky-600 dark:text-sky-400">
+                              <div className="flex items-center justify-between gap-2 mb-3 p-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-[10px] text-sky-600 dark:text-sky-400">
                                 <span className="flex items-center gap-1 font-medium">
                                   <Sparkles className="w-3 h-3 text-sky-500" />
                                   {locale === 'zh-CN' ? '智能匹配中，等待指派' : 'Matching available agents'}
@@ -905,7 +899,7 @@ export const TaskKanbanView: React.FC = () => {
                                   <Coins className="w-3.5 h-3.5" />
                                   {task.rewardYD.toLocaleString()} YD
                                 </div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                                <div className="text-[9px] text-slate-500 dark:text-slate-400 font-mono">
                                   ≈ ${(task.rewardYD * 1.0).toLocaleString()} USD
                                 </div>
                               </div>
@@ -937,7 +931,7 @@ export const TaskKanbanView: React.FC = () => {
         /* ========================================================================= */
         <div
           className={`rounded-3xl border overflow-hidden transition-colors shadow-sm ${
-            isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100'
+            isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
           }`}
         >
           <div className="overflow-x-auto">
@@ -946,7 +940,7 @@ export const TaskKanbanView: React.FC = () => {
                 <tr
                   className={`border-b text-[11px] font-semibold ${
                     isDark
-                      ? 'bg-[#0D1526] text-slate-300 border-purple-900/40'
+                      ? 'bg-[#0D0F24] text-slate-300 border-purple-900/40'
                       : 'bg-purple-50/60 text-slate-700 border-purple-100'
                   }`}
                 >
@@ -1017,7 +1011,7 @@ export const TaskKanbanView: React.FC = () => {
                                   #{task.id}
                                 </span>
                                 {task.orchestration?.enabled && (
-                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/30 font-semibold">
+                                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/30 font-semibold">
                                     DAG Multi-Agent
                                   </span>
                                 )}
@@ -1038,7 +1032,7 @@ export const TaskKanbanView: React.FC = () => {
                           {/* Status */}
                           <td className="py-3 px-4">
                             <span
-                              className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border ${statusInfo.bg}`}
+                              className={`px-2.5 py-1 rounded-full text-[10px] font-semibold border ${statusInfo.bg}`}
                             >
                               {statusInfo.label}
                             </span>
@@ -1078,7 +1072,7 @@ export const TaskKanbanView: React.FC = () => {
                             <div className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400">
                               {task.rewardYD.toLocaleString()} YD
                             </div>
-                            <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                            <div className="text-[9px] text-slate-500 dark:text-slate-400 font-mono">
                               ≈ ${(task.rewardYD * 1.0).toLocaleString()}
                             </div>
                           </td>
@@ -1088,7 +1082,7 @@ export const TaskKanbanView: React.FC = () => {
                             <div className="text-xs text-slate-800 dark:text-slate-300 font-medium">
                               {deadlineText}
                             </div>
-                            <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                            <div className="text-[9px] text-slate-500 dark:text-slate-400 font-mono">
                               {task.deadline.split('T')[0]}
                             </div>
                           </td>
@@ -1100,7 +1094,7 @@ export const TaskKanbanView: React.FC = () => {
                                 e.stopPropagation();
                                 handleOpenWorkspace(task);
                               }}
-                              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all inline-flex items-center gap-1 cursor-pointer shadow-xs"
+                              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all inline-flex items-center gap-1 cursor-pointer shadow-xs"
                             >
                               <span>{t('kanban_btn_view_workspace')}</span>
                               <ChevronRight className="w-3.5 h-3.5" />
@@ -1110,10 +1104,10 @@ export const TaskKanbanView: React.FC = () => {
 
                         {/* Expandable Row Preview */}
                         {isExpanded && (
-                          <tr className={isDark ? 'bg-[#0D1526]' : 'bg-purple-50/50'}>
+                          <tr className={isDark ? 'bg-[#0D0F24]' : 'bg-purple-50/50'}>
                             <td colSpan={9} className="p-4 border-b border-purple-100 dark:border-purple-900/40">
                               <div className="space-y-3 max-w-5xl mx-auto">
-                                <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-white/80 dark:bg-[#101A2E] p-3 rounded-2xl border border-purple-100 dark:border-purple-900/40">
+                                <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-white/80 dark:bg-[#10132B] p-3 rounded-2xl border border-purple-100 dark:border-purple-900/40">
                                   <span className="font-bold text-purple-600 dark:text-purple-400 mr-2">
                                     {locale === 'zh-CN' ? '任务需求描述:' : 'Description:'}
                                   </span>
@@ -1122,10 +1116,10 @@ export const TaskKanbanView: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                   {/* Deliverables List */}
-                                  <div className="bg-white/80 dark:bg-[#101A2E] p-3.5 rounded-2xl border border-purple-100 dark:border-purple-900/40">
+                                  <div className="bg-white/80 dark:bg-[#10132B] p-3.5 rounded-2xl border border-purple-100 dark:border-purple-900/40">
                                     <div className="font-bold text-xs text-slate-900 dark:text-white mb-2 flex items-center justify-between">
                                       <span>{locale === 'zh-CN' ? '交付物清单' : 'Deliverables'}</span>
-                                      <span className="font-mono text-[11px] text-purple-600 dark:text-purple-300 bg-purple-500/10 px-1.5 py-0.5 rounded font-bold">
+                                      <span className="font-mono text-[10px] text-purple-600 dark:text-purple-300 bg-purple-500/10 px-1.5 py-0.5 rounded font-bold">
                                         {task.deliverables.length} 项
                                       </span>
                                     </div>
@@ -1145,7 +1139,7 @@ export const TaskKanbanView: React.FC = () => {
                                           <div>
                                             <span className="font-semibold text-slate-900 dark:text-slate-200">{del.title}</span>
                                             {del.description && (
-                                              <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                                              <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1">
                                                 {del.description}
                                               </p>
                                             )}
@@ -1156,7 +1150,7 @@ export const TaskKanbanView: React.FC = () => {
                                   </div>
 
                                   {/* Acceptance Criteria */}
-                                  <div className="bg-white/80 dark:bg-[#101A2E] p-3.5 rounded-2xl border border-purple-100 dark:border-purple-900/40">
+                                  <div className="bg-white/80 dark:bg-[#10132B] p-3.5 rounded-2xl border border-purple-100 dark:border-purple-900/40">
                                     <div className="font-bold text-xs text-slate-900 dark:text-white mb-2">
                                       {locale === 'zh-CN' ? '验收标准' : 'Acceptance Criteria'}
                                     </div>
@@ -1166,7 +1160,7 @@ export const TaskKanbanView: React.FC = () => {
                                           key={idx}
                                           className="text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2"
                                         >
-                                          <span className="text-purple-600 dark:text-purple-400 font-mono text-[11px] mt-0.5 font-bold">
+                                          <span className="text-purple-600 dark:text-purple-400 font-mono text-[10px] mt-0.5 font-bold">
                                             #{idx + 1}
                                           </span>
                                           <span>{crit}</span>

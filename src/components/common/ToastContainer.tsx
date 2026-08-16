@@ -12,14 +12,14 @@ export const ToastContainer: React.FC = () => {
       {toasts.map((toast) => {
         const isDark = theme === 'dark';
         const bgClass = isDark
-          ? 'bg-[#132036] border-[#1F2D4A] text-[#F8FAFC]'
+          ? 'bg-[#111F34] border-[#243550] text-[#F4F7FB]'
           : 'bg-white border-slate-200 text-slate-900 shadow-xl';
 
         const iconMap = {
-          success: <CheckCircle2 className="w-5 h-5 text-[#10B981] shrink-0" />,
-          info: <Info className="w-5 h-5 text-[#0284C7] shrink-0" />,
-          warning: <AlertTriangle className="w-5 h-5 text-[#F59E0B] shrink-0" />,
-          error: <AlertCircle className="w-5 h-5 text-[#EF4444] shrink-0" />
+          success: <CheckCircle2 className="w-5 h-5 text-[#35D07F] shrink-0" />,
+          info: <Info className="w-5 h-5 text-[#36E4DA] shrink-0" />,
+          warning: <AlertTriangle className="w-5 h-5 text-[#F6A63B] shrink-0" />,
+          error: <AlertCircle className="w-5 h-5 text-[#FF647C] shrink-0" />
         };
 
         return (

@@ -299,8 +299,8 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
       onMouseLeave={handleMouseUp}
       className={`relative w-full h-[620px] rounded-2xl border overflow-hidden select-none cursor-grab active:cursor-grabbing transition-colors ${
         isDark
-          ? 'bg-[#0B1220] border-slate-800 shadow-2xl'
-          : 'bg-[#F8FAFC] border-slate-200 shadow-inner'
+          ? 'bg-[#0b101b] border-slate-800 shadow-2xl'
+          : 'bg-[#f8fafc] border-slate-200 shadow-inner'
       }`}
       style={{
         backgroundImage: isDark
@@ -389,7 +389,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
               <stop offset="100%" stopColor="#3b82f6" />
             </linearGradient>
             <linearGradient id="grad-completed" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#10B981" />
+              <stop offset="0%" stopColor="#10b981" />
               <stop offset="100%" stopColor="#06b6d4" />
             </linearGradient>
             <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
@@ -445,8 +445,8 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
                       : isEdgeActive
                       ? 'url(#grad-running)'
                       : isDark
-                      ? '#233252'
-                      : '#E2E8F0'
+                      ? '#334155'
+                      : '#cbd5e1'
                   }
                   strokeWidth={isEdgeActive ? 3.5 : 2.5}
                   strokeDasharray={isEdgeActive ? '6,6' : undefined}
@@ -474,7 +474,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
                     removeOrchestrationEdge(taskId, edge.id);
                   }}
                 >
-                  <circle r="11" fill="#EF4444" className="shadow-lg" />
+                  <circle r="11" fill="#ef4444" className="shadow-lg" />
                   <line x1="-4" y1="-4" x2="4" y2="4" stroke="white" strokeWidth="2" strokeLinecap="round" />
                   <line x1="4" y1="-4" x2="-4" y2="4" stroke="white" strokeWidth="2" strokeLinecap="round" />
                 </g>
@@ -582,7 +582,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
                     <div className="text-xs font-bold text-slate-100 truncate max-w-[170px]">
                       {node.name}
                     </div>
-                    <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                    <div className="text-[10px] text-slate-400 flex items-center gap-1">
                       <span>#{node.stageIndex}</span>
                       <span>·</span>
                       <span className="truncate">{node.role}</span>
@@ -622,14 +622,14 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
                     <div className="text-[11px] font-semibold text-slate-200 truncate">
                       {node.assignedAgentName}
                     </div>
-                    <div className="text-[11px] text-cyan-400 font-mono">
+                    <div className="text-[10px] text-cyan-400 font-mono">
                       {node.assignedAgentHandle}
                     </div>
                   </div>
                 </div>
 
                 {/* Input & Output Artifacts Overview */}
-                <div className="flex items-center justify-between text-[11px] text-slate-400 px-0.5">
+                <div className="flex items-center justify-between text-[10px] text-slate-400 px-0.5">
                   <div className="flex items-center gap-1">
                     <span className="font-semibold text-slate-300">{node.inputArtifacts?.length || 0}</span>
                     <span>In</span>
@@ -652,7 +652,7 @@ export const NodeGraphCanvas: React.FC<NodeGraphCanvasProps> = ({
                       e.stopPropagation();
                       onApproveNode(node.id);
                     }}
-                    className="w-full py-1 px-2.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[11px] flex items-center justify-center gap-1 transition-colors"
+                    className="w-full py-1 px-2.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[10px] flex items-center justify-center gap-1 transition-colors"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>{isZh ? '签署放行此门禁' : 'Sign Human Checkpoint'}</span>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   X,
@@ -10,8 +10,7 @@ import {
   ShieldCheck,
   ArrowRight,
   ArrowLeft,
-  Sparkles,
-  Bot
+  Sparkles
 } from 'lucide-react';
 
 export const PublishTaskWizardModal: React.FC = () => {
@@ -22,8 +21,6 @@ export const PublishTaskWizardModal: React.FC = () => {
     publishNewTask,
     ydBalance,
     setIsCheckoutOpen,
-    selectedAgentForPublish,
-    clearSelectedAgentForPublish,
     theme,
     locale
   } = useApp();
@@ -32,29 +29,18 @@ export const PublishTaskWizardModal: React.FC = () => {
 
   // Form State
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('全平台社媒素材矩阵');
+  const [category, setCategory] = useState('Cloud & Infrastructure');
   const [description, setDescription] = useState('');
   const [deliverables, setDeliverables] = useState<Array<{ id: string; title: string; description: string; status: 'pending' }>>([
-    { id: 'del-1', title: '小红书 3:4 视觉卡片套图与爆款种草文案', description: '8 张高保真视觉卡片、封面排版与 3 套情绪共鸣种草文案及热门标签矩阵。', status: 'pending' }
+    { id: 'del-1', title: 'Source Code Repository & Architecture Document', description: 'Clean TypeScript/Go implementation with full unit tests and deployment instructions.', status: 'pending' }
   ]);
   const [criteria, setCriteria] = useState<string[]>([
-    '所有图文符合小红书 3:4 比例规范且无平台违禁词',
-    '文案包含爆款标题公式、情绪共鸣点与 5 组热点标签'
+    'Demonstrate 0 compilation/lint warnings and pass all integration test cases',
+    'Deploy and verify endpoints on staging testnet with live status checks'
   ]);
-  const [tags, setTags] = useState<string>('小红书图文, 爆款文案, 视觉卡片, 抖音分镜, 微信公众号');
+  const [tags, setTags] = useState<string>('Go, AWS SAM, SQS, PostgreSQL');
   const [rewardYD, setRewardYD] = useState<number>(1000);
   const [deadlineDays, setDeadlineDays] = useState<number>(7);
-
-  // Prefill category & skills when launched from an Agent card ("用 TA 发单")
-  useEffect(() => {
-    if (selectedAgentForPublish) {
-      setCategory(selectedAgentForPublish.category);
-      if (selectedAgentForPublish.tags?.length) {
-        setTags(selectedAgentForPublish.tags.join(', '));
-      }
-      setStep(1);
-    }
-  }, [selectedAgentForPublish]);
 
   if (!isPublishWizardOpen) return null;
 
@@ -93,7 +79,7 @@ export const PublishTaskWizardModal: React.FC = () => {
     const tagList = tags.split(',').map((t) => t.trim()).filter(Boolean);
 
     publishNewTask({
-      title: title || '多平台社媒内容素材矩阵生成',
+      title: title || 'Decentralized Microservice Orchestrator',
       category,
       description,
       deliverables,
@@ -119,7 +105,7 @@ export const PublishTaskWizardModal: React.FC = () => {
         id="publish-task-modal"
         className={`relative z-10 w-full max-w-2xl rounded-3xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ${
           isDark
-            ? 'bg-[#101A2E] border-purple-900/40 text-white shadow-purple-950/50'
+            ? 'bg-[#10132B] border-purple-900/40 text-white shadow-purple-950/50'
             : 'bg-white border-purple-100 text-slate-900 shadow-xl'
         }`}
       >
@@ -135,7 +121,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                   key={s}
                   className={`h-1.5 rounded-full transition-all ${
                     s === step
-                      ? 'w-8 bg-gradient-to-r from-[#2563EB] to-[#06B6D4]'
+                      ? 'w-8 bg-gradient-to-r from-purple-600 to-indigo-600'
                       : s < step
                       ? 'w-4 bg-emerald-500'
                       : isDark
@@ -157,37 +143,6 @@ export const PublishTaskWizardModal: React.FC = () => {
 
         {/* Modal Step Content */}
         <div className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
-          {/* Selected Agent Context Banner */}
-          {selectedAgentForPublish && (
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl border bg-purple-500/10 dark:bg-purple-950/40 border-purple-500/40">
-              <div className="relative shrink-0">
-                <img
-                  src={selectedAgentForPublish.avatar}
-                  alt={selectedAgentForPublish.name}
-                  className="w-10 h-10 rounded-xl object-cover border border-purple-500/50"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center">
-                  <Bot className="w-2.5 h-2.5" />
-                </span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{selectedAgentForPublish.name}</p>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
-                  {locale === 'zh-CN'
-                    ? '已预选此 Agent —— 发布后将在匹配结果中优先推荐，可直接指派或加入多 Agent 编排。'
-                    : 'Agent preselected — it will be prioritized in matching results, ready to assign or join orchestration.'}
-                </p>
-              </div>
-              <button
-                onClick={() => clearSelectedAgentForPublish()}
-                className="text-[11px] font-bold text-purple-600 dark:text-purple-300 hover:underline shrink-0 cursor-pointer"
-              >
-                {locale === 'zh-CN' ? '取消预选' : 'Clear'}
-              </button>
-            </div>
-          )}
-
           {/* STEP 1: Basics */}
           {step === 1 && (
             <div className="space-y-4 animate-fadeIn">
@@ -202,7 +157,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                   placeholder={t('task_title_placeholder')}
                   className={`w-full p-3 rounded-2xl border text-xs focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-[#0D1526] border-purple-900/50 text-white focus:border-purple-500'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white focus:border-purple-500'
                       : 'bg-purple-50/50 border-purple-100 text-slate-900 focus:border-purple-400'
                   }`}
                 />
@@ -217,17 +172,15 @@ export const PublishTaskWizardModal: React.FC = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   className={`w-full p-3 rounded-2xl border text-xs cursor-pointer focus:outline-none ${
                     isDark
-                      ? 'bg-[#0D1526] border-purple-900/50 text-white'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white'
                       : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 >
-                  <option value="视频创作与分片串联">视频创作与分片串联</option>
-                  <option value="视觉与图片生成">视觉与图片生成</option>
-                  <option value="PPT / 演示文稿生成">PPT / 演示文稿生成</option>
-                  <option value="全平台社媒素材矩阵">全平台社媒素材矩阵</option>
-                  <option value="Excel / 财务与报表分析">Excel / 财务与报表分析</option>
-                  <option value="Word / 文档与 PRD 撰写">Word / 文档与 PRD 撰写</option>
-                  <option value="长篇故事与网文小说">长篇故事与网文小说</option>
+                  <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
+                  <option value="Security & Audit">Security & Smart Contract Audit</option>
+                  <option value="AI & Data Engineering">AI & Vector Indexing</option>
+                  <option value="Zero Knowledge & L2">Zero Knowledge & L2</option>
+                  <option value="Web3 Fullstack">Web3 Fullstack & Viem</option>
                 </select>
               </div>
 
@@ -242,7 +195,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                   placeholder={t('task_description_placeholder')}
                   className={`w-full p-3 rounded-2xl border text-xs focus:outline-none transition-colors ${
                     isDark
-                      ? 'bg-[#0D1526] border-purple-900/50 text-white focus:border-purple-500'
+                      ? 'bg-[#0D0F24] border-purple-900/50 text-white focus:border-purple-500'
                       : 'bg-purple-50/50 border-purple-100 text-slate-900 focus:border-purple-400'
                   }`}
                 />
@@ -272,7 +225,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                     <div
                       key={del.id}
                       className={`p-3.5 rounded-2xl border flex gap-2 items-start ${
-                        isDark ? 'bg-[#0D1526] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
+                        isDark ? 'bg-[#0D0F24] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
                       }`}
                     >
                       <span className="font-mono text-purple-500 font-bold mt-2">#{i + 1}</span>
@@ -286,9 +239,9 @@ export const PublishTaskWizardModal: React.FC = () => {
                               prev.map((d, idx) => (idx === i ? { ...d, title: val } : d))
                             );
                           }}
-                          placeholder={locale === 'zh-CN' ? '交付物标题 (如：小红书 3:4 视觉卡片.zip)' : 'Deliverable Title (e.g. redbook_carousel_cards.zip)'}
+                          placeholder="Deliverable Title (e.g. AWS SAM template.yaml)"
                           className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                            isDark ? 'bg-[#101A2E] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
+                            isDark ? 'bg-[#10132B] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
                           }`}
                         />
                         <input
@@ -302,7 +255,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                           }}
                           placeholder="Deliverable scope details"
                           className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                            isDark ? 'bg-[#101A2E] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
+                            isDark ? 'bg-[#10132B] border-purple-900/50 text-white' : 'bg-white border-purple-100 text-slate-900'
                           }`}
                         />
                       </div>
@@ -346,7 +299,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                         }}
                         placeholder="Testable acceptance rule..."
                         className={`w-full p-2.5 rounded-2xl border text-xs focus:outline-none ${
-                          isDark ? 'bg-[#0D1526] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
+                          isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                         }`}
                       />
                       {criteria.length > 1 && (
@@ -369,15 +322,15 @@ export const PublishTaskWizardModal: React.FC = () => {
             <div className="space-y-4 animate-fadeIn">
               <div>
                 <label className="block font-bold mb-1.5 text-slate-700 dark:text-slate-300">
-                  {locale === 'zh-CN' ? '所需创作技能与工具标签 (逗号分隔)' : 'Required Skill & Tool Tags (Comma-separated)'}
+                  Required Skill & Tool Tags (Comma-separated)
                 </label>
                 <input
                   type="text"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
-                  placeholder={locale === 'zh-CN' ? '如：小红书图文, 抖音分镜, 微信公众号, 爆款文案' : 'e.g. Xiaohongshu cards, Douyin scripts, WeChat articles, viral copy'}
+                  placeholder="e.g. Go, AWS SAM, SQS, PostgreSQL, Docker"
                   className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
-                    isDark ? 'bg-[#0D1526] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
+                    isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 />
               </div>
@@ -393,14 +346,14 @@ export const PublishTaskWizardModal: React.FC = () => {
                   value={deadlineDays}
                   onChange={(e) => setDeadlineDays(Number(e.target.value))}
                   className={`w-full p-3 rounded-2xl border text-xs focus:outline-none ${
-                    isDark ? 'bg-[#0D1526] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
+                    isDark ? 'bg-[#0D0F24] border-purple-900/50 text-white' : 'bg-purple-50/50 border-purple-100 text-slate-900'
                   }`}
                 />
               </div>
 
               <div
                 className={`p-4 rounded-2xl border text-xs space-y-2 ${
-                  isDark ? 'bg-[#0D1526] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <span className="font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
@@ -428,7 +381,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                     value={rewardYD}
                     onChange={(e) => setRewardYD(Number(e.target.value))}
                     className={`w-full p-3 rounded-2xl border text-base font-mono font-bold text-amber-600 dark:text-amber-400 focus:outline-none ${
-                      isDark ? 'bg-[#0D1526] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
+                      isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                     }`}
                   />
                   <span className="absolute right-4 top-3.5 text-xs text-slate-500 font-sans font-bold">
@@ -439,7 +392,7 @@ export const PublishTaskWizardModal: React.FC = () => {
 
               <div
                 className={`p-4 rounded-3xl border space-y-3 ${
-                  isDark ? 'bg-[#0D1526] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <div className="flex justify-between items-center text-xs">
@@ -489,12 +442,12 @@ export const PublishTaskWizardModal: React.FC = () => {
             <div className="space-y-4 animate-fadeIn">
               <div
                 className={`p-4 rounded-3xl border space-y-3 ${
-                  isDark ? 'bg-[#0D1526] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
+                  isDark ? 'bg-[#0D0F24] border-purple-900/50' : 'bg-purple-50/50 border-purple-100'
                 }`}
               >
                 <div>
-                  <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Title</span>
-                  <h4 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">{title || (locale === 'zh-CN' ? '未命名内容创作任务' : 'Untitled Content Creation Task')}</h4>
+                  <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Title</span>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">{title || 'Untitled Technical Task'}</h4>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div>
@@ -507,7 +460,7 @@ export const PublishTaskWizardModal: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Deliverables</span>
+                  <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 uppercase font-bold">Deliverables</span>
                   <p className="text-xs text-slate-700 dark:text-slate-300 mt-0.5 font-medium">{deliverables.length} tangible item(s)</p>
                 </div>
                 <div className="pt-2 border-t border-purple-500/15 dark:border-purple-900/40 flex justify-between items-center text-sm font-bold">
@@ -552,7 +505,7 @@ export const PublishTaskWizardModal: React.FC = () => {
           {step < 5 ? (
             <button
               onClick={() => setStep(step + 1)}
-              className="px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-purple-500/20"
+              className="px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-purple-500/20"
             >
               {t('next_step')}
               <ArrowRight className="w-3.5 h-3.5" />

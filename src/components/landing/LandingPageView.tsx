@@ -296,10 +296,10 @@ export const LandingPageView: React.FC = () => {
         id="stage-hero"
         className="min-h-[85vh] flex flex-col justify-center relative pt-8 sm:pt-14 pb-12 overflow-hidden scroll-mt-20"
       >
-        {/* 轻柔企业蓝光晕（静态呼吸，衬托 hero） */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[1000px] h-[350px] sm:h-[550px] bg-gradient-to-tr from-blue-600/20 via-sky-500/25 to-sky-400/15 rounded-full blur-[110px] sm:blur-[160px] pointer-events-none z-0 animate-pulse" style={{ animationDuration: '8s' }} />
+        {/* Dynamic Holographic Cosmic Aura */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[1000px] h-[350px] sm:h-[550px] bg-gradient-to-tr from-purple-600/20 via-indigo-600/25 to-pink-600/15 rounded-full blur-[110px] sm:blur-[160px] pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           {/* Top Tagline Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-gradient-to-r from-purple-500/20 via-indigo-500/20 to-purple-500/20 border border-purple-500/40 text-purple-600 dark:text-purple-300 shadow-lg shadow-purple-500/15 animate-float-slow">
             <Sparkles className="w-4 h-4 text-purple-500 animate-spin" style={{ animationDuration: '6s' }} />
@@ -335,7 +335,7 @@ export const LandingPageView: React.FC = () => {
                 setActiveTab('tasks');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#2563EB] via-[#4F8EF7] to-[#06B6D4] hover:from-[#4F8EF7] hover:to-[#22D3EE] text-white font-bold text-base shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#6366F1] hover:from-[#6D28D9] hover:to-[#4F46E5] text-white font-bold text-base shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
             >
               <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
               <span>{locale === 'zh-CN' ? '立即探索任务市场' : 'Explore Task Marketplace'}</span>
@@ -347,7 +347,7 @@ export const LandingPageView: React.FC = () => {
               onClick={() => handleSelectStage(1)}
               className={`w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base border transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 isDark
-                  ? 'bg-[#101A2E] hover:bg-[#16233C] text-purple-200 border-purple-900/60 hover:border-purple-500'
+                  ? 'bg-[#10132B] hover:bg-[#161A38] text-purple-200 border-purple-900/60 hover:border-purple-500'
                   : 'bg-white hover:bg-purple-50 text-purple-900 border-purple-200 shadow-sm'
               }`}
             >
@@ -374,7 +374,7 @@ export const LandingPageView: React.FC = () => {
             <div
               className={`p-5 rounded-2xl border text-left transition-all ${
                 isDark
-                  ? 'bg-[#101A2E]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
+                  ? 'bg-[#10132B]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
                   : 'bg-white border-purple-100 shadow-md shadow-purple-500/5'
               }`}
             >
@@ -394,7 +394,7 @@ export const LandingPageView: React.FC = () => {
             <div
               className={`p-5 rounded-2xl border text-left transition-all ${
                 isDark
-                  ? 'bg-[#101A2E]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
+                  ? 'bg-[#10132B]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
                   : 'bg-white border-purple-100 shadow-md shadow-purple-500/5'
               }`}
             >
@@ -413,7 +413,7 @@ export const LandingPageView: React.FC = () => {
             <div
               className={`p-5 rounded-2xl border text-left transition-all ${
                 isDark
-                  ? 'bg-[#101A2E]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
+                  ? 'bg-[#10132B]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
                   : 'bg-white border-purple-100 shadow-md shadow-purple-500/5'
               }`}
             >
@@ -432,7 +432,7 @@ export const LandingPageView: React.FC = () => {
             <div
               className={`p-5 rounded-2xl border text-left transition-all ${
                 isDark
-                  ? 'bg-[#101A2E]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
+                  ? 'bg-[#10132B]/85 border-purple-900/40 shadow-lg shadow-purple-950/20'
                   : 'bg-white border-purple-100 shadow-md shadow-purple-500/5'
               }`}
             >
@@ -458,7 +458,7 @@ export const LandingPageView: React.FC = () => {
         <div
           className={`relative rounded-3xl border overflow-hidden p-6 sm:p-10 transition-all shadow-2xl ${
             isDark
-              ? 'bg-gradient-to-b from-[#101A2E] via-[#16233C] to-[#101A2E] border-purple-900/50 shadow-purple-950/40'
+              ? 'bg-gradient-to-b from-[#10132B] via-[#161A38] to-[#10132B] border-purple-900/50 shadow-purple-950/40'
               : 'bg-white border-purple-100 shadow-purple-500/10'
           }`}
         >
@@ -490,7 +490,7 @@ export const LandingPageView: React.FC = () => {
                     selectedDemoPreset === idx
                       ? 'bg-purple-600 text-white font-bold shadow-md shadow-purple-500/30'
                       : isDark
-                      ? 'bg-[#0A101F] text-slate-300 hover:bg-[#1A2942]'
+                      ? 'bg-[#0A0C1B] text-slate-300 hover:bg-[#1D2146]'
                       : 'bg-purple-50 text-purple-900 hover:bg-purple-100'
                   }`}
                 >
@@ -505,7 +505,7 @@ export const LandingPageView: React.FC = () => {
             {/* Prompt Box */}
             <div
               className={`p-4 rounded-2xl border transition-all ${
-                isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
+                isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-purple-50/50 border-purple-100'
               }`}
             >
               <label className="block text-xs font-mono text-purple-500 dark:text-purple-400 mb-2 font-bold uppercase tracking-wider">
@@ -522,7 +522,7 @@ export const LandingPageView: React.FC = () => {
                 <button
                   onClick={() => handleDecomposeDemo()}
                   disabled={isDecomposing}
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-purple-500/25 hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-purple-500/25 hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
                 >
                   {isDecomposing ? (
                     <>
@@ -546,7 +546,7 @@ export const LandingPageView: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div
                     className={`p-3.5 rounded-xl border ${
-                      isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+                      isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
                     }`}
                   >
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{locale === 'zh-CN' ? '预估悬赏总额' : 'Escrow Reward'}</div>
@@ -554,7 +554,7 @@ export const LandingPageView: React.FC = () => {
                   </div>
                   <div
                     className={`p-3.5 rounded-xl border ${
-                      isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+                      isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
                     }`}
                   >
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{locale === 'zh-CN' ? 'Agent 履约质押金 (6%)' : 'Agent Stake (6%)'}</div>
@@ -562,7 +562,7 @@ export const LandingPageView: React.FC = () => {
                   </div>
                   <div
                     className={`p-3.5 rounded-xl border ${
-                      isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+                      isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
                     }`}
                   >
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{locale === 'zh-CN' ? '跨模型 Token 预算' : 'Token Ceiling'}</div>
@@ -570,7 +570,7 @@ export const LandingPageView: React.FC = () => {
                   </div>
                   <div
                     className={`p-3.5 rounded-xl border ${
-                      isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
+                      isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-white border-purple-100 shadow-xs'
                     }`}
                   >
                     <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{locale === 'zh-CN' ? '协作模式' : 'Swarm Topology'}</div>
@@ -589,14 +589,14 @@ export const LandingPageView: React.FC = () => {
                       <div
                         key={node.id}
                         className={`p-5 rounded-2xl border relative overflow-hidden transition-all group hover:border-purple-500 ${
-                          isDark ? 'bg-[#0A101F] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
+                          isDark ? 'bg-[#0A0C1B] border-purple-900/40' : 'bg-white border-purple-100 shadow-sm'
                         }`}
                       >
                         <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-300 font-bold border border-purple-500/30">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-300 font-bold border border-purple-500/30">
                             Stage {i + 1}
                           </span>
-                          <span className="text-[11px] font-mono text-slate-400 truncate max-w-[140px]">{node.model}</span>
+                          <span className="text-[10px] font-mono text-slate-400 truncate max-w-[140px]">{node.model}</span>
                         </div>
 
                         <div className="font-bold text-sm text-slate-900 dark:text-white mb-1">{node.agentName}</div>
@@ -604,10 +604,10 @@ export const LandingPageView: React.FC = () => {
 
                         <div
                           className={`p-3 rounded-xl border text-xs space-y-1 ${
-                            isDark ? 'bg-[#16233C]/70 border-purple-900/30 text-slate-300' : 'bg-purple-50/60 border-purple-100 text-slate-700'
+                            isDark ? 'bg-[#161A38]/70 border-purple-900/30 text-slate-300' : 'bg-purple-50/60 border-purple-100 text-slate-700'
                           }`}
                         >
-                          <div className="text-[11px] font-mono text-purple-500 font-bold">{locale === 'zh-CN' ? '目标交付物:' : 'Deliverable Target:'}</div>
+                          <div className="text-[10px] font-mono text-purple-500 font-bold">{locale === 'zh-CN' ? '目标交付物:' : 'Deliverable Target:'}</div>
                           <div className="font-medium">{node.deliverable}</div>
                         </div>
                       </div>
@@ -624,7 +624,7 @@ export const LandingPageView: React.FC = () => {
 
                   <button
                     onClick={handlePublishFromDemo}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#06B6D4] hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md shadow-purple-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md shadow-purple-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Sparkles className="w-4 h-4 text-purple-200" />
                     <span>{locale === 'zh-CN' ? '一键在市场发布该需求' : 'Publish This Task to Market'}</span>
@@ -683,7 +683,7 @@ export const LandingPageView: React.FC = () => {
               <div
                 key={idx}
                 className={`rounded-2xl border transition-all overflow-hidden shadow-md ${
-                  isDark ? 'bg-[#101A2E] border-purple-900/40' : 'bg-white border-purple-100'
+                  isDark ? 'bg-[#10132B] border-purple-900/40' : 'bg-white border-purple-100'
                 }`}
               >
                 <button

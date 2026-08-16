@@ -90,10 +90,10 @@ export const AdminLayout: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors ${
-      isDark ? 'bg-[#0D1320] text-[#F8FAFC]' : 'bg-slate-100 text-slate-900'
+      isDark ? 'bg-[#060D17] text-[#F4F7FB]' : 'bg-slate-100 text-slate-900'
     }`}>
       {/* Top Admin Telemetry Banner */}
-      <div className="bg-[#0F1829] border-b border-indigo-900/50 text-xs px-4 lg:px-8 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-300">
+      <div className="bg-[#0C1728] border-b border-indigo-900/50 text-xs px-4 lg:px-8 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-300">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 font-mono font-bold text-[11px]">
             <Shield className="w-3.5 h-3.5 text-indigo-400" />
@@ -116,7 +116,7 @@ export const AdminLayout: React.FC = () => {
               setSurface('marketplace');
               setActiveTab('home');
             }}
-            className="px-3 py-1 rounded-lg bg-[#0284C7] text-[#0A101F] text-xs font-bold hover:bg-[#0284C7]/90 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+            className="px-3 py-1 rounded-lg bg-[#36E4DA] text-[#07111F] text-xs font-bold hover:bg-[#36E4DA]/90 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>{locale === 'zh-CN' ? '返回 C 端官网主页' : 'Exit to Consumer App'}</span>
@@ -128,11 +128,11 @@ export const AdminLayout: React.FC = () => {
       <div className="flex-1 flex max-w-[1700px] w-full mx-auto">
         {/* Admin Left Sidebar */}
         <aside className={`w-64 shrink-0 border-r p-4 hidden lg:flex flex-col justify-between ${
-          isDark ? 'bg-[#0B1220] border-[#202B3B]' : 'bg-white border-slate-200'
+          isDark ? 'bg-[#091322] border-[#1C2C44]' : 'bg-white border-slate-200'
         }`}>
           <div className="space-y-6">
             <div>
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-3 px-3">
+              <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-3 px-3">
                 {locale === 'zh-CN' ? '控制台管理模块' : 'Console Modules'}
               </div>
               <div className="space-y-1">
@@ -144,7 +144,7 @@ export const AdminLayout: React.FC = () => {
                       onClick={() => setActiveTab(item.id)}
                       className={`w-full p-2.5 rounded-xl text-left text-xs font-semibold transition-all flex items-center justify-between ${
                         isActive
-                          ? 'bg-[#6366F1]/20 text-indigo-300 border border-[#6366F1]/40 shadow-xs'
+                          ? 'bg-[#7568FF]/20 text-indigo-300 border border-[#7568FF]/40 shadow-xs'
                           : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-slate-800/40'
                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -158,7 +158,7 @@ export const AdminLayout: React.FC = () => {
                       </div>
                       {item.badge && (
                         <span
-                          className={`text-[11px] font-mono px-1.5 py-0.2 rounded-full font-bold ${
+                          className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold ${
                             item.badgeColor || 'bg-indigo-500/20 text-indigo-300'
                           }`}
                         >

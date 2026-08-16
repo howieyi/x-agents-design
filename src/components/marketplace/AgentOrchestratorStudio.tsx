@@ -114,11 +114,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
 
   // Add Node from NodePalette
   const handleAddNodeFromPalette = (type: OrchestrationNodeType) => {
-    // Prefer the task's assigned agent; fall back to a stable round-robin pick
-    const assignedAgent =
-      task.assignedAgent ||
-      agents[nodes.length % agents.length] ||
-      agents[0];
+    const assignedAgent = agents[nodes.length % agents.length] || agents[0];
     const newStageIndex = nodes.length + 1;
     
     // Position staggered based on node count
@@ -244,7 +240,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
             }`}>
               <Clock className="w-4 h-4 text-cyan-400" />
               <div>
-                <div className="text-[11px] text-slate-400">{t('workflow_progress')}</div>
+                <div className="text-[10px] text-slate-400">{t('workflow_progress')}</div>
                 <div className="text-xs font-mono font-bold text-slate-200">{progressPct}%</div>
               </div>
             </div>
@@ -254,7 +250,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
             }`}>
               <Coins className="w-4 h-4 text-amber-400" />
               <div>
-                <div className="text-[11px] text-slate-400">{t('tokens_consumed')}</div>
+                <div className="text-[10px] text-slate-400">{t('tokens_consumed')}</div>
                 <div className="text-xs font-mono font-bold text-slate-200">{totalTokens.toLocaleString()} t</div>
               </div>
             </div>
@@ -355,7 +351,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
         >
           <MessageSquareCode className="w-4 h-4" />
           <span>{t('tab_inter_agent_bus')}</span>
-          <span className="px-1.5 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400">
             {orchestration.interAgentMessages?.length || 0}
           </span>
         </button>
@@ -371,7 +367,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
         >
           <Database className="w-4 h-4" />
           <span>{t('tab_shared_memory')}</span>
-          <span className="px-1.5 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400">
             {orchestration.sharedContextPool?.length || 0}
           </span>
         </button>
@@ -442,7 +438,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-full text-[11px] font-mono uppercase bg-slate-800 text-slate-300 border border-slate-700">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-slate-800 text-slate-300 border border-slate-700">
                         {msg.messageType}
                       </span>
                       <span className="text-[11px] text-slate-400 font-mono">{msg.timestamp}</span>
@@ -504,7 +500,7 @@ export const AgentOrchestratorStudio: React.FC<AgentOrchestratorStudioProps> = (
                     {item.value}
                   </div>
 
-                  <div className="mt-2 text-[11px] text-slate-500 text-right">
+                  <div className="mt-2 text-[10px] text-slate-500 text-right">
                     Updated by: <span className="text-slate-300 font-sans">{item.updatedBy}</span>
                   </div>
                 </div>

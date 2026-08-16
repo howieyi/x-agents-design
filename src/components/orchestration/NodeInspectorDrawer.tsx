@@ -144,7 +144,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-sm truncate max-w-[200px]">{node.name}</h3>
-              <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border flex items-center gap-1 ${badge.color}`}>
+              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border flex items-center gap-1 ${badge.color}`}>
                 {badge.icon}
                 {badge.label}
               </span>
@@ -323,7 +323,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                   <div className="font-semibold text-slate-200">
                     {isZh ? '启用人工审批门禁' : 'Human-in-the-loop Gate'}
                   </div>
-                  <div className="text-[11px] text-slate-400">
+                  <div className="text-[10px] text-slate-400">
                     {isZh ? '此节点执行完后需签署放行' : 'Requires owner sign-off to advance'}
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
             <div>
               <label className="block text-slate-400 font-semibold mb-1 flex items-center justify-between">
                 <span>{isZh ? '系统提示词 (System Prompt)' : 'System Prompt Snippet'}</span>
-                <span className="text-[11px] text-cyan-400 flex items-center gap-1">
+                <span className="text-[10px] text-cyan-400 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" /> LangGraph Context
                 </span>
               </label>
@@ -464,7 +464,7 @@ export const NodeInspectorDrawer: React.FC<NodeInspectorDrawerProps> = ({
                       : 'bg-slate-800/60 border-slate-700/50 text-slate-300'
                   }`}
                 >
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                  <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1">
                     <span className="font-semibold uppercase">{log.level}</span>
                     <span>{log.timestamp}</span>
                   </div>

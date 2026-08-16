@@ -59,7 +59,7 @@ for (const task of tasks) {
       {/* Header */}
       <div>
         <h1 className="font-display font-bold text-2xl tracking-tight flex items-center gap-2">
-          <BookOpen className="w-6 h-6 text-[#0284C7]" />
+          <BookOpen className="w-6 h-6 text-[#36E4DA]" />
           {t('docs_title')}
         </h1>
         <p className="text-xs md:text-sm text-slate-400 mt-1">
@@ -74,7 +74,7 @@ for (const task of tasks) {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeDocTab === 'arch'
               ? isDark
-                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
+                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -87,7 +87,7 @@ for (const task of tasks) {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeDocTab === 'sdk'
               ? isDark
-                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
+                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -100,7 +100,7 @@ for (const task of tasks) {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeDocTab === 'qdrant'
               ? isDark
-                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
+                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -113,7 +113,7 @@ for (const task of tasks) {
           className={`px-3.5 py-2 rounded-xl font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeDocTab === 'swap'
               ? isDark
-                ? 'bg-[#132036] text-[#0284C7] font-semibold border border-[#0284C7]/30'
+                ? 'bg-[#111F34] text-[#36E4DA] font-semibold border border-[#36E4DA]/30'
                 : 'bg-sky-100 text-sky-800 font-semibold border border-sky-200'
               : 'text-slate-400 hover:text-slate-200'
           }`}
@@ -127,7 +127,7 @@ for (const task of tasks) {
       {activeDocTab === 'arch' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <h2 className="font-display font-semibold text-sm tracking-tight text-slate-200">
@@ -140,19 +140,19 @@ for (const task of tasks) {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-xl bg-[#0A101F] border border-[#1F2D4A] space-y-1">
-              <span className="text-[11px] text-slate-400 uppercase font-mono">1. Lock & Deposit</span>
-              <p className="font-semibold text-[#0284C7]">{locale === 'zh-CN' ? '托管资金锁定' : 'Funding Escrow'}</p>
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243550] space-y-1">
+              <span className="text-[10px] text-slate-400 uppercase font-mono">1. Lock & Deposit</span>
+              <p className="font-semibold text-[#36E4DA]">{locale === 'zh-CN' ? '托管资金锁定' : 'Funding Escrow'}</p>
               <p className="text-[11px] text-slate-400">{locale === 'zh-CN' ? '任务发布者全额注入报酬' : 'Funder locks 100% of task reward'}</p>
             </div>
-            <div className="p-4 rounded-xl bg-[#0A101F] border border-[#1F2D4A] space-y-1">
-              <span className="text-[11px] text-slate-400 uppercase font-mono">2. Performance Stake</span>
-              <p className="font-semibold text-[#6366F1]">{locale === 'zh-CN' ? 'Agent 质押保证金' : 'Agent Bond Stake'}</p>
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243550] space-y-1">
+              <span className="text-[10px] text-slate-400 uppercase font-mono">2. Performance Stake</span>
+              <p className="font-semibold text-[#7568FF]">{locale === 'zh-CN' ? 'Agent 质押保证金' : 'Agent Bond Stake'}</p>
               <p className="text-[11px] text-slate-400">{locale === 'zh-CN' ? 'Agent 注入 6% 违约质押金' : 'Agent stakes 600 BPS collateral'}</p>
             </div>
-            <div className="p-4 rounded-xl bg-[#0A101F] border border-[#1F2D4A] space-y-1">
-              <span className="text-[11px] text-slate-400 uppercase font-mono">3. Atomic Settlement</span>
-              <p className="font-semibold text-[#10B981]">{locale === 'zh-CN' ? '原子化链上结算' : 'Atomic Settlement'}</p>
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243550] space-y-1">
+              <span className="text-[10px] text-slate-400 uppercase font-mono">3. Atomic Settlement</span>
+              <p className="font-semibold text-[#35D07F]">{locale === 'zh-CN' ? '原子化链上结算' : 'Atomic Settlement'}</p>
               <p className="text-[11px] text-slate-400">{locale === 'zh-CN' ? '验收通过自动分账与返还质押' : 'Instant release + refund stake'}</p>
             </div>
           </div>
@@ -162,7 +162,7 @@ for (const task of tasks) {
       {activeDocTab === 'sdk' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -176,14 +176,14 @@ for (const task of tasks) {
             </div>
             <button
               onClick={() => handleCopyCode(tsCode)}
-              className="px-3 py-1.5 rounded-lg border border-[#1F2D4A] bg-[#132036] text-slate-200 hover:text-white flex items-center gap-1.5 cursor-pointer text-xs"
+              className="px-3 py-1.5 rounded-lg border border-[#243550] bg-[#111F34] text-slate-200 hover:text-white flex items-center gap-1.5 cursor-pointer text-xs"
             >
-              {hasCopied ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
+              {hasCopied ? <Check className="w-3.5 h-3.5 text-[#35D07F]" /> : <Copy className="w-3.5 h-3.5" />}
               {hasCopied ? (locale === 'zh-CN' ? '已复制' : 'Copied') : (locale === 'zh-CN' ? '复制示例' : 'Copy Code')}
             </button>
           </div>
 
-          <pre className="p-4 rounded-xl bg-[#0A101F] border border-[#1F2D4A] text-[#0284C7] font-mono text-[11px] overflow-x-auto leading-relaxed">
+          <pre className="p-4 rounded-xl bg-[#07111F] border border-[#243550] text-[#36E4DA] font-mono text-[11px] overflow-x-auto leading-relaxed">
             {tsCode}
           </pre>
         </div>
@@ -192,7 +192,7 @@ for (const task of tasks) {
       {activeDocTab === 'qdrant' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <h2 className="font-display font-semibold text-sm tracking-tight text-slate-200">
@@ -209,7 +209,7 @@ for (const task of tasks) {
       {activeDocTab === 'swap' && (
         <div
           className={`p-6 rounded-2xl border space-y-4 text-xs ${
-            isDark ? 'bg-[#0F1829] border-[#1F2D4A]' : 'bg-white border-slate-200 shadow-xs'
+            isDark ? 'bg-[#0C1728] border-[#243550]' : 'bg-white border-slate-200 shadow-xs'
           }`}
         >
           <h2 className="font-display font-semibold text-sm tracking-tight text-slate-200">
